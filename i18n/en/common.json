@@ -1,0 +1,108 @@
+{
+     "index": {
+          "title": "CV-agir",
+          "desc": "A resume generator that allows you to create, edit, and download resumes for free.",
+          "author": "Arsen G.",
+          "all-rights-reserved": "All Rights Reserved",
+          "langSwitcherLabel": "Change Language"
+     },
+     "buttons": {
+          "sign-in": "Log in",
+          "sign-out": "Sign Out",
+          "dashboard": "Dashboard",
+          "loading": "Please Wait...",
+          "tryAgain": "Try Again",
+          "delete": "Delete",
+          "cancel": "Cancel",
+          "close": "Close",
+          "actions-menu": "Other actions",
+          "print": "Print",
+          "ai": {
+               "generate": "Generate",
+               "fill": "Fill Data With AI"
+          },
+          "pagination": {
+               "prev": "Previous",
+               "next": "Next"
+          },
+          "edit": "Edit",
+          "preview": "Show Preview",
+          "remove": "Remove",
+          "save": "Save",
+          "send-msg": "Send Message"
+     },
+     "nav-links": {
+          "menu": "Menu",
+          "home": "Homepage",
+          "how-it-works": "How it works",
+          "features": "Features",
+          "faq": "FAQs",
+          "qna": "Questions & Answers",
+          "contact": "Contact us",
+          "about-us": "About us",
+          "templates": "Templates"
+     },
+     "footer": {
+          "resources": "Resources",
+          "support": "Support"
+     },
+     "theme": {
+          "label": "Change Theme",
+          "zinc": "Zinc",
+          "rose": "Rose",
+          "blue": "Blue",
+          "green": "Green",
+          "orange": "Orange",
+          "app-color": {
+               "label": "Change the app color",
+               "label-select": "Choose a color"
+          }
+     },
+     "ai": {
+          "gen-summary-msg": "\nPlease generate a professional resume summary using the provided data:\n\nProfession: {jobTitle}\nWork Experience:\n{experience}\n\nEducation:\n{education}\n\nSkills:\n{skills}\n\nLanguages:\n{languages}\n",
+          "work-exp-msg": "\nPlease provide the work experience from the following description:\n     {description}\n",
+          "cover-letter-body-msg": "\nPlease generate a professional cover letter using the following data:\n\nApplicant's full name: {fname} {lname}\nProfession: {jobTitle}\n\nEmployer's full name: {recipientName}\nEmployer's position: {recipientTitle}\n\nStart the letter with \"Dear Mr. <last name>\" and end it with \"Sincerely, <applicant's full name>\".\n",
+          "experience-msg": "\nJob: {job} at {company} from {startDate} to {endDate}\n\nJob Description: {jobInfo}\n",
+          "edu-msg": "\nDegree: {degree} at \"{school}\", Faculty of \"{faculty}\" from {startDate} to {endDate}\n",
+          "lang-msg": "\n{name}: {percentage}\n",
+          "instructions-language": "English language",
+          "today": "Today"
+     },
+     "not-found": {
+          "title": "Oops, Page not found",
+          "desc": "The page you are looking for was not found. It may have been deleted, moved, renamed, or doesn't exist at all.",
+          "goBack": "Return to Home Page"
+     },
+     "admin": {
+          "title": "Admin Dashboard"
+     },
+     "user-button-links": {
+          "my-profile": "My Profile",
+          "resumes": "Resumes",
+          "cover-letters": "Cover Letters",
+          "settings": "Settings"
+     },
+     "email": {
+          "onboarding": "{title} <{email}>",
+          "subject-titles": {
+               "verification": "Verify Your Email",
+               "pass-reset": "Reset the Password",
+               "2fa": "Two-Factor Authentication"
+          }
+     },
+     "deletion-confirmation": {
+          "titles": {
+               "resume": "Are you sure you want to delete the resume?",
+               "cover-letter": "Are you sure you want to delete the cover letter?"
+          },
+          "desc": "This action cannot be undone."
+     },
+     "audit-log": {
+          "unknown-email": "Unknown Email",
+          "ai": {
+               "desc-gen": "Summary Generation",
+               "exp-gen": "Work Experience Generation",
+               "letter-gen": "Cover Letter Generation"
+          }
+     }
+}

@@ -1,0 +1,201 @@
+{
+     "editor": {
+          "resume": {
+               "metaTitle": "Customize your resume",
+               "title": "Build your resume",
+               "desc": "Build your resume by following the steps listed. Your process will be automatically saved.",
+               "steps": {
+                    "resume-info": "General information",
+                    "resume-details": "Resume details",
+                    "optional-details": "Additional details"
+               },
+               "resume-info": {
+                    "title": "Resume Information",
+                    "desc": "This information does not show the resume",
+                    "name-field": {
+                         "label": "Resume Name",
+                         "placeholder": "My Perfect Resume"
+                    },
+                    "desc-field": {
+                         "label": "Resume Description",
+                         "placeholder": "Resume about the next job",
+                         "field-desc": "Describe what this resume is for."
+                    }
+               },
+               "work-exp": {
+                    "title": "Work Experience",
+                    "desc": "Add as much work experience as you want",
+                    "add-btn": "Add Work Experience",
+                    "job-desc": {
+                         "label": "Description",
+                         "placeholder": "I created websites using HTML, CSS, and JavaScript.",
+                         "field-desc": "Describe information about this work experience. It uses Markdown"
+                    }
+               },
+               "education": {
+                    "title": "Education",
+                    "desc": "Add as many institutions as you want",
+                    "add-btn": "Add Institution",
+                    "item-title": "Institution",
+                    "school": {
+                         "label": "Institution Name",
+                         "placeholder": "Yerevan State University"
+                    },
+                    "faculty": "Faculty"
+               },
+               "skills": {
+                    "title": "Skills",
+                    "desc": "What are you good at?",
+                    "add-btn": "Add Skill"
+               },
+               "languages": {
+                    "title": "Languages",
+                    "desc": "How many languages do you know?",
+                    "add-btn": "Add Language"
+               },
+               "links": {
+                    "title": "Web Links",
+                    "desc": "Add as many web links as you want",
+                    "add-btn": "Add Link",
+                    "item-title": "Web Link",
+                    "link-name": {
+                         "label": "Link",
+                         "placeholder": "Website"
+                    },
+                    "link-address": "URL"
+               },
+               "courses": {
+                    "title": "Courses",
+                    "desc": "Add as many courses as you want",
+                    "add-btn": "Add Course",
+                    "item-title": "Course",
+                    "name": "Course Name",
+                    "institution": "Institution"
+               },
+               "refs": {
+                    "title": "References",
+                    "desc": "Add as many references as you want",
+                    "add-btn": "Add Reference",
+                    "item-title": "Reference",
+                    "position": {
+                         "label": "Position",
+                         "placeholder": "Headmaster"
+                    }
+               },
+               "skill-fields": {
+                    "skill": "Skill",
+                    "lang": {
+                         "label": "Language",
+                         "placeholder": "English"
+                    },
+                    "level": "Level"
+               },
+               "fields": {
+                    "degree": {
+                         "label": "Academic Degree",
+                         "placeholder": "Bachelor, Master, PhD, Diploma"
+                    },
+                    "dates": {
+                         "start": "Start",
+                         "end": "End",
+                         "field-desc-exp": "Leave the <bold>specified end month</bold> blank if you are still working at the specified location.",
+                         "field-desc-edu": "Leave the <bold>specified graduation month</bold> blank if you are still studying at the specified location"
+                    },
+                    "city-country": {
+                         "label": "City, Country",
+                         "placeholder": "London, UK"
+                    }
+               },
+               "generate-work-exp": {
+                    "title": "Generate Work Experience",
+                    "desc": "Describe this work experience and AI will generate an optimized entry just for you",
+                    "field": {
+                         "label": "Description",
+                         "placeholder": "e.g. \"From September 2016 to April 2022, I worked at PicsArt as a developer. My assignment ...\""
+                    }
+               }
+          },
+          "saving": "Saving...",
+          "personal-info": {
+               "title": "Personal Information",
+               "desc": "Paste your personal info here",
+               "image": "Profile Picture",
+               "fname": {
+                    "label": "First Name",
+                    "placeholder": "John"
+               },
+               "lname": {
+                    "label": "Last Name",
+                    "placeholder": "Doe"
+               },
+               "address": {
+                    "label": "Home address",
+                    "placeholder": "12 St, City, Country"
+               },
+               "summary": {
+                    "label": "Summary",
+                    "placeholder": "Describe a short summary about yourself"
+               },
+               "hobbies": {
+                    "label": "Hobbies",
+                    "placeholder": "Photography, Football, etc....",
+                    "field-desc": "Fill in your favorite hobbies here"
+               }
+          },
+          "profession": {
+               "label": "Profession",
+               "placeholder": "Doctor, Architect, Manager, Secretary, Lawyer, Accountant, Teacher, Programmer, Dentist, Assistant, Librarian, Consultant, Truck Driver, Train Driver, Butcher, Builder, Carpenter, Electrician, Plumber, Mechanic, Cleaner, Gardener, Nurse, Pilot, Flight Attendant, Midwife, Cook, Waiter, Tailor, Cashier, Receptionist, Optician, Bus Driver, Bodyguard, Photographer, Referee, Correspondent, Actor, Dancer, Coach, Singer, Painter, Designer, Developer"
+          },
+          "corp": {
+               "label": "Corporation",
+               "placeholder": "Any corporation"
+          },
+          "cover-letter": {
+               "title": "Write a cover letter",
+               "desc": "Write a cover letter by following the steps listed. Your process will be automatically saved.",
+               "steps": {
+                    "cl-info": "Employee information",
+                    "cl-details": "Letter details"
+               },
+               "cl-info": {
+                    "title": "Cover Letter Information",
+                    "desc": "This information does not show on the letter",
+                    "name-field": {
+                         "label": "Letter Name",
+                         "placeholder": "Professional Cover Letter"
+                    },
+                    "desc-field": {
+                         "label": "Letter Description",
+                         "placeholder": "Cover Letter about the next job",
+                         "field-desc": "Describe what this cover letter is for."
+                    }
+               },
+               "cl-details": {
+                    "title": "Employer Information",
+                    "desc": "Place employer information here",
+                    "name": {
+                         "label": "Employer's first and last name",
+                         "placeholder": "Jane Doe"
+                    },
+                    "position": {
+                         "label": "Employer's position",
+                         "placeholder": "Headmaster"
+                    },
+                    "corp-name": "Corporation Name",
+                    "corp-address": {
+                         "label": "Corporation Address",
+                         "placeholder": "12 St, City, Country"
+                    },
+                    "content": {
+                         "label": "Letter Content",
+                         "placeholder": "Dear Jane Doe... ...",
+                         "field-desc": "It uses Markdown for formatting."
+                    }
+               }
+          },
+          "change-style": {
+               "color": "Change color",
+               "border-style": "Change the border style"
+          }
+     }
+}

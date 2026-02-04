@@ -1,0 +1,110 @@
+{
+     "dashboard": {
+          "title": "Dashboard",
+          "buttons": {
+               "create-resume": "Create Resume",
+               "create-cover-letter": "Create Cover Letter"
+          },
+          "resumes": {
+               "title": "Resumes",
+               "default-title": "Untitled Resume"
+          },
+          "cover-letters": {
+               "title": "Cover Letters",
+               "default-title": "Untitled Cover Letter"
+          },
+          "date": {
+               "created": "Created at",
+               "updated": "Updated at"
+          },
+          "free-resumes": "Free resumes",
+          "links": {
+               "dashboard": "Dashboard",
+               "my-profile": "My Profile",
+               "templates": "Templates",
+               "support": "Support",
+               "settings": "Settings"
+          },
+          "menu": "Menu"
+     },
+     "my-profile": {
+          "title": "My Profile",
+          "edit-profile": "Edit Profile",
+          "email": "Email Address",
+          "profession": "Profession",
+          "phone": "Phone Number",
+          "address": "Home Address",
+          "hobbies": "Hobbies",
+          "2fa": {
+               "title": "Two-factor Authentication",
+               "on": "On",
+               "off": "Off"
+          }
+     },
+     "settings": {
+          "title": "Settings",
+          "sections": {
+               "acc-settings": "Account Settings",
+               "default-value": {
+                    "title": "Default Document Values",
+                    "desc": "These settings apply to both resume and cover letter data."
+               },
+               "privacy": {
+                    "title": "Privacy",
+                    "show-email": {
+                         "title": "Show Email Address",
+                         "desc": "Show Your Email Address on Your Personal Resume Page"
+                    },
+                    "show-address": {
+                         "title": "Show Home Address",
+                         "desc": "Show Your Home Address on Your Personal Resume Page"
+                    },
+                    "show-phone": {
+                         "title": "Show Phone Number",
+                         "desc": "Show Your Phone Number on Your Personal Resume Page"
+                    },
+                    "show-links": {
+                         "title": "Show All Web Links",
+                         "desc": "Show All Web Links on Your Personal Resume Page"
+                    }
+               },
+               "auth": {
+                    "title": "Password & Authentication",
+                    "new-pass": "New Password",
+                    "2fa": {
+                         "title": "Two-factor authentication",
+                         "desc": "Enable two-factor authentication to strengthen account security"
+                    }
+               },
+               "appearance": {
+                    "title": "Design",
+                    "theme": {
+                         "title": "Appearance",
+                         "desc": "App color and theme"
+                    }
+               }
+          }
+     },
+     "doc-preview": {
+          "image-name": "Employee's profile picture",
+          "today": "Today",
+          "sections": {
+               "summary": "Summary",
+               "hobbies": "Hobbies",
+               "work-experience": "Work Experience",
+               "education": "Education",
+               "skills": "Skills",
+               "langs": "Languages",
+               "links": "Links",
+               "courses": "Courses",
+               "refs": "References"
+          },
+          "lang-levels": {
+               "fluent": "Fluent",
+               "intermediate": "Intermediate",
+               "beginner": "Beginner",
+               "few-words": "Few words"
+          },
+          "lang-format": "<bold>{langName}</bold>: {langLevel}"
+     }
+}

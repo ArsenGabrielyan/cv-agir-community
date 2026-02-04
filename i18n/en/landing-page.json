@@ -1,0 +1,121 @@
+{
+     "landing-hero": {
+          "desc1": "Your resume in less than 1 minute!",
+          "desc2": "Create a professional resume quickly and easily, and download for free",
+          "noCreditCard": "No credit card required.",
+          "langSwitcherLabel": "Change Language",
+          "startFree": "Start for Free!"
+     },
+     "how-it-works": {
+          "title": "How it works",
+          "step1": "Choose a resume template to create a suitable and professional resume.",
+          "step2": "Fill in your resume information.",
+          "step3": "Download your resume as a PDF file or print it."
+     },
+     "features": {
+          "title": "Features",
+          "ai-suggestions": {
+               "name": "AI Suggestions",
+               "description": "Get optimized skills and sentences in your resume."
+          },
+          "easy-editing": {
+               "name": "Easy Editing",
+               "description": "Add and edit your resume without hassle."
+          },
+          "qr-resume": {
+               "name": "QR Code Resume",
+               "description": "Create a QR code that can be easily scanned."
+          },
+          "design": {
+               "name": "Custom Styling",
+               "description": "Change fonts, colors and layout to your preference."
+          }
+     },
+     "faq": {
+          "title": "Frequently asked questions",
+          "qna": "Questions and Answers",
+          "question-1": {
+               "question": "How can I create a resume on this platform?",
+               "answer": "Just sign up, fill in your details and download a ready-made resume."
+          },
+          "question-2": {
+               "question": "Can I use this service for free?",
+               "answer": "Yes, you can create more resumes for free and download them in PDF format."
+          },
+          "question-3": {
+               "question": "Can I edit my resume later?",
+               "answer": "Yes, you can log in and edit your resume at any time."
+          },
+          "question-4": {
+               "question": "What formats can I download my resume in?",
+               "answer": "You can download your resume in PDF format or print it."
+          },
+          "question-5": {
+               "question": "Are there templates I can choose from?",
+               "answer": "Yes, we provide resume templates with different designs that you can choose from and personalize."
+          },
+          "question-6": {
+               "question": "Can I use my resume for job applications?",
+               "answer": "Yes, our resume templates meet international standards and can be used for job applications."
+          },
+          "question-7": {
+               "question": "How can I contact the support team?",
+               "answer": "You can write to us on the \"Contact Us\" page or send an email to our support email address."
+          }
+     },
+     "about": {
+          "title": "About us",
+          "desc": {
+               "line1": "CV-agir — a Resume Generator That Shapes Your Future",
+               "line2": "The <bold>CV-agir</bold> resume generator was created so that anyone can create a <bold>fast, efficient, and professional</bold> resume. We understand how important it is to properly present your skills and experience, so our platform was created for this very purpose."
+          },
+          "why-choose-app": {
+               "title": "Why Choose CV-agir?",
+               "reason1": "<bold>Professional templates</bold> — Choose from a variety of designs.",
+               "reason2": "<bold>AI suggestions</bold> — Get optimized skills and texts.",
+               "reason3": "<bold>PDF download and print</bold> — Your resume is ready for any job application.",
+               "reason4": "<bold>QR code resume</bold> — Easily share your resume."
+          },
+          "mission": {
+               "title": "Our Mission",
+               "desc": "Our goal is to <bold>make the job application process easier</bold> by providing tools that help you present your skills in the best possible way. CV-agir is designed to be <bold>simple, fast and effective</bold>, regardless of whether you are an experienced professional or just entering the job market."
+          },
+          "contact": {
+               "title": "Contact us",
+               "desc": "If you have any questions, suggestions or would like to collaborate, you can contact us via the <bold>\"Feedback\"</bold> page."
+          }
+     },
+     "contact": {
+          "title": "Contact us",
+          "email-title": "Send to our email address",
+          "support-title": "Support",
+          "desc": "For general inquiries and partnership opportunities, email us."
+     },
+     "templates": {
+          "title": "Templates",
+          "metaTitle": "Resume Templates",
+          "desc": "Check out all the resume templates here and use them correctly to get hired.",
+          "showMore": "Show More",
+          "useTemplate": "Use the Template"
+     },
+     "resume-info": {
+          "title": "\"{fullName}\"'s resume",
+          "sections": {
+               "summary": "Summary",
+               "work-experience": "Work Experience",
+               "education": "Education",
+               "skills": "Skills",
+               "langs": "Languages",
+               "hobbies": "Hobbies",
+               "courses": "Courses",
+               "refs": "References"
+          },
+          "job-title": "{job} at {company}",
+          "today": "Today",
+          "no-data": "There is no data in this Resume."
+     },
+     "loading": {
+          "original": "Loading...",
+          "video": "Loading video..."
+     }
+}

@@ -1,0 +1,207 @@
+{
+     "form": {
+          "name": {
+               "label": "Full Name",
+               "placeholder": "John Doe"
+          },
+          "email": {
+               "label": "Email Address",
+               "placeholder": "john.doe@example.com"
+          },
+          "phone": {
+               "label": "Phone Number",
+               "placeholder": "(012) 345 6789"
+          },
+          "subject": {
+               "label": "Subject",
+               "placeholder": "Subject Name"
+          },
+          "message": {
+               "label": "Message",
+               "placeholder": "Write the message here"
+          },
+          "password-label": "Password",
+          "cardholder-name": {
+               "label": "Cardholder's full name",
+               "placeholder": "Dane Doe"
+          },
+          "cardholder-address": {
+               "label": "Cardholder's address",
+               "placeholder": "Los Angeles, CA, United States"
+          }
+     },
+     "auth": {
+          "misc-error": "Oops, something went wrong.",
+          "buttons": {
+               "returnToLogin": "Back to Log In",
+               "confirm": "Confirm",
+               "login": "Log In",
+               "register": "Register",
+               "send-reset-link": "Send the recovery link",
+               "reset-password": "Reset password"
+          },
+          "social-txt": "Continue with {provider}",
+          "password-state": {
+               "show": "Show Password",
+               "hide": "Hide Password"
+          },
+          "password-strength": {
+               "weakest": "Too weak",
+               "weak" : "Still weak",
+               "medium" : "Medium",
+               "strong" : "Strong",
+               "strongest" : "Strongest"
+          },
+          "login": {
+               "title": "Log In",
+               "form-title": "Welcome Back!",
+               "sign-up-link-txt": "Don't have an account?",
+               "forgot-pass": "Forgot your password?",
+               "2fa-code": "2FA Code"
+          },
+          "register": {
+               "title": "Create an account",
+               "login-link-txt": "Already have an account?"
+          },
+          "verify-email-title": "Verify your email address",
+          "new-password-title": "Create a new password",
+          "reset-pass-title": "Reset the password"
+     },
+     "validations": {
+          "email": {
+               "invalid": "Please enter a valid email address",
+               "tooLong": "Email address is too long"
+          },
+          "password": {
+               "required": "Please enter a password to log in",
+               "8-chars": "Password must be at least 8 characters",
+               "tooLong": "Password is too long",
+               "empty-new-password": "New password required",
+               "empty-password": "Password required"
+          },
+          "jobTitle-tooLong": "Job title is too long",
+          "summary": {
+               "20-chars": "Summary must be at least 20 characters",
+               "tooLong": "Summary is too long"
+          },
+          "hobbies": {
+               "20-chars": "Hobbies must be at least 20 characters",
+               "tooLong": "Hobbies is too long"
+          },
+          "fullName": {
+               "tooShort": "Full name is too short",
+               "tooLong": "Full name is too long"
+          },
+          "image": {
+               "shouldBeImage": "Must be an image",
+               "inavlidFormat": "File format must be an image (.png, .jpg, etc.)",
+               "empty": "File is empty",
+               "under-4mb": "Image must be under 4 MB"
+          },
+          "ai": {
+               "under-20": "Minimum 20 characters",
+               "over-400": "More than 400 characters"
+          },
+          "phone": {
+               "invalidFormat": "Phone number must contain only numbers and symbols (+, -, (, ))",
+               "tooShort": "Phone number is too short",
+               "tooLong": "Phone number is too long"
+          },
+          "subject": {
+               "required": "Enter a message subject name",
+               "tooLong": "Subject is too long"
+          },
+          "message": {
+               "required": "Message must be at least 5 characters",
+               "tooLong": "Message is too long"
+          },
+          "items": {
+               "work-exp": "work experience",
+               "school": "school",
+               "skill": "skill",
+               "lang": "language",
+               "link": "web link",
+               "course": "course",
+               "ref": "reference link",
+               "no-more-items": "You cannot add more than {maxCount} {itemName}"
+          },
+          "link": {
+               "invalid": "Please enter a valid link",
+               "insecure": "This link is not secure"
+          },
+          "end-after-start-date": "End date must be after start date",
+          "num-shouldBe-int": "Number must be an integer",
+          "2fa-code-tooLong": "Code is too long",
+          "text-too-long": "This text is too long"
+     },
+     "error-messages": {
+          "validationError": "All fields are invalid",
+          "rateLimitError": "You are trying too often. Please try again later",
+          "unknownError": "Oops, something went wrong. Please try again",
+          "settingsError": "Failed to update settings",
+          "auth": {
+               "noUserFound": "This email address is not registered",
+               "wrong2FAcode": "Invalid 2FA code",
+               "expired2FAcode": "2FA code has been expired",
+               "noPassResetToken": "Recovery token is missing",
+               "wrongPassResetToken": "Recovery token does not exist or is invalid",
+               "expiredPassResetToken": "Recovery token has been expired",
+               "wrongNewPassword": "New password cannot match old password",
+               "noVerificationToken": "Verification token does not exist or is invalid",
+               "missingVerificationToken": "Missing verification token",
+               "expiredVerificationToken": "Verification token expired",
+               "takenEmail": "Email address already taken",
+               "invalidEmail": "Email address is not valid",
+               "wrongPassword": "Incorrect password",
+               "notVerified": "This email address is not verified",
+               "failed2FA": "Two-factor authentication failed",
+               "unauthorized": "You are not authenticated. Please log in to your account",
+               "noAdminAccess": "This account is not logged in or does not have administrator permissions",
+               "credentials": "Wrong email or password",
+               "denied-access": "Access is denied",
+               "config": "Wrong Configuration",
+               "verification": "Verification error",
+               "oauth-login": "OAuth Login error",
+               "oauth-callback": "OAuth callback error",
+               "oath-registration": "OAuth account creation error",
+               "email-registration": "Email account creation error",
+               "callback": "Callback Error",
+               "acc-not-linked": "There's already an account with this email, but with a different login method.",
+               "session-required": "Please log in to view this page."
+          },
+          "ai": {
+               "answerError": "Failed to generate answer by AI",
+               "invalidExperienceInput": "Invalid experience description"
+          },
+          "contactForm": {
+               "noCaptchaToken": "Token not found",
+               "failedCaptcha": "Suspicious activity! Captcha verification failed",
+               "no-captcha-server": "ReCaptcha is not found on the server.",
+               "no-captcha": "ReCaptcha is not installed"
+          },
+          "encryption": {
+               "invalidForEncryption": "Enter valid text to encrypt",
+               "invalidForDecryption": "Enter valid text to decrypt",
+               "missingParts": "Some part is missing to decrypt the text"
+          },
+          "content": {
+               "noCoverLetter": "Cover letter not found",
+               "noResume": "Resume not found",
+               "failedImageDelete": "Failed to delete image",
+               "resumeSaveError": "Failed to save resume",
+               "coverLetterSaveError": "Failed to save the cover letter",
+               "noCategory": "This category does not exist",
+               "noTemplate": "This template does not exist"
+          }
+     },
+     "success-messages": {
+          "contact": "Message has been sent!",
+          "email-settings": "A verification link has been sent to the new email address",
+          "verify-email": "Verify Your Email Address",
+          "password-updated": "Password has been updated",
+          "email-verified": "Your email has been successfully verified.",
+          "register": "There is only one step left - verify your email address.",
+          "recovery-link-sent": "The password reset link has been sent.",
+          "updated-settings": "Settings Updated"
+     }
+}
