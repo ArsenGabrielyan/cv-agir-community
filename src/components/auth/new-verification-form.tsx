@@ -43,7 +43,7 @@ export const NewVerificationForm = () => {
           >
                <div className="flex items-center justify-center w-full">
                     {!success && !error && (
-                         <GridLoader color="hsl(var(--primary))"/>
+                         <GridLoader color="var(--primary)"/>
                     )}
                     <FormSuccess message={success}/>
                     {!success && (

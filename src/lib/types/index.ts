@@ -7,13 +7,6 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import { LangCodeType } from "@/i18n/types";
 import { CoverLetterSteps, Features, NavLinks, ResumeSteps, SidebarLinks } from "./enums";
 
-// Themes
-export type ThemeColors = "Zinc" | "Rose" | "Blue" | "Green" | "Orange";
-export interface ThemeColorStateParams{
-     themeColor: ThemeColors,
-     setThemeColor: React.Dispatch<React.SetStateAction<ThemeColors>>
-}
-
 // Other For Landing Page
 export interface IFeature{
      feature: Features,

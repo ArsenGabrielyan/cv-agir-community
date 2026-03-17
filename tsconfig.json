@@ -23,15 +23,10 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@db": [
-        "./prisma/generated/client"
-      ],
-      "@db/*": [
-        "./prisma/generated/client/*"
-      ]
+      "@/*": ["./src/*"],
+      "@db": ["./prisma/generated/client"],
+      "@db/*": ["./prisma/generated/client/*"],
+      "@i18n/*": ["./i18n/*"]
     },
     "allowArbitraryExtensions": true
   },

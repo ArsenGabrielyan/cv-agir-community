@@ -1,5 +1,5 @@
 "use client"
-import ThemeSettings from "@/components/themes/theme-changer";
+import ThemeSettings from "@/components/theme-toggler";
 import { Link } from "@/i18n/routing";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "../globals.css";
 import { ThemeProvider } from "next-themes";
-import ThemeDataProvider from "@/context/theme-data-provider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
@@ -13,6 +12,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { absoluteUrl } from "@/lib/utils";
 import { languages } from "@/i18n/config";
+import ThemeColorsProvider from "@/theme/theme-provider";
 
 type Props = {
   children: React.ReactNode;
@@ -80,13 +80,13 @@ export default async function LocaleLayout({children, params}: Props) {
             enableSystem
             disableTransitionOnChange
           >
-            <ThemeDataProvider>
+            <ThemeColorsProvider>
               <NextIntlClientProvider>
                 <Toaster/>
                 {children}
                 <ReCaptcha siteKey={env.NEXT_PUBLIC_RECAPTCHA_SITE}/>
               </NextIntlClientProvider>
-            </ThemeDataProvider>
+            </ThemeColorsProvider>
           </ThemeProvider>
         </body>
       </html>

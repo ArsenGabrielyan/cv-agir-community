@@ -17,7 +17,8 @@ export const messages = [
      "form",
      "email-templates",
      "dashboard",
-     "editor"
+     "editor",
+     "messages"
 ] as const
 
 export const locales: LangCodeType[] = languages.map(lang=>lang.code);
@@ -31,6 +32,7 @@ export async function loadMessages(locale: LangCodeType): Promise<MessageSchema>
           emailTemplates,
           dashboard,
           editor,
+          appMessages
      ] = await Promise.all(
           messages.map(msg=>
                import(`../../i18n/${locale}/${msg}.json`).then(m=>m.default)
@@ -42,6 +44,7 @@ export async function loadMessages(locale: LangCodeType): Promise<MessageSchema>
           ...form,
           ...emailTemplates,
           ...dashboard,
-          ...editor
+          ...editor,
+          ...appMessages
      }
 }

@@ -202,13 +202,13 @@ export function LinksSection({resumeData,disableLinks=false}: ResumeSectionProps
                     {links.map((link,i)=>{
                          return link.name==="" ? null : disableLinks ? (
                               <Button key={i} variant="link" style={{
-                                   color: colorHex || "hsl(var(--primary))"
+                                   color: colorHex || "var(--primary)"
                               }} size="sm" className="select-none pointer-events-none">
                                    {link.name}
                               </Button>
                          ) :  (
                               <Button key={i} variant="link" style={{
-                                   color: colorHex || "hsl(var(--primary))"
+                                   color: colorHex || "var(--primary)"
                               }} size="sm" asChild>
                                    <Link href={link.url||"#"}>{link.name}</Link>
                               </Button>

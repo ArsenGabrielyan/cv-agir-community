@@ -12,6 +12,8 @@ import {
      DropdownMenuTrigger
 } from "./ui/dropdown-menu";
 import { cn } from '@/lib/utils';
+import { Button } from './ui/button';
+import { ChevronDown } from 'lucide-react';
 
 interface LangSwitcherSelectProps{
      children: React.ReactNode,
@@ -21,16 +23,19 @@ interface LangSwitcherSelectProps{
      onOpenChange: (val: boolean) => void,
      disabled: boolean
 }
-function LangSwitcherSelect({children,defaultValue, open, onOpenChange, disabled}: LangSwitcherSelectProps){
+function LangSwitcherSelect({children,defaultValue, open, onOpenChange, disabled, label}: LangSwitcherSelectProps){
      const lang = useMemo(()=>languages.find(val=>val.code===defaultValue),[defaultValue])
      return (
           <DropdownMenu open={open} onOpenChange={onOpenChange}>
                {lang && (
-                    <DropdownMenuTrigger disabled={disabled} className={cn("!font-sans select-none",disabled && "pointer-events-none opacity-50")}>
-                         <CircleFlag countryCode={lang.countryCode} className="size-4" title={lang.label}/>
+                    <DropdownMenuTrigger disabled={disabled} className={cn("font-sans! select-none",disabled && "pointer-events-none opacity-50")} asChild>
+                         <Button variant="outline" title={label}>
+                              <CircleFlag countryCode={lang.countryCode} className="size-4" title={lang.label}/>
+                              <ChevronDown className={cn(open && "rotate-180","transition-all")}/>
+                         </Button>
                     </DropdownMenuTrigger>
                )}
-               <DropdownMenuContent className="!font-sans">
+               <DropdownMenuContent className="font-sans!">
                     {children}
                </DropdownMenuContent>
           </DropdownMenu>

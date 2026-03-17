@@ -24,7 +24,7 @@ import LoadingButton from "@/components/buttons/loading-button";
 import SettingsCard from "./settings-card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import ThemeSettings from "@/components/themes/theme-changer";
+import ThemeSettings from "@/components/theme-toggler";
 import { PasswordInput } from "@/components/form/password-input";
 import { useTranslations } from "next-intl";
 import RandomPlaceholderInput from "@/components/form/rand-placeholder-input";
