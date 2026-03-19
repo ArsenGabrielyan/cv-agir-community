@@ -19,7 +19,7 @@ export default function usePrint({contentRef,documentTitle,...options}: Omit<Use
                el.scrollIntoView({ behavior: "auto", block: "start" });
                printJS({
                     printable: el,
-                    documentTitle,
+                    documentTitle: typeof documentTitle==="string" ? documentTitle : typeof documentTitle==="function" ? documentTitle() : "Untitled CV",
                     type: "html",
                     scanStyles: false,
                     css: [
