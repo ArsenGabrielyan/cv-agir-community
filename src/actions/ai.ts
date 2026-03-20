@@ -5,12 +5,12 @@ import {getLanguageLevel} from "@/lib/helpers"
 import gemini from "@/lib/gemini"
 import { AI_MODEL, GEN_CONFIG } from "@/lib/constants"
 import { currentUser } from "@/lib/auth"
-import DOMPurify from "isomorphic-dompurify"
 import { checkLimiter, clearLimiter, incrementLimiter } from "@/lib/limiter"
 import { logAction } from "@/data/logs"
 import { maskText } from "@/lib/helpers/audit-logs"
 import { getIpAddress } from "./ip"
 import { getTranslations } from "next-intl/server"
+import { sanitizeHTML } from "@/lib/sanitizer"
 
 export const generateSummary = async(input: GenerateSummaryInput) => {
      const user = await currentUser();
@@ -115,10 +115,7 @@ export const generateSummary = async(input: GenerateSummaryInput) => {
           action: "AI_SUMMARY_GENERATED",
           metadata: { ip: currIp }
      })
-     return DOMPurify.sanitize(aiResponse,{
-          ALLOWED_TAGS: ["b", "i", "strong", "p", "ul", "li", "br"],
-          ALLOWED_ATTR: [],
-     })
+     return sanitizeHTML(aiResponse)
 }
 
 export const generateWorkExperience = async(input: GenerateDescriptionInput) => {
@@ -209,10 +206,7 @@ export const generateWorkExperience = async(input: GenerateDescriptionInput) => 
      const responseObj = {
           job: parsed["Job Title"] || "",
           company: parsed["Company Name"] || "",
-          jobInfo: DOMPurify.sanitize(parsed["Description"],{
-               ALLOWED_TAGS: ["b", "i", "strong", "p", "ul", "li", "br"],
-               ALLOWED_ATTR: [],
-          }) || "",
+          jobInfo: sanitizeHTML(parsed["Description"]),
           startDate: parsed["Start Date"] || "",
           endDate: parsed["End Date"] || "",
      } satisfies WorkExperienceType
@@ -308,8 +302,5 @@ export const generateCoverLetterBody = async(input: GenerateLetterBodyInput) => 
           action: "AI_COVER_LETTER_GENERATED",
           metadata: { ip: currIp }
      })
-     return DOMPurify.sanitize(aiResponse,{
-          ALLOWED_TAGS: ["b", "i", "strong", "p", "ul", "li", "br"],
-          ALLOWED_ATTR: [],
-     })
+     return sanitizeHTML(aiResponse)
 }

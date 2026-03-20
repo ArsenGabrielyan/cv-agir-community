@@ -3,8 +3,8 @@ import { getLanguageLevel } from "@/lib/helpers";
 import { ResumeFormType } from "@/schemas/types";
 import Handlebars from "handlebars"
 import { marked } from "marked"
-import DOMPurify from "isomorphic-dompurify"
 import { getTranslations } from "next-intl/server";
+import { sanitizeHTML } from "@/lib/sanitizer";
 
 export async function compileHTML(html: string, data: ResumeFormType){
      const t = await getTranslations("doc-preview.lang-levels")
@@ -29,9 +29,7 @@ export async function compileHTML(html: string, data: ResumeFormType){
                const markdown = marked(content,{
                     async: false
                })
-               return new Handlebars.SafeString(DOMPurify.sanitize(markdown,{
-                    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|blob):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
-               }))
+               return new Handlebars.SafeString(sanitizeHTML(markdown))
           }
      })
      const htmlTemplate = Handlebars.compile<ResumeFormType>(html,{ noEscape: true });

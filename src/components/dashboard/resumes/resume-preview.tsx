@@ -5,10 +5,10 @@ import { cn } from "@/lib/utils";
 import { ResumeFormType } from "@/schemas/types";
 import { ResumeTemplate } from "@db";
 import { useEffect, useMemo, useRef, useState } from "react";
-import DOMPurify from "isomorphic-dompurify"
 import {CoursesSection, EducationSection, HeaderSection, HobbiesSection, LanguagesSection, LinksSection, ReferencesSection, SkillsSection, SummarySection, WorkExperienceSection} from "./resume-sections";
 import { format } from "date-fns";
 import { useTranslations } from "next-intl";
+import { sanitizeHTML } from "@/lib/sanitizer";
 
 interface ResumePreviewProps{
      template: ResumeTemplate | null
@@ -74,11 +74,7 @@ export default function ResumePreview({
                compile()
           }
      },[template, resumeData, qrImg, photoSrc, t])
-
-     const sanitizedHTML = useMemo(()=>DOMPurify.sanitize(rawHTML,{
-          ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|blob):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
-     }),[rawHTML])
-
+     const sanitizedHTML = useMemo(()=>sanitizeHTML(rawHTML),[rawHTML])
      return (
           <div className={cn("bg-white text-black h-full w-full aspect-210/297",className)} ref={containerRef}>
                <div className={!template ? cn("space-y-6 p-6", !width && "invisible") : cn("h-full", !width && "invisible")} style={{zoom: (1/794) * width}} ref={contentRef} id="resumePreviewContent">
