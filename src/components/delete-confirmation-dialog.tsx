@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import LoadingButton from "./buttons/loading-button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
+import { TFunction } from "@/i18n/types";
 
 interface DeleteConfirmationDialogProps{
      open: boolean,
@@ -10,7 +11,7 @@ interface DeleteConfirmationDialogProps{
      onAccept: () => void,
      acceptButtonText: string,
      dialogTitle: string,
-     t: ReturnType<typeof useTranslations<"deletion-confirmation">>
+     t: TFunction<"deletion-confirmation">
 }
 export default function DeleteConfirmationDialog({
      open,

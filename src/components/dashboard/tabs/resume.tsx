@@ -2,11 +2,11 @@
 import { ResumeServerData } from "@/lib/types/resume"
 import { CreateResumeButton } from "../create-buttons"
 import ResumeCard from "../resumes/resume-card"
-import { useTranslations } from "next-intl"
+import { TFunction } from "@/i18n/types"
 
 interface ResumeTabProps{
      resumes: ResumeServerData[],
-     t: ReturnType<typeof useTranslations<"dashboard">>
+     t: TFunction<"dashboard">
 }
 export default function ResumeTab({resumes,t}: ResumeTabProps){
      return (

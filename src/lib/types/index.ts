@@ -3,7 +3,6 @@ import { LucideProps } from "lucide-react";
 import React, { ForwardRefExoticComponent, RefAttributes } from "react";
 import { LangCodeType } from "@/i18n/types";
 import { CoverLetterSteps, Features, ResumeSteps } from "./enums";
-import { useTranslations } from "next-intl";
 
 export const userInclude = {
      cvPageSettings: true,

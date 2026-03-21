@@ -1,6 +1,6 @@
 import EmailTemplate from "@/components/email-template"
+import { TFunction } from "@/i18n/types"
 import { Heading, Text, Markdown, Hr, Link } from "@react-email/components"
-import { useTranslations } from "next-intl"
 
 interface MessageTemplateProps{
      name: string,
@@ -8,7 +8,7 @@ interface MessageTemplateProps{
      phone: string,
      subject: string,
      message: string,
-     t: ReturnType<typeof useTranslations<"contact-email-template">>
+     t: TFunction<"contact-email-template">
 }
 export default function MessageTemplate({name,email,phone,subject,message,t}: MessageTemplateProps){
      return (

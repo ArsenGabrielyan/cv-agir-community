@@ -2,11 +2,11 @@
 import { CoverLetter } from "@db"
 import { CreateCoverLetterButton } from "../create-buttons"
 import CoverLetterCard from "../cover-letters/cl-card"
-import { useTranslations } from "next-intl"
+import { TFunction } from "@/i18n/types"
 
 interface CoverLetterTabProps{
      coverLetters: CoverLetter[],
-     t: ReturnType<typeof useTranslations<"dashboard">>
+     t: TFunction<"dashboard">
 }
 export default function CoverLetterTab({coverLetters, t}: CoverLetterTabProps){
      return (

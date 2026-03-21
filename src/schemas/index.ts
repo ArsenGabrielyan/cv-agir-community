@@ -21,29 +21,29 @@ import {
      getResumeSkillSchema,
 } from "./resume"
 import {BorderStyles} from "@db"
-import { useTranslations } from "next-intl"
+import { TFunction } from "@/i18n/types"
 
-export const getResetSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getResetSchema = (t: TFunction<'validations'>) => z.object({
      email: emailField(t).trim().transform(email => email.toLowerCase()),
 })
 
-export const getNewPasswordSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getNewPasswordSchema = (t: TFunction<'validations'>) => z.object({
      password: passwordField(t).trim()
 })
 
-export const getLoginSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getLoginSchema = (t: TFunction<'validations'>) => z.object({
      email: emailField(t).trim().transform(email => email.toLowerCase()),
      password: z.string().min(1,t("password.required")).max(64, t("password.tooLong")).trim(),
      code: z.optional(z.string().max(6,t("2fa-code-tooLong")).trim())
 })
 
-export const getRegisterSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getRegisterSchema = (t: TFunction<'validations'>) => z.object({
      name: nameField(t).trim(),
      email: emailField(t).trim().transform(email => email.toLowerCase()),
      password: passwordField(t).trim()
 })
 
-export const getContactSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getContactSchema = (t: TFunction<'validations'>) => z.object({
      name: nameField(t).trim(),
      email: emailField(t).trim().transform(email => email.toLowerCase()),
      phone: z.string().regex(/^[0-9+() -]*$/,t("phone.invalidFormat")).min(8, t("phone.tooShort")).max(20, t("phone.tooLong")).trim(),
@@ -51,7 +51,7 @@ export const getContactSchema = (t: ReturnType<typeof useTranslations<'validatio
      message: z.string().min(5,t("message.required")).max(500,t("message.tooLong")).trim()
 })
 
-export const getResumeInfoSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getResumeInfoSchema = (t: TFunction<'validations'>) => z.object({
      title: optionalString(t),
      description: optionalString(t),
      fname: optionalString(t),
@@ -65,32 +65,32 @@ export const getResumeInfoSchema = (t: ReturnType<typeof useTranslations<'valida
      profileImg: fileField(t),
 })
 
-export const getResumeDetailsSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getResumeDetailsSchema = (t: TFunction<'validations'>) => z.object({
      experience: optionalArray(t,getWorkExperienceSchema(t),50,t("items.work-exp")),
      education: optionalArray(t,getResumeEducationSchema(t),40,t("items.school")),
      skills: optionalArray(t,getResumeSkillSchema(t),30,t("items.skill")),
      languages: optionalArray(t,getResumeSkillSchema(t),35,t("items.lang")),
 })
 
-export const getResumeOptionalDetailsSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getResumeOptionalDetailsSchema = (t: TFunction<'validations'>) => z.object({
      links: optionalArray(t,getResumeLinkSchema(t),50,t("items.link")),
      courses: optionalArray(t,getResumeCourseSchema(t),40,t("items.course")),
      references: optionalArray(t,getResumeReferenceSchema(t),20,t("items.ref")),
 })
 
-export const getDocStyleSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getDocStyleSchema = (t: TFunction<'validations'>) => z.object({
      colorHex: optionalString(t),
      borderStyle: z.custom<BorderStyles>().optional()
 })
 
-export const getResumeFormSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getResumeFormSchema = (t: TFunction<'validations'>) => z.object({
      ...getResumeInfoSchema(t).shape,
      ...getResumeDetailsSchema(t).shape,
      ...getResumeOptionalDetailsSchema(t).shape,
      ...getDocStyleSchema(t).shape
 })
 
-export const getCoverLetterInfoSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getCoverLetterInfoSchema = (t: TFunction<'validations'>) => z.object({
      title: optionalString(t),
      description: optionalString(t),
      fname: optionalString(t),
@@ -102,7 +102,7 @@ export const getCoverLetterInfoSchema = (t: ReturnType<typeof useTranslations<'v
      profileImg: fileField(t)
 })
 
-export const getCoverLetterDetailsSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getCoverLetterDetailsSchema = (t: TFunction<'validations'>) => z.object({
      recipientName: optionalString(t),
      recipientTitle: optionalString(t),
      companyName: optionalString(t),
@@ -111,13 +111,13 @@ export const getCoverLetterDetailsSchema = (t: ReturnType<typeof useTranslations
      letterDate: z.optional(z.date())
 })
 
-export const getCoverLetterFormSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getCoverLetterFormSchema = (t: TFunction<'validations'>) => z.object({
      ...getCoverLetterInfoSchema(t).shape,
      ...getCoverLetterDetailsSchema(t).shape,
      ...getDocStyleSchema(t).shape
 })
 
-export const getSettingsSchema = (t: ReturnType<typeof useTranslations<'validations'>>) => z.object({
+export const getSettingsSchema = (t: TFunction<'validations'>) => z.object({
      name: z.optional(z.string().trim()),
      email: z.optional(emailField(t).trim().transform(email => email.toLowerCase())),
      jobTitle: z.optional(jobTitleField(t).trim()),

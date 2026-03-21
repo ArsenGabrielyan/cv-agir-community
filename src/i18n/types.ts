@@ -6,6 +6,7 @@ import hyDashboard from "@i18n/hy/dashboard.json"
 import hyEditor from "@i18n/hy/editor.json"
 import hyMessages from "@i18n/hy/messages.json"
 import { messages } from "./config"
+import { useTranslations, NamespaceKeys, NestedKeyOf } from "next-intl";
 
 export type LangCodeType = 'en' | 'hy';
 type CountryCodeType = 'us' | 'am';
@@ -24,3 +25,6 @@ export type MessageSchema = (
      typeof hyMessages
 )
 export type Messages = typeof messages[number]
+
+type TranslationNS = NamespaceKeys<MessageSchema, NestedKeyOf<MessageSchema>>
+export type TFunction<T extends TranslationNS> = ReturnType<typeof useTranslations<T>>

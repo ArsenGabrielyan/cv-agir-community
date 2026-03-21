@@ -3,11 +3,11 @@ import { ResumeTemplate } from "@db";
 import TemplateCard from "./template-card";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
+import { TFunction } from "@/i18n/types";
 
 interface TemplateListProps{
      templates: ResumeTemplate[],
-     t: ReturnType<typeof useTranslations<'templates'>>
+     t: TFunction<'templates'>
 }
 export default function TemplateList({templates, t}: TemplateListProps){
      const [count, setCount] = useState(8);

@@ -1,8 +1,8 @@
 import { ICaptchaResult } from "@/lib/types"
+import { TFunction } from "@/i18n/types"
 import { env } from "./env"
-import { useTranslations } from "next-intl"
 
-export const getCaptchaToken = (errMsg: ReturnType<typeof useTranslations<"error-messages">>) =>
+export const getCaptchaToken = (errMsg: TFunction<"error-messages">) =>
      new Promise<string>((resolve,reject)=>{
           if(typeof window === "undefined"){
                return reject(errMsg("contactForm.no-captcha-server"))

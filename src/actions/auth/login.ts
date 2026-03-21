@@ -15,8 +15,9 @@ import { LoginType } from "@/lib/types/schemas";
 import { checkLimiter } from "@/lib/limiter";
 import { getIpAddress } from "../ip";
 import { getTranslations } from "next-intl/server";
+import { TFunction } from "@/i18n/types";
 
-const getAuthErrorMessages = (t: Awaited<ReturnType<typeof getTranslations<"error-messages">>>): Record<AuthError["name"], string> => ({
+const getAuthErrorMessages = (t: Awaited<TFunction<"error-messages">>): Record<AuthError["name"], string> => ({
      CredentialsSignin: t("auth.credentials"),
      AccessDenied: t("auth.denied-access"),
      Configuration: t("auth.config"),

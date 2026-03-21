@@ -4,11 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
+import { TFunction } from "@/i18n/types";
 
 interface TemplateCardProps{
      data: ResumeTemplate,
-     t: ReturnType<typeof useTranslations<"templates">>
+     t: TFunction<"templates">
 }
 export default function TemplateCard({data, t}: TemplateCardProps){
      const [imageUrl] = useState(data.imageName ? `/templates/${data.imageName}` : `/template-img.webp`);

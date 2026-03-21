@@ -1,11 +1,11 @@
 import EmailTemplate from "@/components/email-template"
+import { TFunction } from "@/i18n/types"
 import {Button, Heading, Text, Link } from "@react-email/components"
-import { useTranslations } from "next-intl"
 
 interface PassResetTemplateProps{
      firstName: string,
      resetLink: string,
-     t: ReturnType<typeof useTranslations<"pass-reset-template">>
+     t: TFunction<"pass-reset-template">
 }
 export default function PassResetTemplate({firstName,resetLink,t}: PassResetTemplateProps){
      return (

@@ -1,11 +1,11 @@
 import EmailTemplate from "@/components/email-template"
+import { TFunction } from "@/i18n/types"
 import {Heading, Text } from "@react-email/components"
-import { useTranslations } from "next-intl"
 
 interface TwoFactorTemplateProps{
      firstName: string,
      token: string
-     t: ReturnType<typeof useTranslations<"2fa-template">>
+     t: TFunction<"2fa-template">
 }
 export default function TwoFactorTemplate({firstName,token,t}: TwoFactorTemplateProps){
      return (

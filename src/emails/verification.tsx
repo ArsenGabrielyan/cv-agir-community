@@ -1,11 +1,11 @@
 import EmailTemplate from "@/components/email-template"
+import { TFunction } from "@/i18n/types"
 import {Button, Heading, Text, Link } from "@react-email/components"
-import { useTranslations } from "next-intl"
 
 interface VerificationTemplateProps{
      firstName: string,
      confirmLink: string,
-     t: ReturnType<typeof useTranslations<"verification-template">>
+     t: TFunction<"verification-template">
 }
 export default function VerificationTemplate({firstName,confirmLink,t}: VerificationTemplateProps){
      return (
