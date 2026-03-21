@@ -17,7 +17,7 @@ import { FormError } from "@/components/form/form-error";
 import { FormSuccess } from "@/components/form/form-success";
 import { register } from "@/actions/auth/register";
 import { PasswordStrengthInput } from "@/components/form/password-input";
-import { RegisterFormType } from "@/schemas/types";
+import { RegisterFormType } from "@/lib/types/schemas";
 import LoadingButton from "@/components/buttons/loading-button";
 import { useTranslations } from "next-intl";
 import { MailIcon } from "lucide-react";

@@ -1,5 +1,5 @@
 import { logAction } from "@/data/logs";
-import { AuditActionKey, AuditLogServerData, auditLogsInclude, IAdminAPISearchParams} from "@/lib/types";
+import { AuditActionKey, AuditLogServerData, auditLogsInclude, IAdminAPISearchParams} from "@/lib/types/admin";
 import { getIsAdmin, currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getIpAddress } from "@/actions/ip";

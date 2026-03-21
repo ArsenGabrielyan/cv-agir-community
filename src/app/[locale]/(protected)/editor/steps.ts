@@ -1,6 +1,7 @@
 import { ResumeInfoFormLoader, ResumeDetailsFormLoader, ResumeOptionalDetailsFormLoader } from "@/components/loaders/form"
-import { IEditorStep, ResumeFormProps } from "@/lib/types"
+import { IEditorStep } from "@/lib/types"
 import { ResumeSteps } from "@/lib/types/enums"
+import { ResumeFormProps } from "@/lib/types/resume"
 import dynamic from "next/dynamic"
 
 export const steps: IEditorStep<ResumeFormProps>[] = [

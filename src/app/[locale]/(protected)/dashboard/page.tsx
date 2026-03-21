@@ -1,5 +1,5 @@
 import PageLayout from "@/components/layout/page-layout";
-import { resumeDataInclude } from "@/lib/types";
+import { resumeDataInclude } from "@/lib/types/resume";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Metadata } from "next";

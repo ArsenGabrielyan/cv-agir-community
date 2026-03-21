@@ -17,7 +17,7 @@ import { FormSuccess } from "@/components/form/form-success";
 import { PasswordStrengthInput } from "@/components/form/password-input";
 import { useSearchParams } from "next/navigation";
 import { newPassword } from "@/actions/auth/new-password";
-import { NewPasswordType } from "@/schemas/types";
+import { NewPasswordType } from "@/lib/types/schemas";
 import LoadingButton from "@/components/buttons/loading-button";
 import { useTranslations } from "next-intl";
 

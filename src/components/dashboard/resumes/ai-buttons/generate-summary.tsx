@@ -1,6 +1,6 @@
 import { generateSummary } from "@/actions/ai";
 import LoadingButton from "@/components/buttons/loading-button";
-import { ResumeFormType } from "@/schemas/types";
+import { ResumeFormType } from "@/lib/types/schemas";
 import { Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";

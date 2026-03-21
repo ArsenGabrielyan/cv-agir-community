@@ -1,6 +1,6 @@
 "use client"
 import { mapToResumeValues } from "@/lib/helpers/maps"
-import { ResumeServerData } from "@/lib/types"
+import { ResumeServerData } from "@/lib/types/resume"
 import { formatDate } from "date-fns"
 import { Link } from "@/i18n/routing"
 import QRCode from "qrcode"

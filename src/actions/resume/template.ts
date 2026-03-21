@@ -1,6 +1,6 @@
 "use server"
 import { getLanguageLevel } from "@/lib/helpers";
-import { ResumeFormType } from "@/schemas/types";
+import { ResumeFormType } from "@/lib/types/schemas";
 import Handlebars from "handlebars"
 import { marked } from "marked"
 import { getTranslations } from "next-intl/server";

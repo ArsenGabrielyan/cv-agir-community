@@ -19,7 +19,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { FormSuccess } from "@/components/form/form-success";
 import { FormError } from "@/components/form/form-error";
 import { Switch } from "@/components/ui/switch";
-import { SettingsType } from "@/schemas/types";
+import { SettingsType } from "@/lib/types/schemas";
 import LoadingButton from "@/components/buttons/loading-button";
 import SettingsCard from "./settings-card";
 import { Textarea } from "@/components/ui/textarea";

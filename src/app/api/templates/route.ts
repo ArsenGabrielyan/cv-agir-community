@@ -1,5 +1,5 @@
 import { getIsAdmin, currentUser } from "@/lib/auth"
-import { IAdminAPISearchParams } from "@/lib/types";
+import { IAdminAPISearchParams } from "@/lib/types/admin";
 import { db } from "@/lib/db";
 import { ResumeTemplate } from "@db";
 import { NextResponse } from "next/server";

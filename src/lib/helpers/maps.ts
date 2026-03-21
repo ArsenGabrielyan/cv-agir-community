@@ -1,7 +1,8 @@
 import { CoverLetter, User, VerificationToken as PrismaVerificationToken  } from "@db";
-import { CoverLetterFormType,  ResumeFormType } from "@/schemas/types";
-import { AccountServerData, ResumeServerData } from "@/lib/types"
+import { CoverLetterFormType,  ResumeFormType } from "@/lib/types/schemas";
+import { AccountServerData } from "@/lib/types"
 import type { AdapterAccount, AdapterAccountType, AdapterUser, VerificationToken } from "next-auth/adapters"
+import { ResumeServerData } from "@/lib/types/resume"
 
 export const mapToResumeValues = (data: ResumeServerData): ResumeFormType => ({
      id: data.id || undefined,

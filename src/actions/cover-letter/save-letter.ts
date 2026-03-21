@@ -2,7 +2,7 @@
 import { currentUser } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getCoverLetterFormSchema } from "@/schemas"
-import { CoverLetterFormType } from "@/schemas/types"
+import { CoverLetterFormType } from "@/lib/types/schemas"
 import {del, put} from "@vercel/blob"
 import path from "path"
 import { getCurrentCoverLetterByUserId } from "@/data/cover-letters"

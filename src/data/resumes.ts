@@ -1,6 +1,6 @@
 import { LangCodeType } from "@/i18n/types";
 import { db } from "@/lib/db"
-import { resumeDataInclude } from "@/lib/types";
+import { resumeDataInclude } from "@/lib/types/resume";
 
 export async function getResumeCountByUserId(userId: string){
      try{

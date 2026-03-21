@@ -1,6 +1,6 @@
 import useDimensions from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
-import { CoverLetterFormType } from "@/schemas/types"
+import { CoverLetterFormType } from "@/lib/types/schemas"
 import { useRef } from "react";
 import { BodySection, HeaderSection } from "./cl-sections";
 

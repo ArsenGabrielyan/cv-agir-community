@@ -1,5 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ResumeFormType } from "@/schemas/types";
+import { ResumeFormType } from "@/lib/types/schemas";
 import { ResumeTemplate } from "@db";
 import BorderStyleButton from "./style-buttons/border-style-button";
 import { cn } from "@/lib/utils";

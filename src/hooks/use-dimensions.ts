@@ -1,5 +1,9 @@
-import { UseDimensionsReturnType } from "@/lib/types";
 import React, { useEffect, useState } from "react";
+
+interface UseDimensionsReturnType{
+     width: number,
+     height: number
+}
 
 export default function useDimensions<T extends HTMLElement>(containerRef: React.RefObject<T | null>){
      const [dimensions, setDimensions] = useState<UseDimensionsReturnType>({width: 0, height: 0});

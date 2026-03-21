@@ -1,4 +1,4 @@
-import { ResumeFormType } from "@/schemas/types"
+import { ResumeFormType } from "@/lib/types/schemas"
 import Image from "next/image"
 import {format} from "date-fns"
 import { Badge } from "@/components/ui/badge"

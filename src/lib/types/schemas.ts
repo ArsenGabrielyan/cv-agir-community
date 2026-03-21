@@ -1,6 +1,6 @@
 import * as z from "zod"
-import { getContactSchema, getCoverLetterFormSchema,  getLoginSchema, getNewPasswordSchema, getRegisterSchema, getResetSchema, getResumeDetailsSchema, getResumeFormSchema, getResumeInfoSchema, getResumeOptionalDetailsSchema, getDocStyleSchema, getCoverLetterInfoSchema, getCoverLetterDetailsSchema, getSettingsSchema } from "."
-import { getGenerateDescriptionSchema, getGenerateLetterBodySchema, getGenerateSummarySchema } from "./ai"
+import { getContactSchema, getCoverLetterFormSchema,  getLoginSchema, getNewPasswordSchema, getRegisterSchema, getResetSchema, getResumeDetailsSchema, getResumeFormSchema, getResumeInfoSchema, getResumeOptionalDetailsSchema, getDocStyleSchema, getCoverLetterInfoSchema, getCoverLetterDetailsSchema, getSettingsSchema } from "@/schemas"
+import { getGenerateDescriptionSchema, getGenerateLetterBodySchema, getGenerateSummarySchema } from "@/schemas/ai"
 
 // Contact Page and Auth
 export type SettingsType = z.infer<

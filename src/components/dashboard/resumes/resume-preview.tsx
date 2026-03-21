@@ -2,7 +2,7 @@
 import { compileHTML } from "@/actions/resume/template";
 import useDimensions from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
-import { ResumeFormType } from "@/schemas/types";
+import { ResumeFormType } from "@/lib/types/schemas";
 import { ResumeTemplate } from "@db";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {CoursesSection, EducationSection, HeaderSection, HobbiesSection, LanguagesSection, LinksSection, ReferencesSection, SkillsSection, SummarySection, WorkExperienceSection} from "./resume-sections";

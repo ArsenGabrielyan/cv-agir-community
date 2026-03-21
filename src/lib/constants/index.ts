@@ -1,5 +1,6 @@
 import { AuditAction } from "@db"
-import { IResumeDynamicFields, QuickFilterType } from "../../lib/types"
+import { IResumeDynamicFields } from "@/lib/types/resume"
+import { QuickFilterType } from "@/lib/types/admin"
 
 export const ARR_FIELD_INITIAL_VALUES: IResumeDynamicFields = {
      courses: {

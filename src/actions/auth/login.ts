@@ -11,7 +11,7 @@ import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation
 import { logAction } from "@/data/logs";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
-import { LoginType } from "@/schemas/types";
+import { LoginType } from "@/lib/types/schemas";
 import { checkLimiter } from "@/lib/limiter";
 import { getIpAddress } from "../ip";
 import { getTranslations } from "next-intl/server";

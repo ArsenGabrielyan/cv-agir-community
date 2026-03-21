@@ -1,5 +1,5 @@
 import { AUDIT_QUICK_FILTERS } from "@/lib/constants";
-import { AuditLogServerData, CategorySecondaryKeys } from "@/lib/types";
+import { AuditLogServerData, CategorySecondaryKeys } from "@/lib/types/admin";
 import { AuditAction } from "@db";
 import { TranslateFunction } from "react-admin";
 

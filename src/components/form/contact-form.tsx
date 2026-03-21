@@ -16,7 +16,7 @@ import { FormError } from "@/components/form/form-error";
 import { submitContactForm } from "@/actions/contact-form";
 import { Textarea } from "@/components/ui/textarea";
 import { FormSuccess } from "./form-success";
-import { ContactFormType } from "@/schemas/types";
+import { ContactFormType } from "@/lib/types/schemas";
 import LoadingButton from "@/components/buttons/loading-button";
 import { getCaptchaToken } from "@/lib/captcha";
 import { useTranslations } from "next-intl";

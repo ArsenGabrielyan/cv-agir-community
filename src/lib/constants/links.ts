@@ -1,6 +1,6 @@
-import { INavbarLink, ISidebarLink } from "../../lib/types";
+import { INavbarLink, ISidebarLink } from "@/lib/types/links";
 import { CircleHelp, LayoutDashboard, LayoutTemplate, Settings, User } from "lucide-react";
-import { NavLinks, SidebarLinks } from "../types/enums";
+import { NavLinks, SidebarLinks } from "@/lib/types/enums";
 
 export const NAVBAR_LINKS: INavbarLink[] = [
      {id: 1, name: NavLinks.Home, href: "/#hero"},

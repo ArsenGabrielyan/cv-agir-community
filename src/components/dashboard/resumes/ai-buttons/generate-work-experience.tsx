@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { getGenerateDescriptionSchema } from "@/schemas/ai";
-import { GenerateDescriptionInput, WorkExperienceType } from "@/schemas/types";
+import { GenerateDescriptionInput, WorkExperienceType } from "@/lib/types/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Sparkles } from "lucide-react";
 import { useState } from "react";

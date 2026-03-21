@@ -1,7 +1,7 @@
 import { FormControl, FormField, FormItem, FormMessage, FormLabel } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { ResumeArrayFieldProps } from "@/lib/types"
-import { ResumeOptionalDetailsType } from "@/schemas/types"
+import { ResumeArrayFieldProps } from "@/lib/types/resume"
+import { ResumeOptionalDetailsType } from "@/lib/types/schemas"
 import DynamicFieldWrapper from "../../wrappers/field-wrapper"
 import { useTranslations } from "next-intl"
 

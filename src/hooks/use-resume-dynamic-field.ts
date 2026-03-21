@@ -1,5 +1,5 @@
 import { ARR_FIELD_INITIAL_VALUES } from "@/lib/constants";
-import { IResumeDynamicFields } from "@/lib/types";
+import { IResumeDynamicFields } from "@/lib/types/resume";
 import { ArrayPath, FieldArray, FieldValues, useFieldArray, UseFormReturn } from "react-hook-form";
 import {DragEndEvent, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core"
 import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable"

@@ -1,5 +1,5 @@
 "use client"
-import { ResumeServerData } from "@/lib/types"
+import { ResumeServerData } from "@/lib/types/resume"
 import { CreateResumeButton } from "../create-buttons"
 import ResumeCard from "../resumes/resume-card"
 import { useTranslations } from "next-intl"

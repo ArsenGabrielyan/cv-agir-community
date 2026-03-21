@@ -1,4 +1,4 @@
-import { CoverLetterFormType } from "@/schemas/types"
+import { CoverLetterFormType } from "@/lib/types/schemas"
 import Image from "next/image"
 import { getBorderRadius } from "@/lib/helpers"
 import PreviewSectionWrapper from "../wrappers/section-wrapper"

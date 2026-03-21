@@ -2,7 +2,7 @@
 import { currentUser } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { getResumeFormSchema } from "@/schemas"
-import { ResumeFormType } from "@/schemas/types"
+import { ResumeFormType } from "@/lib/types/schemas"
 import {del, put} from "@vercel/blob"
 import path from "path"
 import { getCurrentResumeByUserId, getResumeCountByUserId } from "@/data/resumes"

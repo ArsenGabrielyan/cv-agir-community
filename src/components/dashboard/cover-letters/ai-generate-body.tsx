@@ -1,6 +1,6 @@
 import { generateCoverLetterBody } from "@/actions/ai";
 import LoadingButton from "@/components/buttons/loading-button";
-import { CoverLetterFormType } from "@/schemas/types";
+import { CoverLetterFormType } from "@/lib/types/schemas";
 import { Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 import { db } from "@/lib/db"
 import { AuditAction, Prisma } from "@db"
-import { AuditMetadata } from "../lib/types"
+import { AuditMetadata } from "../lib/types/admin"
 import { maskEmail } from "@/lib/helpers/audit-logs"
 import { getTranslations } from "next-intl/server"
 

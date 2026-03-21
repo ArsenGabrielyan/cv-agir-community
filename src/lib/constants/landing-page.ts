@@ -1,6 +1,6 @@
-import { IFeature } from "../../lib/types";
+import { IFeature } from "@/lib/types";
 import { BrainCog, Edit, Palette, QrCode } from "lucide-react";
-import { Features } from "../../lib/types/enums";
+import { Features } from "@/lib/types/enums";
 
 export const FEATURES: IFeature[] = [
      {

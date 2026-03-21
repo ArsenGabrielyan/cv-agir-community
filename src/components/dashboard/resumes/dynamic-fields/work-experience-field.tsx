@@ -1,5 +1,5 @@
-import { ResumeArrayFieldProps } from "@/lib/types"
-import { ResumeDetailsType } from "@/schemas/types"
+import { ResumeArrayFieldProps } from "@/lib/types/resume"
+import { ResumeDetailsType } from "@/lib/types/schemas"
 import DynamicFieldWrapper from "../../wrappers/field-wrapper"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"

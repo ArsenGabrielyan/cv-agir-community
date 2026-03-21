@@ -1,7 +1,7 @@
 "use server"
 import { sendMessage } from "@/lib/mail";
 import { getContactSchema } from "@/schemas"
-import { ContactFormType } from "@/schemas/types";
+import { ContactFormType } from "@/lib/types/schemas";
 import { checkLimiter, clearLimiter, incrementLimiter } from "@/lib/limiter";
 import { verifyCaptchaToken } from "@/lib/captcha";
 import { logAction } from "@/data/logs";
