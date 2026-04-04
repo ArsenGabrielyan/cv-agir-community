@@ -76,3 +76,9 @@ export const resumeDataInclude = {
 export type ResumeServerData = Prisma.ResumeGetPayload<{
      include: typeof resumeDataInclude
 }>
+export const templateDataInclude = {
+     category: true
+} satisfies Prisma.ResumeTemplateInclude
+export type TemplateServerData = Prisma.ResumeTemplateGetPayload<{
+     include: typeof templateDataInclude
+}>

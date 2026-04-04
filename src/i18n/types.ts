@@ -5,6 +5,8 @@ import hyEmailTemplates from "@i18n/hy/email-templates.json"
 import hyDashboard from "@i18n/hy/dashboard.json"
 import hyEditor from "@i18n/hy/editor.json"
 import hyMessages from "@i18n/hy/messages.json"
+import hyAdmin from "@i18n/hy/admin.json"
+
 import { messages } from "./config"
 import { useTranslations, NamespaceKeys, NestedKeyOf } from "next-intl";
 
@@ -22,7 +24,8 @@ export type MessageSchema = (
      typeof hyEmailTemplates &
      typeof hyDashboard &
      typeof hyEditor &
-     typeof hyMessages
+     typeof hyMessages &
+     typeof hyAdmin
 )
 export type Messages = typeof messages[number]
 

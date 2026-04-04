@@ -1,5 +1,5 @@
 "use client"
-import { ISidebarLink } from "@/lib/types/links";
+import { IAdminLink, ISidebarLink } from "@/lib/types/links";
 import { Link, usePathname } from "@/i18n/routing";
 import {
      SidebarMenuItem,
@@ -57,6 +57,31 @@ export default function SidebarItem({data}: SidebarItemProps){
                     <SidebarMenuButton>
                          <Icon/>
                          {sidebarLink(name)}
+                    </SidebarMenuButton>
+               )}
+          </SidebarMenuItem>
+     )
+}
+interface AdminLinkProps{
+     data: IAdminLink,
+}
+export function AdminLink({data}: AdminLinkProps){
+     const {name,href,Icon} = data
+     const currentRoute = usePathname();
+     const t = useTranslations("admin.links");
+     return (
+          <SidebarMenuItem>
+               {href ? (
+                    <SidebarMenuButton asChild>
+                         <Link href={href} className={cn(currentRoute===href && "text-primary font-semibold")}>
+                              <Icon/>
+                              {t(name)}
+                         </Link>
+                    </SidebarMenuButton>
+               ) : (
+                    <SidebarMenuButton>
+                         <Icon/>
+                         {t(name)}
                     </SidebarMenuButton>
                )}
           </SidebarMenuItem>

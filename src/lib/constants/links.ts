@@ -1,6 +1,6 @@
-import { INavbarLink, ISidebarLink } from "@/lib/types/links";
-import { CircleHelp, LayoutDashboard, LayoutTemplate, Settings, User } from "lucide-react";
-import { NavLinks, SidebarLinks } from "@/lib/types/enums";
+import { IAdminLink, INavbarLink, ISidebarLink } from "@/lib/types/links";
+import { CircleHelp, LayoutDashboard, LayoutTemplate, List, ScrollText, Settings, User } from "lucide-react";
+import { AdminLinks, NavLinks, SidebarLinks } from "@/lib/types/enums";
 
 export const NAVBAR_LINKS: INavbarLink[] = [
      {id: 1, name: NavLinks.Home, href: "/#hero"},
@@ -18,4 +18,9 @@ export const SIDEBAR_LINKS: ISidebarLink[] = [
           { id: 3, name: NavLinks.About, href: "/about",},
      ]},
      {id: 5, name: SidebarLinks.Settings, href: "/settings", Icon: Settings}
+]
+export const ADMIN_LINKS: IAdminLink[] = [ // TODO: Change to /admin
+     {id: 1, name: AdminLinks.Templates, href: "/admin/templates", Icon: LayoutTemplate},
+     {id: 2, name: AdminLinks.Categories, href: "/admin/categories", Icon: List},
+     {id: 3, name: AdminLinks.AuditLog, href: "/admin/audit-log", Icon: ScrollText},
 ]

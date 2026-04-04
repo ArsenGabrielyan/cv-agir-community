@@ -3,9 +3,8 @@ import { resumeDataInclude } from "@/lib/types/resume";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Metadata } from "next";
-import { getResumeCountByUserId } from "@/data/resumes";
 import DashboardContent from "@/components/pages/dashboard";
-import { redirect, routing } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import { LocalePageProps } from "@/app/[locale]/layout";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
@@ -30,13 +29,12 @@ export default async function DashboardPage({searchParams, params}: LocalePagePr
      if(!user || !user.id){
           return null;
      }
-     const [resumes, totalCount, coverLetters] = await Promise.all([
+     const [resumes, coverLetters] = await Promise.all([
           db.resume.findMany({
                where: { userId: user.id },
                orderBy: { updatedAt: "desc" },
                include: resumeDataInclude
           }),
-          getResumeCountByUserId(user.id),
           db.coverLetter.findMany({
                where: { userId: user.id },
                orderBy: { updatedAt: "desc" },
@@ -47,7 +45,6 @@ export default async function DashboardPage({searchParams, params}: LocalePagePr
                <DashboardContent
                     coverLetters={coverLetters}
                     resumes={resumes}
-                    totalCount={totalCount}
                     initialValue={show}
                />
           </PageLayout>

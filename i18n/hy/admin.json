@@ -1,0 +1,80 @@
+{
+     "admin": {
+          "title": "Ադմինիստրատորի վահանակ",
+          "title-prefix": "CV-ագիր Ադմին",
+          "links": {
+               "categories": "Կատեգորիաներ",
+               "templates": "Շաբլոններ",
+               "audit-log": "Ակտիվություն"
+          },
+          "categories": {
+               "title": "Կատեգորիաներ",
+               "default-title": "Անանուն Կատեգորիա",
+               "read-title": "Կատեգորիայի տեղեկություն"
+          },
+          "templates": {
+               "title": "Շաբլոններ",
+               "default-title": "Անանուն շաբլոն"
+          },
+          "audit-log": {
+               "title": "Ակտիվություն"
+          }
+     },
+     "audit-log": {
+          "unknown-email": "Անհայտ էլ․ հասցե",
+          "ai": {
+               "desc-gen": "Նկարագրության գեներացում",
+               "exp-gen": "Աշխատանքային փորձի գեներացում",
+               "letter-gen": "Ուղեկցող նամակի գեներացում"
+          }
+     },
+     "table": {
+          "pagination": {
+               "rows-count": "Ընտրված է {selected} տող {filtered}-ից։",
+               "row-per-page": "Տողեր մեկ էջում",
+               "page-count": "Էջ {index}-ից {count}",
+               "buttons": {
+                    "first": "Անցնել առաջին էջին",
+                    "previous": "Անցնել նախորդ էջին",
+                    "next": "Անցնել հաջորդ էջին",
+                    "last": "Անցնել վերջին էջին"
+               }
+          },
+          "view": {
+               "title": "Ցուցադրել",
+               "toggle": "Սյունակների անջատիչ"
+          },
+          "filter": {
+               "templates": "Որոնել շաբլոններ․․․",
+               "categories": "Որոնել կատեգորիաներ..."
+          },
+          "not-found": {
+               "templates": "Շաբլոններ չեն գտնվել",
+               "categories": "Կատեգորիաներ չեն գտնվել"
+          },
+          "heading": {
+               "templates": {
+                    "locale": "Լեզու",
+                    "name": "Շաբլոնի Անուն",
+                    "description": "Նկարագրություն",
+                    "imageName": "Նկարի Անուն",
+                    "category": "Կատեգորիա",
+                    "htmlTemplate": "HTML Կոդ",
+                    "cssStyle": "CSS Կոդ"
+               },
+               "categories": {
+                    "name": "Կատեգորիայի Անուն"
+               },
+               "createdAt": "Ստեղծվել է",
+               "updatedAt": "Թարմացվել է"
+          },
+          "select": {
+               "all": "Ընտրել բոլորը",
+               "row": "Ընտրել տող"
+          },
+          "actions": {
+               "title": "Գործողություններ",
+               "menu": "Բացել մենյուն"
+          }
+     }
+}

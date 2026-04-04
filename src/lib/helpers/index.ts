@@ -23,3 +23,12 @@ export function fileReplacer(_: unknown, value: unknown){
           lastModified: value.lastModified,
      } : value
 }
+
+export function escapeCSV(value: unknown) {
+     if (value == null) return "";
+     const str = String(value);
+          if (str.includes(",") || str.includes('"') || str.includes("\n")) {
+          return `"${str.replace(/"/g, '""')}"`;
+     }
+     return value
+}

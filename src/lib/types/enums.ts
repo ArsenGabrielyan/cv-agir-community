@@ -35,6 +35,11 @@ export enum SidebarLinks{
      Support = "support",
      Settings = "settings"
 }
+export enum AdminLinks{
+     Categories = "categories",
+     Templates = "templates",
+     AuditLog = "audit-log"
+}
 export enum Theme{
      Zinc = "zinc",
      Rose = "rose",

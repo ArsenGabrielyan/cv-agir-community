@@ -4,7 +4,8 @@
           "desc": "A resume generator that allows you to create, edit, and download resumes for free.",
           "author": "Arsen G.",
           "all-rights-reserved": "All Rights Reserved",
-          "langSwitcherLabel": "Change Language"
+          "langSwitcherLabel": "Change Language",
+          "admin": "Administrator"
      },
      "buttons": {
           "sign-in": "Log in",
@@ -29,7 +30,11 @@
           "preview": "Show Preview",
           "remove": "Remove",
           "save": "Save",
-          "send-msg": "Send Message"
+          "send-msg": "Send Message",
+          "go-back": "Back",
+          "clear-filters": "Clear Filters",
+          "create": "Create",
+          "export": "Export"
      },
      "nav-links": {
           "menu": "Menu",
@@ -73,9 +78,6 @@
           "desc": "The page you are looking for was not found. It may have been deleted, moved, renamed, or doesn't exist at all.",
           "goBack": "Return to Home Page"
      },
-     "admin": {
-          "title": "Admin Dashboard"
-     },
      "user-button-links": {
           "my-profile": "My Profile",
           "resumes": "Resumes",
@@ -97,12 +99,9 @@
           },
           "desc": "This action cannot be undone."
      },
-     "audit-log": {
-          "unknown-email": "Unknown Email",
-          "ai": {
-               "desc-gen": "Summary Generation",
-               "exp-gen": "Work Experience Generation",
-               "letter-gen": "Cover Letter Generation"
-          }
+     "langs": {
+          "hy": "Armenian",
+          "en": "English",
+          "unknown": "Unknown"
      }
 }

@@ -1,6 +1,6 @@
 import { LucideProps } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
-import { NavLinks, SidebarLinks } from "./enums";
+import { AdminLinks, NavLinks, SidebarLinks } from "./enums";
 
 export interface INavbarLink{
      id: number,
@@ -21,3 +21,9 @@ interface ISidebarDropdownLink extends ISidebarLinkBase {
      dropdown: INavbarLink[];
 }
 export type ISidebarLink = ISidebarSimpleLink | ISidebarDropdownLink;
+export interface IAdminLink{
+     id: number;
+     name: AdminLinks
+     Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+     href: string;
+}

@@ -1,6 +1,6 @@
 import { LangCodeType } from "@/i18n/types";
 import { db } from "@/lib/db"
-import { resumeDataInclude } from "@/lib/types/resume";
+import { resumeDataInclude, templateDataInclude } from "@/lib/types/resume";
 
 export async function getResumeCountByUserId(userId: string){
      try{
@@ -28,7 +28,8 @@ export async function getResumeById(id: string){
 export async function getResumeTemplateById(id: string){
      try{
           const template = await db.resumeTemplate.findUnique({
-               where: {id}
+               where: {id},
+               include: templateDataInclude
           });
           return template
      } catch {

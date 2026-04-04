@@ -10,7 +10,6 @@ import SidebarItem from "./sidebar-item";
 import { useTranslations } from "next-intl";
 
 export default function SidebarLinks(){
-     const errMsg = useTranslations("error-messages")
      const t = useTranslations("dashboard")
      return (
           <SidebarGroup>

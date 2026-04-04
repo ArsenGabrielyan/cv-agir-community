@@ -3,6 +3,7 @@ import { LucideProps } from "lucide-react";
 import React, { ForwardRefExoticComponent, RefAttributes } from "react";
 import { LangCodeType } from "@/i18n/types";
 import { CoverLetterSteps, Features, ResumeSteps } from "./enums";
+import { ColumnDef } from "@tanstack/react-table";
 
 export const userInclude = {
      cvPageSettings: true,
@@ -48,4 +49,10 @@ export interface EditorFormFooterProps<Props>{
      setShowSmPreview: (show: boolean) => void,
      onPrint: () => void,
      steps: IEditorStep<Props>[]
+}
+export interface DataTableProps<TData> {
+     columns: ColumnDef<TData>[]
+     data: TData[],
+     searchColumn?: string,
+     headerElement?: React.JSX.Element
 }

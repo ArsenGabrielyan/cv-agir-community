@@ -8,7 +8,7 @@ const AdminAppBar = () => {
      return (
           <AppBar color="secondary">
                <TitlePortal/>
-               {isLargeEnough && <Logo width={200} height={40} isAdmin isDark/>}
+               {isLargeEnough && "CV-Agir Admin"}
                {isLargeEnough && <Box component="span" sx={{flex: 1}}/>}
           </AppBar>
      )

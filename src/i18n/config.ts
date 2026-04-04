@@ -1,10 +1,10 @@
 import { ILanguage, LangCodeType, MessageSchema } from "./types";
 import { Locale, hy, enUS } from "date-fns/locale";
 
-export const languages = [
+export const languages: ILanguage[] = [
      {code: "hy", countryCode: "am", label: "Հայերեն"},
      {code: "en", countryCode: "us", label: "English"},
-] as const satisfies readonly ILanguage[];
+]
 
 export const dateFNSLocales: Record<
      LangCodeType,
@@ -18,7 +18,8 @@ export const messages = [
      "email-templates",
      "dashboard",
      "editor",
-     "messages"
+     "messages",
+     "admin"
 ] as const
 
 export const locales: LangCodeType[] = languages.map(lang=>lang.code);
@@ -32,7 +33,8 @@ export async function loadMessages(locale: LangCodeType): Promise<MessageSchema>
           emailTemplates,
           dashboard,
           editor,
-          appMessages
+          appMessages,
+          admin
      ] = await Promise.all(
           messages.map(msg=>
                import(`../../i18n/${locale}/${msg}.json`).then(m=>m.default)
@@ -45,6 +47,7 @@ export async function loadMessages(locale: LangCodeType): Promise<MessageSchema>
           ...emailTemplates,
           ...dashboard,
           ...editor,
-          ...appMessages
+          ...appMessages,
+          ...admin
      }
 }

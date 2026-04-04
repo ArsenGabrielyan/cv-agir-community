@@ -7,6 +7,7 @@ import DocPageLoader from "../loaders/doc-page"
 import { useRouter } from "@/i18n/routing"
 import { useTranslations } from "next-intl"
 import { CoverLetter } from "@db"
+import SidebarContentWrapper from "../sidebar-content"
 
 const ResumeTab = dynamic(()=>import("@/components/dashboard/tabs/resume"),{
      loading: DocPageLoader,
@@ -20,10 +21,9 @@ const CoverLetterTab = dynamic(()=>import("@/components/dashboard/tabs/cover-let
 interface DashboardContentProps{
      resumes: ResumeServerData[],
      coverLetters: CoverLetter[]
-     totalCount: number,
      initialValue?: string
 }
-export default function DashboardContent({resumes, totalCount, initialValue="resume", coverLetters}: DashboardContentProps){
+export default function DashboardContent({resumes, initialValue="resume", coverLetters}: DashboardContentProps){
      const searchParams = useSearchParams();
      const show = searchParams.get("show") || initialValue;
      const router = useRouter();
@@ -34,10 +34,7 @@ export default function DashboardContent({resumes, totalCount, initialValue="res
      }
      const t = useTranslations("dashboard")
      return (
-          <>
-               <div className="flex justify-between items-center gap-5 my-4">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-3">{t("title")}</h1>
-               </div>
+          <SidebarContentWrapper title={t("title")}>
                <Tabs defaultValue={show} onValueChange={onChangeTabs}>
                     <TabsList className="w-full">
                          <TabsTrigger value="resume" className="flex-1">{t("resumes.title")}</TabsTrigger>
@@ -50,6 +47,6 @@ export default function DashboardContent({resumes, totalCount, initialValue="res
                          <CoverLetterTab coverLetters={coverLetters} t={t}/>
                     </TabsContent>
                </Tabs>
-          </>
+          </SidebarContentWrapper>
      )
 }
