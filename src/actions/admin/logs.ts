@@ -34,10 +34,10 @@ export async function getAuditLogsList(searchParams: IAdminAPISearchParams<Audit
           throw new Error(errMsg("auth.noAdminAccess"))
      }
      const {filter} = searchParams
-     const filters = Object.keys(filter)
+     const filters = filter ? Object.keys(filter)
           .filter(key => key.startsWith("action-"))
           .map(key => filter?.[key as AuditActionKey])
-          .flat();
+          .flat() : [];
      const data = await db.auditLog.findMany({
           where: {
                ...(filter?.q && {
