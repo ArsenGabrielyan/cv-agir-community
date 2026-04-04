@@ -28,6 +28,7 @@ import { InputGroup, InputGroupInput, InputGroupAddon } from "@/components/ui/in
 import { Download, FilterX, Plus, SearchIcon } from "lucide-react"
 import { escapeCSV } from "@/lib/helpers"
 import { Button } from "@/components/ui/button"
+import CategoryFormModal from "@/components/admin/modal/categories/form"
 
 export default function CategoriesTable({ columns, data, searchColumn = "name" }: DataTableProps<ResumeTemplateCategory>){
      const [sorting, setSorting] = useState<SortingState>([]);
@@ -89,10 +90,12 @@ export default function CategoriesTable({ columns, data, searchColumn = "name" }
                                    {btnTxt("clear-filters")}
                               </Button>
                          )}
-                         <Button variant="outline">
-                              <Plus/>
-                              {btnTxt("create")}
-                         </Button>
+                         <CategoryFormModal triggerBtn={(
+                              <Button variant="outline" type="button">
+                                   <Plus/>
+                                   {btnTxt("create")}
+                              </Button>
+                         )}/>
                          <Button variant="outline" onClick={()=>exportCsv()}>
                               <Download/>
                               {btnTxt("export")}

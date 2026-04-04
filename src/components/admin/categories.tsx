@@ -7,10 +7,10 @@ import dynamic from "next/dynamic"
 import { CATEGORY_COLS } from "../data-tables/columns/categories"
 import { Button } from "../ui/button"
 import { ChevronLeft, Edit, Trash2 } from "lucide-react"
-import { Link } from "@/i18n/routing"
+import { Link, usePathname } from "@/i18n/routing"
 import { formatDate } from "date-fns"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import { CircleFlagLanguage } from "react-circle-flags"
+import CategoryFormModal from "./modal/categories/form"
+import CategoryDeleteModal from "./modal/categories/delete"
 
 const CategoryTable = dynamic(()=>import("../data-tables/tables/categories"),{
      loading: () => <TableLoader
@@ -38,6 +38,7 @@ interface CategoryReadSectionProps{
      data: ResumeTemplateCategory
 }
 export function CategoryReadSection({data}: CategoryReadSectionProps){
+     const path = usePathname()
      const headingTxt = useTranslations("table.heading")
      const t = useTranslations("admin")
      const btnTxt = useTranslations("buttons")
@@ -51,14 +52,26 @@ export function CategoryReadSection({data}: CategoryReadSectionProps){
                                    {btnTxt("go-back")}
                               </Link>
                          </Button>
-                         <Button variant="outline">
-                              <Edit/>
-                              {btnTxt("edit")}
-                         </Button>
-                         <Button variant="destructive">
-                              <Trash2/>
-                              {btnTxt("delete")}
-                         </Button>
+                         <CategoryFormModal
+                              name={data.name}
+                              id={data.id}
+                              triggerBtn={(
+                                   <Button variant="outline">
+                                        <Edit/>
+                                        {btnTxt("edit")}
+                                   </Button>
+                              )}
+                         />
+                         <CategoryDeleteModal
+                              id={data.id}
+                              redirectPath="/admin/categories"
+                              triggerBtn={(
+                                   <Button variant="destructive">
+                                        <Trash2/>
+                                        {btnTxt("delete")}
+                                   </Button>
+                              )}
+                         />
                     </div>
                     <div className="flex items-center justify-center gap-2 flex-wrap">
                          <div className="flex-1">

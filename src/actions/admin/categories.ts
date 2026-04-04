@@ -7,6 +7,9 @@ import { logAction } from "@/data/logs";
 import { getIpAddress } from "@/actions/ip";
 import { getTranslations } from "next-intl/server";
 import { getResumeTemplateCategoryById } from "@/data/resumes";
+import { CategoryFormSchema } from "@/schemas/admin";
+import { CategoryFormType } from "@/lib/types/schemas";
+import { revalidatePath } from "next/cache";
 
 export async function getCategoriesList(searchParams: IAdminAPISearchParams<ResumeTemplateCategory>){
      const isAdmin = await getIsAdmin();
@@ -80,11 +83,24 @@ export async function getCategoryById(id: string){
      return data
 }
 
-export async function createCategory(name: string){
+export async function createCategory(values: CategoryFormType, refreshPath: string): Promise<{
+     error?: string,
+     success?: string
+}> {
+     const validatedFields = CategoryFormSchema.safeParse(values);
+     const errMsg = await getTranslations("error-messages");
+     if(!validatedFields.success){
+          await logAction({
+               action: "VALIDATION_ERROR",
+               metadata: {
+                    fields: validatedFields.error.issues.map(val=>val.path[0]),
+               }
+          })
+          return {error: errMsg("validationError")}
+     }
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
-     const errMsg = await getTranslations("error-messages");
      if(!user || !user.id){
           await logAction({
                action: "UNAUTHORIZED",
@@ -93,7 +109,7 @@ export async function createCategory(name: string){
                     route: "server-action:categories"
                }
           })
-          throw new Error(errMsg("auth.unauthorized"))
+          return {error: errMsg("auth.unauthorized")}
      }
      if(!isAdmin){
           await logAction({
@@ -105,8 +121,9 @@ export async function createCategory(name: string){
                     method: "POST",
                }
           })
-          throw new Error(errMsg("auth.noAdminAccess"))
+          return {error: errMsg("auth.noAdminAccess")}
      }
+     const {name} = validatedFields.data
      const data = await db.resumeTemplateCategory.create({
           data: { name }
      })
@@ -118,14 +135,28 @@ export async function createCategory(name: string){
                categoryId: data.id
           }
      })
-     return data
+     revalidatePath(refreshPath)
+     return {success: "Կատեգորիան ստեղծված է"}
 }
 
-export async function editCategory(id: string, name: string){
+export async function editCategory(id: string, values: CategoryFormType, refreshPath: string): Promise<{
+     error?: string,
+     success?: string
+}>{
+     const validatedFields = CategoryFormSchema.safeParse(values);
+     const errMsg = await getTranslations("error-messages");
+     if(!validatedFields.success){
+          await logAction({
+               action: "VALIDATION_ERROR",
+               metadata: {
+                    fields: validatedFields.error.issues.map(val=>val.path[0]),
+               }
+          })
+          return {error: errMsg("validationError")}
+     }
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
-     const errMsg = await getTranslations("error-messages");
      if(!user || !user.id){
           await logAction({
                action: "UNAUTHORIZED",
@@ -134,7 +165,7 @@ export async function editCategory(id: string, name: string){
                     route: "server-action:categories"
                }
           })
-          throw new Error(errMsg("auth.unauthorized"))
+          return {error: errMsg("auth.unauthorized")}
      }
      if(!isAdmin){
           await logAction({
@@ -146,8 +177,9 @@ export async function editCategory(id: string, name: string){
                     method: "PUT",
                }
           })
-          throw new Error(errMsg("auth.noAdminAccess"))
+          return {error: errMsg("auth.noAdminAccess")}
      }
+     const {name} = validatedFields.data
      const data = await db.resumeTemplateCategory.update({
           where: { id },
           data: { name }
@@ -155,12 +187,16 @@ export async function editCategory(id: string, name: string){
      await logAction({
           userId: user.id,
           action: "CATEGORY_UPDATED",
-          metadata: { ip, categoryId: id }
+          metadata: { ip, categoryId: data.id }
      })
-     return data
+     revalidatePath(refreshPath)
+     return {success: "Կատեգորիան խմբագրված է"}
 }
 
-export async function deleteCategory(id: string){
+export async function deleteCategory(id: string, refreshPath: string): Promise<{
+     error?: string,
+     success?: boolean
+}>{
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
@@ -173,7 +209,7 @@ export async function deleteCategory(id: string){
                     route: "server-action:categories"
                }
           })
-          throw new Error(errMsg("auth.unauthorized"))
+          return {error: errMsg("auth.unauthorized")}
      }
      if(!isAdmin){
           await logAction({
@@ -185,7 +221,7 @@ export async function deleteCategory(id: string){
                     method: "DELETE"
                }
           })
-          throw new Error(errMsg("auth.noAdminAccess"))
+          return {error: errMsg("auth.noAdminAccess")}
      }
      const currCategory = await getResumeTemplateCategoryById(id);
      if(!currCategory){
@@ -197,7 +233,7 @@ export async function deleteCategory(id: string){
                     reason: errMsg("content.noCategory"),
                }
           })
-          throw new Error(errMsg("content.noCategory"))
+          return {error: errMsg("content.noCategory")}
      }
      const data = await db.resumeTemplateCategory.delete({
           where: { id }
@@ -205,7 +241,8 @@ export async function deleteCategory(id: string){
      await logAction({
           userId: user.id,
           action: "CATEGORY_DELETED",
-          metadata: { ip, categoryId: id }
+          metadata: { ip, categoryId: data.id }
      })
-     return data
+     revalidatePath(refreshPath)
+     return {success: true}
 }

@@ -6,8 +6,10 @@ import { logAction } from "@/data/logs";
 import { getIpAddress } from "@/actions/ip";
 import { getTranslations } from "next-intl/server";
 import { templateDataInclude, TemplateServerData } from "@/lib/types/resume";
-import { getResumeTemplateById } from "@/data/resumes";import { ResumeTemplate } from "@db";
-;
+import { getResumeTemplateById } from "@/data/resumes";
+import { revalidatePath } from "next/cache";
+import { TemplateFormType } from "@/lib/types/schemas";
+import { TemplateFormSchema } from "@/schemas/admin";
 
 export async function getTemplateList(searchParams: IAdminAPISearchParams<TemplateServerData>){
      const isAdmin = await getIsAdmin();
@@ -72,11 +74,24 @@ export async function getTemplateById(id: string) {
      return data
 }
 
-export async function createTemplate(data: ResumeTemplate){
+export async function createTemplate(values: TemplateFormType, path: string): Promise<{
+     error?: string,
+     success?: string
+}>{
+     const validatedFields = TemplateFormSchema.safeParse(values);
+     const errMsg = await getTranslations("error-messages");
+     if(!validatedFields.success){
+          await logAction({
+               action: "VALIDATION_ERROR",
+               metadata: {
+                    fields: validatedFields.error.issues.map(val=>val.path[0]),
+               }
+          })
+          return {error: errMsg("validationError")}
+     }
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
-     const errMsg = await getTranslations("error-messages");
      if(!user || !user.id){
           await logAction({
                action: "UNAUTHORIZED",
@@ -85,7 +100,7 @@ export async function createTemplate(data: ResumeTemplate){
                     route: "server-action:templates",
                }
           })
-          throw new Error(errMsg("auth.unauthorized"))
+          return {error: errMsg("auth.unauthorized")}
      }
      if(!isAdmin){
           await logAction({
@@ -97,9 +112,9 @@ export async function createTemplate(data: ResumeTemplate){
                     method: "POST",
                }
           })
-          throw new Error(errMsg("auth.noAdminAccess"))
+          return {error: errMsg("auth.noAdminAccess")}
      }
-     const {name, description, imageName, htmlTemplate, cssStyle, categoryId} = data
+     const {name, description, imageName, htmlTemplate, cssStyle, categoryId} = validatedFields.data
      const result = await db.resumeTemplate.create({
           data: {
                name,
@@ -113,16 +128,30 @@ export async function createTemplate(data: ResumeTemplate){
      await logAction({
           userId: user.id,
           action: "TEMPLATE_CREATED",
-          metadata: {ip, templateId: data.id}
+          metadata: {ip, templateId: result.id}
      })
-     return result
+     revalidatePath(path)
+     return {success: "Շաբլոնը ստեղծված է"}
 }
 
-export async function editTemplate(id: string, data: ResumeTemplate){
+export async function editTemplate(id: string, values: TemplateFormType, path: string): Promise<{
+     error?: string,
+     success?: string
+}>{
+     const validatedFields = TemplateFormSchema.safeParse(values);
+     const errMsg = await getTranslations("error-messages");
+     if(!validatedFields.success){
+          await logAction({
+               action: "VALIDATION_ERROR",
+               metadata: {
+                    fields: validatedFields.error.issues.map(val=>val.path[0]),
+               }
+          })
+          return {error: errMsg("validationError")}
+     }
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
-     const errMsg = await getTranslations("error-messages");
      if(!user || !user.id){
           await logAction({
                action: "UNAUTHORIZED",
@@ -131,7 +160,7 @@ export async function editTemplate(id: string, data: ResumeTemplate){
                     route: "server-action:templates"
                }
           })
-          throw new Error(errMsg("auth.unauthorized"))
+          return {error: errMsg("auth.unauthorized")}
      }
      if(!isAdmin){
           await logAction({
@@ -143,9 +172,9 @@ export async function editTemplate(id: string, data: ResumeTemplate){
                     method: "PUT",
                }
           })
-          throw new Error(errMsg("auth.noAdminAccess"))
+          return {error: errMsg("auth.noAdminAccess")}
      }
-     const {name, description, imageName, htmlTemplate, cssStyle, categoryId} = data
+     const {name, description, imageName, htmlTemplate, cssStyle, categoryId} = validatedFields.data
      const result = await db.resumeTemplate.update({
           where: { id },
           data: {
@@ -160,12 +189,16 @@ export async function editTemplate(id: string, data: ResumeTemplate){
      await logAction({
           userId: user.id,
           action: 'TEMPLATE_UPDATED',
-          metadata: {ip, templateId: id}
+          metadata: {ip, templateId: result.id}
      })
-     return result
+     revalidatePath(path)
+     return {success: "Շաբլոնը խմբագրված է"}
 }
 
-export async function deleteTemplate(id: string) {
+export async function deleteTemplate(id: string, path: string): Promise<{
+     error?: string,
+     success?: boolean
+}>{
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
@@ -178,7 +211,7 @@ export async function deleteTemplate(id: string) {
                     route: "server-action:templates",
                }
           })
-          throw new Error(errMsg("auth.unauthorized"))
+          return {error: errMsg("auth.unauthorized")}
      }
      if(!isAdmin){
           await logAction({
@@ -190,7 +223,7 @@ export async function deleteTemplate(id: string) {
                     method: "DELETE",
                }
           })
-          throw new Error(errMsg("auth.noAdminAccess"))
+          return {error: errMsg("auth.noAdminAccess")}
      }
      const currTemplate = await getResumeTemplateById(id);
      if(!currTemplate){
@@ -202,7 +235,7 @@ export async function deleteTemplate(id: string) {
                     reason: errMsg("content.noTemplate")
                }
           })
-          throw new Error(errMsg("content.noTemplate"))
+          return {error: errMsg("content.noTemplate")}
      }
      const data = await db.resumeTemplate.delete({
           where: { id }
@@ -210,7 +243,8 @@ export async function deleteTemplate(id: string) {
      await logAction({
           userId: user.id,
           action: 'TEMPLATE_DELETED',
-          metadata: {ip, templateId: id}
+          metadata: {ip, templateId: data.id}
      })
-     return data
+     revalidatePath(path)
+     return {success: true}
 }

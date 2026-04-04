@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "@/i18n/routing";
+import CategoryFormModal from "@/components/admin/modal/categories/form";
+import CategoryDeleteModal from "@/components/admin/modal/categories/delete";
 
 export const CATEGORY_COLS: ColumnDef<ResumeTemplateCategory>[] = [
      {
@@ -57,18 +59,28 @@ export const CATEGORY_COLS: ColumnDef<ResumeTemplateCategory>[] = [
      {
           id: "actions",
           cell: ({ row }) => {
-               console.log(row.original)
                const t = useTranslations("buttons")
                return (
                     <div className="flex items-center justify-end gap-2">
-                         <Button>
-                              <Edit/>
-                              {t("edit")}
-                         </Button>
-                         <Button variant="destructive">
-                              <Trash2/>
-                              {t("delete")}
-                         </Button>
+                         <CategoryFormModal
+                              name={row.original.name}
+                              id={row.original.id}
+                              triggerBtn={(
+                                   <Button variant="outline">
+                                        <Edit/>
+                                        {t("edit")}
+                                   </Button>
+                              )}
+                         />
+                         <CategoryDeleteModal
+                              id={row.original.id}
+                              triggerBtn={(
+                                   <Button variant="destructive">
+                                        <Trash2/>
+                                        {t("delete")}
+                                   </Button>
+                              )}
+                         />
                     </div>
                )
           },

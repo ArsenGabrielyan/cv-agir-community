@@ -10,6 +10,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { TemplateServerData } from "@/lib/types/resume";
 import { Link } from "@/i18n/routing";
+import TemplateFormModal from "@/components/admin/modal/templates/form";
+import TemplateDeleteModal from "@/components/admin/modal/templates/delete";
 
 export const TEMPLATE_COLS: ColumnDef<TemplateServerData>[] = [
      {
@@ -162,14 +164,25 @@ export const TEMPLATE_COLS: ColumnDef<TemplateServerData>[] = [
                          <DropdownMenuContent align="end">
                               <DropdownMenuLabel>{t("title")}</DropdownMenuLabel>
                               <DropdownMenuSeparator />
-                              <DropdownMenuItem>
-                                   <Edit/>
-                                   {btnTxt("edit")}
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                   <Trash2/>
-                                   {btnTxt("delete")}
-                              </DropdownMenuItem>
+                              <TemplateFormModal
+                                   data={row.original}
+                                   id={row.original.id}
+                                   triggerBtn={(
+                                        <DropdownMenuItem>
+                                             <Edit/>
+                                             {btnTxt("edit")}
+                                        </DropdownMenuItem>
+                                   )}
+                              />
+                              <TemplateDeleteModal
+                                   id={row.original.id}
+                                   triggerBtn={(
+                                        <DropdownMenuItem>
+                                             <Trash2 className="text-destructive"/>
+                                             {btnTxt("delete")}
+                                        </DropdownMenuItem>
+                                   )}
+                              />
                          </DropdownMenuContent>
                     </DropdownMenu>
                )

@@ -29,6 +29,7 @@ import { TemplateServerData } from "@/lib/types/resume"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { escapeCSV } from "@/lib/helpers"
+import TemplateFormModal from "@/components/admin/modal/templates/form"
 
 export default function TemplatesTable({ columns, data, searchColumn="name", categories }: DataTableProps<TemplateServerData> & {categories: {name: string, id: string}[]}){
      const [sorting, setSorting] = useState<SortingState>([]);
@@ -107,10 +108,12 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
                                    {btnTxt("clear-filters")}
                               </Button>
                          )}
-                         <Button variant="outline">
-                              <Plus/>
-                              {btnTxt("create")}
-                         </Button>
+                         <TemplateFormModal triggerBtn={(
+                              <Button variant="outline">
+                                   <Plus/>
+                                   {btnTxt("create")}
+                              </Button>
+                         )} />
                          <Button variant="outline" onClick={()=>exportCsv()}>
                               <Download/>
                               {btnTxt("export")}

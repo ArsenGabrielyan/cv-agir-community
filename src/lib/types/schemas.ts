@@ -1,6 +1,7 @@
 import * as z from "zod"
 import { getContactSchema, getCoverLetterFormSchema,  getLoginSchema, getNewPasswordSchema, getRegisterSchema, getResetSchema, getResumeDetailsSchema, getResumeFormSchema, getResumeInfoSchema, getResumeOptionalDetailsSchema, getDocStyleSchema, getCoverLetterInfoSchema, getCoverLetterDetailsSchema, getSettingsSchema } from "@/schemas"
 import { getGenerateDescriptionSchema, getGenerateLetterBodySchema, getGenerateSummarySchema } from "@/schemas/ai"
+import { CategoryFormSchema, TemplateFormSchema } from "@/schemas/admin"
 
 // Contact Page and Auth
 export type SettingsType = z.infer<
@@ -69,3 +70,7 @@ export type GenerateDescriptionInput = z.infer<
 export type GenerateLetterBodyInput = z.infer<
      Awaited<ReturnType<typeof getGenerateLetterBodySchema>>
 >
+
+// Admin form
+export type CategoryFormType = z.infer<typeof CategoryFormSchema>
+export type TemplateFormType = z.infer<typeof TemplateFormSchema>

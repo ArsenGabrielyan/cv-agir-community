@@ -11,6 +11,8 @@ import { Link } from "@/i18n/routing"
 import { formatDate } from "date-fns"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import { CircleFlagLanguage } from "react-circle-flags"
+import TemplateFormModal from "./modal/templates/form"
+import TemplateDeleteModal from "./modal/templates/delete"
 
 const TemplatesTable = dynamic(()=>import("../data-tables/tables/templates"),{
      loading: () => <TableLoader
@@ -55,14 +57,26 @@ export function TemplateReadSection({data}: TemplateReadSectionProps) {
                                    {btnTxt("go-back")}
                               </Link>
                          </Button>
-                         <Button variant="outline">
-                              <Edit/>
-                              {btnTxt("edit")}
-                         </Button>
-                         <Button variant="destructive">
-                              <Trash2/>
-                              {btnTxt("delete")}
-                         </Button>
+                         <TemplateFormModal
+                              data={data}
+                              id={data.id}
+                              triggerBtn={(
+                                   <Button variant="outline">
+                                        <Edit/>
+                                        {btnTxt("edit")}
+                                   </Button>
+                              )}
+                         />
+                         <TemplateDeleteModal
+                              id={data.id}
+                              redirectPath="/admin/templates"
+                              triggerBtn={(
+                                   <Button variant="destructive">
+                                        <Trash2/>
+                                        {btnTxt("delete")}
+                                   </Button>
+                              )}
+                         />
                     </div>
                     <div className="flex items-center justify-center gap-2 flex-wrap">
                          <div className="flex-1">

@@ -5,11 +5,29 @@ import LanguageSwitcher from "@/components/lang-switcher";
 import { AdminLink } from "@/components/layout/sidebar/sidebar-item";
 import { ADMIN_LINKS } from "@/lib/constants/links";
 import ThemeToggler from "../theme-toggler";
+import { Button } from "../ui/button";
+import { RefreshCw } from "lucide-react";
+import { useTransition } from "react";
+import { usePathname } from '@/i18n/routing'
+import { refreshPath } from "@/actions/admin/refresh";
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 interface AdminWrapperProps{
      children: React.ReactNode
 }
 export default function AdminWrapper({children}: AdminWrapperProps){
+     const path = usePathname()
+     const [isRefreshing, startTransition] = useTransition();
+     const refreshData = () => {
+          startTransition(async() => {
+               try{
+                    await refreshPath(path)
+               } catch {
+                    toast.error("Չհաջողվեց թարմացնել տվյալները")
+               }
+          })
+     }
      return (
           <SidebarProvider>
                <Sidebar>
@@ -34,6 +52,9 @@ export default function AdminWrapper({children}: AdminWrapperProps){
                          <div className="flex justify-center items-center gap-2.5 mt-2">
                               <ThemeToggler/>
                               <LanguageSwitcher/>
+                              <Button variant="outline" size="icon" onClick={refreshData} disabled={isRefreshing} title="Թարմացնել">
+                                   <RefreshCw className={cn(isRefreshing && "animate-spin")}/>
+                              </Button>
                          </div>
                     </div>
                     {children}

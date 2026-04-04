@@ -19,7 +19,7 @@ export const SIDEBAR_LINKS: ISidebarLink[] = [
      ]},
      {id: 5, name: SidebarLinks.Settings, href: "/settings", Icon: Settings}
 ]
-export const ADMIN_LINKS: IAdminLink[] = [ // TODO: Change to /admin
+export const ADMIN_LINKS: IAdminLink[] = [
      {id: 1, name: AdminLinks.Templates, href: "/admin/templates", Icon: LayoutTemplate},
      {id: 2, name: AdminLinks.Categories, href: "/admin/categories", Icon: List},
      {id: 3, name: AdminLinks.AuditLog, href: "/admin/audit-log", Icon: ScrollText},
