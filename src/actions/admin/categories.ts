@@ -79,3 +79,133 @@ export async function getCategoryById(id: string){
      const data = await getResumeTemplateCategoryById(id)
      return data
 }
+
+export async function createCategory(name: string){
+     const isAdmin = await getIsAdmin();
+     const ip = await getIpAddress();
+     const user = await currentUser();
+     const errMsg = await getTranslations("error-messages");
+     if(!user || !user.id){
+          await logAction({
+               action: "UNAUTHORIZED",
+               metadata: {
+                    ip,
+                    route: "server-action:categories"
+               }
+          })
+          throw new Error(errMsg("auth.unauthorized"))
+     }
+     if(!isAdmin){
+          await logAction({
+               userId: user.id,
+               action: "NO_ADMIN_ACCESS",
+               metadata: {
+                    ip,
+                    route: "server-action:categories",
+                    method: "POST",
+               }
+          })
+          throw new Error(errMsg("auth.noAdminAccess"))
+     }
+     const data = await db.resumeTemplateCategory.create({
+          data: { name }
+     })
+     await logAction({
+          userId: user.id,
+          action: "CATEGORY_CREATED",
+          metadata: {
+               ip,
+               categoryId: data.id
+          }
+     })
+     return data
+}
+
+export async function editCategory(id: string, name: string){
+     const isAdmin = await getIsAdmin();
+     const ip = await getIpAddress();
+     const user = await currentUser();
+     const errMsg = await getTranslations("error-messages");
+     if(!user || !user.id){
+          await logAction({
+               action: "UNAUTHORIZED",
+               metadata: {
+                    ip,
+                    route: "server-action:categories"
+               }
+          })
+          throw new Error(errMsg("auth.unauthorized"))
+     }
+     if(!isAdmin){
+          await logAction({
+               userId: user.id,
+               action: "NO_ADMIN_ACCESS",
+               metadata: {
+                    ip,
+                    route: "server-action:categories",
+                    method: "PUT",
+               }
+          })
+          throw new Error(errMsg("auth.noAdminAccess"))
+     }
+     const data = await db.resumeTemplateCategory.update({
+          where: { id },
+          data: { name }
+     });
+     await logAction({
+          userId: user.id,
+          action: "CATEGORY_UPDATED",
+          metadata: { ip, categoryId: id }
+     })
+     return data
+}
+
+export async function deleteCategory(id: string){
+     const isAdmin = await getIsAdmin();
+     const ip = await getIpAddress();
+     const user = await currentUser();
+     const errMsg = await getTranslations("error-messages");
+     if(!user || !user.id){
+          await logAction({
+               action: "UNAUTHORIZED",
+               metadata: {
+                    ip,
+                    route: "server-action:categories"
+               }
+          })
+          throw new Error(errMsg("auth.unauthorized"))
+     }
+     if(!isAdmin){
+          await logAction({
+               userId: user.id,
+               action: "NO_ADMIN_ACCESS",
+               metadata: {
+                    ip,
+                    route: "server-action:categories",
+                    method: "DELETE"
+               }
+          })
+          throw new Error(errMsg("auth.noAdminAccess"))
+     }
+     const currCategory = await getResumeTemplateCategoryById(id);
+     if(!currCategory){
+          await logAction({
+               userId: user.id,
+               action: "ACTION_ERROR",
+               metadata: {
+                    ip,
+                    reason: errMsg("content.noCategory"),
+               }
+          })
+          throw new Error(errMsg("content.noCategory"))
+     }
+     const data = await db.resumeTemplateCategory.delete({
+          where: { id }
+     })
+     await logAction({
+          userId: user.id,
+          action: "CATEGORY_DELETED",
+          metadata: { ip, categoryId: id }
+     })
+     return data
+}

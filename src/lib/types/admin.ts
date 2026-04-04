@@ -69,7 +69,7 @@ export interface AuditMetadataMap{
      [AuditAction.VALIDATION_ERROR]: {fields: (string | number)[]},
      [AuditAction.RATE_LIMIT_EXCEEDED]: ActionIPResult & {route: string}
      [AuditAction.ACTION_ERROR]: ActionIPResult & {reason: string},
-     [AuditAction.NO_ADMIN_ACCESS]: ActionIPResult & {route?: string, method: string}
+     [AuditAction.NO_ADMIN_ACCESS]: ActionIPResult & {route?: string, method: string} // TODO: Replace with "GET" | "POST" | "PUT" | "DELETE"
      [AuditAction.UNAUTHORIZED]: ActionIPResult & {route?: string}
 }
 export type AuditMetadata<A extends AuditAction> = A extends keyof AuditMetadataMap ? AuditMetadataMap[A] : undefined
