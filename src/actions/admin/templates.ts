@@ -114,16 +114,8 @@ export async function createTemplate(values: TemplateFormType, path: string): Pr
           })
           return {error: errMsg("auth.noAdminAccess")}
      }
-     const {name, description, imageName, htmlTemplate, cssStyle, categoryId} = validatedFields.data
      const result = await db.resumeTemplate.create({
-          data: {
-               name,
-               description,
-               imageName,
-               htmlTemplate,
-               cssStyle,
-               categoryId,
-          }
+          data: { ...validatedFields.data }
      })
      await logAction({
           userId: user.id,
@@ -174,17 +166,9 @@ export async function editTemplate(id: string, values: TemplateFormType, path: s
           })
           return {error: errMsg("auth.noAdminAccess")}
      }
-     const {name, description, imageName, htmlTemplate, cssStyle, categoryId} = validatedFields.data
      const result = await db.resumeTemplate.update({
           where: { id },
-          data: {
-               name,
-               description,
-               imageName,
-               htmlTemplate,
-               cssStyle,
-               categoryId,
-          }
+          data: { ...validatedFields.data }
      });
      await logAction({
           userId: user.id,
@@ -244,6 +228,48 @@ export async function deleteTemplate(id: string, path: string): Promise<{
           userId: user.id,
           action: 'TEMPLATE_DELETED',
           metadata: {ip, templateId: data.id}
+     })
+     revalidatePath(path)
+     return {success: true}
+}
+
+export async function deleteTemplates(ids: string[], path: string): Promise<{
+     error?: string,
+     success?: boolean
+}> {
+     const isAdmin = await getIsAdmin();
+     const ip = await getIpAddress();
+     const user = await currentUser();
+     const errMsg = await getTranslations("error-messages");
+     if(!user || !user.id){
+          await logAction({
+               action: "UNAUTHORIZED",
+               metadata: {
+                    ip,
+                    route: "server-action:templates",
+               }
+          })
+          return {error: errMsg("auth.unauthorized")}
+     }
+     if(!isAdmin){
+          await logAction({
+               userId: user.id,
+               action: "NO_ADMIN_ACCESS",
+               metadata: {
+                    ip,
+                    route: "server-action:templates",
+                    method: "DELETE",
+               }
+          })
+          return {error: errMsg("auth.noAdminAccess")}
+     }
+     await db.resumeTemplate.deleteMany({
+          where: { id: { in: ids } }
+     })
+     await logAction({
+          userId: user.id,
+          action: "TEMPLATE_BULK_DELETE",
+          metadata: {ip, count: ids.length, templateIds: ids}
      })
      revalidatePath(path)
      return {success: true}

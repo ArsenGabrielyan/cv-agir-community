@@ -5,7 +5,7 @@ import { AuditAction, Prisma, ResumeTemplate, ResumeTemplateCategory } from "@db
 export type QuickFilterType = "errors" | "auth" | "coverLetter" | "resume" | "ai" | "app" | "template" | "category"
 export type AuditActionKey = `action-${QuickFilterType}`
 export type IAdminAPISearchParams<T> = T extends ResumeTemplate | ResumeTemplateCategory ? {
-     filter: T,
+     filter?: T,
      range?: [number, number],
      sort?: [keyof T, "DESC" | "ASC"]
 } : {
@@ -62,9 +62,11 @@ export interface AuditMetadataMap{
      [AuditAction.TEMPLATE_CREATED]: ContentActionResult<"template">,
      [AuditAction.TEMPLATE_UPDATED]: ContentActionResult<"template">,
      [AuditAction.TEMPLATE_DELETED]: ContentActionResult<"template">,
+     [AuditAction.TEMPLATE_BULK_DELETE]: ActionIPResult & {count: number, templateIds: string[]},
      [AuditAction.CATEGORY_CREATED]: ContentActionResult<"category">,
      [AuditAction.CATEGORY_UPDATED]: ContentActionResult<"category">,
      [AuditAction.CATEGORY_DELETED]: ContentActionResult<"category">,
+     [AuditAction.CATEGORY_BULK_DELETE]: ActionIPResult & {count: number, categoryIds: string[]},
      // Forms
      [AuditAction.VALIDATION_ERROR]: {fields: (string | number)[]},
      [AuditAction.RATE_LIMIT_EXCEEDED]: ActionIPResult & {route: string}

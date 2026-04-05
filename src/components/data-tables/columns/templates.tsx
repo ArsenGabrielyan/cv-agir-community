@@ -13,7 +13,7 @@ import { Link } from "@/i18n/routing";
 import TemplateFormModal from "@/components/admin/modal/templates/form";
 import TemplateDeleteModal from "@/components/admin/modal/templates/delete";
 
-export const TEMPLATE_COLS: ColumnDef<TemplateServerData>[] = [
+export const TEMPLATE_COLS = (categories: {name: string, id: string}[]): ColumnDef<TemplateServerData>[] => [
      {
           id: "select",
           header: ({ table }) => {
@@ -45,7 +45,7 @@ export const TEMPLATE_COLS: ColumnDef<TemplateServerData>[] = [
           header: "ID",
           cell: ({getValue}) => {
                return (
-                    <Button variant="link" asChild className="p-0!">
+                    <Button variant="link" asChild className="p-0! max-w-xs truncate">
                          <Link href={`/admin/templates/${getValue()}`}>
                               {getValue() as string}
                          </Link>
@@ -150,7 +150,6 @@ export const TEMPLATE_COLS: ColumnDef<TemplateServerData>[] = [
      {
           id: "actions",
           cell: ({ row }) => {
-               console.log(row.original)
                const t = useTranslations("table.actions")
                const btnTxt = useTranslations("buttons")
                return (
@@ -166,9 +165,10 @@ export const TEMPLATE_COLS: ColumnDef<TemplateServerData>[] = [
                               <DropdownMenuSeparator />
                               <TemplateFormModal
                                    data={row.original}
+                                   categories={categories}
                                    id={row.original.id}
                                    triggerBtn={(
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                                              <Edit/>
                                              {btnTxt("edit")}
                                         </DropdownMenuItem>
@@ -177,7 +177,7 @@ export const TEMPLATE_COLS: ColumnDef<TemplateServerData>[] = [
                               <TemplateDeleteModal
                                    id={row.original.id}
                                    triggerBtn={(
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                                              <Trash2 className="text-destructive"/>
                                              {btnTxt("delete")}
                                         </DropdownMenuItem>

@@ -14,14 +14,9 @@ export default function ThemeColorsProvider({children}: ThemeProviderProps){
      useEffect(()=>{
           if(!isMounted) setIsMounted(true)
           if(isMounted && typeof window !== 'undefined'){
-               const hasReducedContrast = window.matchMedia('(prefers-contrast: less)').matches;
-               const prefersHighContrast = window.matchMedia('(prefers-contrast: more)').matches;
-               const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-               
                const contrastQuery = window.matchMedia('(prefers-contrast: more)');
                const handleContrastChange = (e: MediaQueryListEvent) => {
-                    if(e.matches) 
-                         console.log('High contrast mode enabled');
+                    if(e.matches) console.info('High contrast mode enabled');
                };
                contrastQuery.addEventListener('change', handleContrastChange);
                

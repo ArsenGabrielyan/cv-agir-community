@@ -30,7 +30,7 @@ export default function TemplatesAdminContent({data, categories}: TemplatesAdmin
      return (
           <SidebarContentWrapper title={t("templates.title")}>
                <TemplatesTable
-                    columns={TEMPLATE_COLS}
+                    columns={TEMPLATE_COLS(categories)}
                     data={data}
                     categories={categories}
                />
@@ -40,8 +40,9 @@ export default function TemplatesAdminContent({data, categories}: TemplatesAdmin
 
 interface TemplateReadSectionProps{
      data: TemplateServerData
+     categories: {name: string, id: string}[]
 }
-export function TemplateReadSection({data}: TemplateReadSectionProps) {
+export function TemplateReadSection({data, categories}: TemplateReadSectionProps) {
      const langTxt = useTranslations("langs")
      const headingTxt = useTranslations("table.heading")
      const t = useTranslations("admin")
@@ -60,6 +61,7 @@ export function TemplateReadSection({data}: TemplateReadSectionProps) {
                          <TemplateFormModal
                               data={data}
                               id={data.id}
+                              categories={categories}
                               triggerBtn={(
                                    <Button variant="outline">
                                         <Edit/>

@@ -1,5 +1,6 @@
 import { getTemplateList } from "@/actions/admin/templates";
 import TemplatesAdminContent from "@/components/admin/templates";
+import { getAllCategories } from "@/data/resumes";
 import { IAdminAPISearchParams } from "@/lib/types/admin";
 import { TemplateServerData } from "@/lib/types/resume";
 import { Metadata } from "next";
@@ -15,18 +16,18 @@ export const generateMetadata = async(): Promise<Metadata> => {
 export default async function TemplatesPage({searchParams}: {
      searchParams: Promise<IAdminAPISearchParams<TemplateServerData>>
 }){
-     const templates = await getTemplateList(await searchParams)
-     const categories = templates.map(val=>({
-          name: val.category.name,
-          id: val.categoryId
-     }))
+     const [templates, allCategories] = await Promise.all([
+          getTemplateList(await searchParams),
+          getAllCategories()
+     ])
+     const categories = allCategories.reduce<{name: string, id: string}[]>((acc, current) => {
+          const x = acc.find(item => item.id === current.id);
+          return !x ? acc.concat([current]) : acc
+     }, [])
      return (
           <TemplatesAdminContent
                data={templates}
-               categories={categories.reduce<{name: string, id: string}[]>((acc, current) => {
-                    const x = acc.find(item => item.id === current.id);
-                    return !x ? acc.concat([current]) : acc
-               }, [])}
+               categories={categories}
           />
      )
 }

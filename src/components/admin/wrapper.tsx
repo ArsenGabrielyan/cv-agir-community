@@ -7,7 +7,7 @@ import { ADMIN_LINKS } from "@/lib/constants/links";
 import ThemeToggler from "../theme-toggler";
 import { Button } from "../ui/button";
 import { RefreshCw } from "lucide-react";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import { usePathname } from '@/i18n/routing'
 import { refreshPath } from "@/actions/admin/refresh";
 import { toast } from "sonner";
@@ -28,6 +28,14 @@ export default function AdminWrapper({children}: AdminWrapperProps){
                }
           })
      }
+     useEffect(()=>{
+          const onFocus = () => refreshData();
+          window.addEventListener("focus", onFocus);
+          onFocus();
+          return () => {
+               window.removeEventListener("focus", onFocus);
+          };
+     }, []);
      return (
           <SidebarProvider>
                <Sidebar>

@@ -6,15 +6,18 @@ import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import React, { useState, useTransition } from "react";
 import { toast } from "sonner";
-import { deleteTemplate } from "@/actions/admin/templates";
+import { deleteTemplate, deleteTemplates } from "@/actions/admin/templates";
 import { usePathname, useRouter } from "@/i18n/routing";
 
 interface TemplateDeleteModalProps{
-     id: string,
+     id?: string,
+     ids?: string[]
      triggerBtn: React.JSX.Element,
      redirectPath?: string,
+     type?: "bulk" | "separate",
+     onReset?: () => void
 }
-export default function TemplateDeleteModal({id, triggerBtn, redirectPath}: TemplateDeleteModalProps){
+export default function TemplateDeleteModal({id, ids, triggerBtn, redirectPath, type="separate", onReset}: TemplateDeleteModalProps){
      const path = usePathname()
      const errMsg = useTranslations("error-messages")
      const router = useRouter()
@@ -24,11 +27,13 @@ export default function TemplateDeleteModal({id, triggerBtn, redirectPath}: Temp
      const onAccept = () => {
           startTransition(async()=>{
                try {
-                    const result = await deleteTemplate(id, path)
+                    if(!id && !ids) return
+                    const result = type==="separate" ? await deleteTemplate(id ?? "", path) : type==="bulk" ? await deleteTemplates(ids ?? [], path) : {error: errMsg("unknownError")}
                     if(result.error) toast.error(result.error);
                     if(result.success) {
                          if(redirectPath) router.replace(redirectPath)
                          setIsOpen(false)
+                         if(onReset) onReset()
                     }
                } catch (err) {
                     toast.error(errMsg("unknownError"))
@@ -43,7 +48,7 @@ export default function TemplateDeleteModal({id, triggerBtn, redirectPath}: Temp
                </DialogTrigger>
                <DialogContent>
                     <DialogHeader>
-                         <DialogTitle className="leading-6">Համոզվա՞ծ եք, որ ուզում եք ջնջել շաբլոնը։</DialogTitle>
+                         <DialogTitle className="leading-6">Համոզվա՞ծ եք, որ ուզում եք ջնջել {type==="separate" ? "շաբլոնը" : "շաբլոնները"}։</DialogTitle>
                          <DialogDescription>Այս գործողությունը հնարավոր չէ հետարկել:</DialogDescription>
                     </DialogHeader>
                     <DialogFooter>

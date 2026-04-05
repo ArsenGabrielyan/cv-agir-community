@@ -13,6 +13,7 @@ import LoadingButton from "@/components/buttons/loading-button";
 import { toast } from "sonner";
 import { createCategory, editCategory } from "@/actions/admin/categories";
 import { usePathname } from "@/i18n/routing";
+import { Separator } from "@/components/ui/separator";
 
 interface CategoryFormModalProps{
      name?: string,
@@ -31,7 +32,7 @@ export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormMo
           }
      })
      const onSubmit = (values: CategoryFormType) => {
-          if(!!id && name===form.watch("name")) return
+          if((!!id && name===form.watch("name")) || isPending) return
           startTransition(async()=>{
                try {
                     const result = !id ? await createCategory(values,path) : await editCategory(id,values,path)
@@ -53,6 +54,7 @@ export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormMo
                setIsOpen={setIsOpen}
                triggerButton={triggerBtn}
           >
+               <Separator/>
                <Form {...form}>
                     <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                          <FormField

@@ -68,3 +68,11 @@ export const getResumeTemplateCategoryById = async(id: string) => {
           return null
      }
 }
+
+export const getAllCategories = async() => {
+     try {
+          return await db.resumeTemplateCategory.findMany()
+     } catch {
+          return []
+     }
+}

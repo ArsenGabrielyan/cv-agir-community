@@ -42,7 +42,7 @@ const nextConfig: NextConfig = {
             },
           ],
         },
-        { // This is for my admin page
+        { // This is for my admin page, but TODO: Remove this once the admin page upgrade has been finished
           source: "/api/(.*)",
           headers: [
             { key: "Access-Control-Allow-Origin", value: "*" },
@@ -63,7 +63,7 @@ const nextConfig: NextConfig = {
   },
   compiler: {
     removeConsole: {
-      exclude: ['error'],
+      exclude: ['error',"info"],
     },
   },
   modularizeImports: {

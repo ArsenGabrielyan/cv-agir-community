@@ -25,10 +25,11 @@ import { DataTableViewOptions } from "../col-toggle"
 import { ResumeTemplateCategory } from "@db"
 import { useTranslations } from "next-intl"
 import { InputGroup, InputGroupInput, InputGroupAddon } from "@/components/ui/input-group"
-import { Download, FilterX, Plus, SearchIcon } from "lucide-react"
+import { Download, FilterX, Plus, SearchIcon, Trash2 } from "lucide-react"
 import { escapeCSV } from "@/lib/helpers"
 import { Button } from "@/components/ui/button"
 import CategoryFormModal from "@/components/admin/modal/categories/form"
+import CategoryDeleteModal from "@/components/admin/modal/categories/delete"
 
 export default function CategoriesTable({ columns, data, searchColumn = "name" }: DataTableProps<ResumeTemplateCategory>){
      const [sorting, setSorting] = useState<SortingState>([]);
@@ -70,6 +71,8 @@ export default function CategoriesTable({ columns, data, searchColumn = "name" }
           });
           a.click();
      }
+     const selectedRows = table.getSelectedRowModel().rows
+     const selectedIds = selectedRows.map(row => row.original.id)
      return (
           <div className="space-y-2">
                <div className="flex items-center justify-between gap-4 w-full">
@@ -103,6 +106,22 @@ export default function CategoriesTable({ columns, data, searchColumn = "name" }
                          <DataTableViewOptions table={table}/>
                     </div>
                </div>
+               {selectedRows.length > 0 && (
+                    <div className="py-2 px-4 border shadow-md rounded-md bg-card text-card-foreground flex items-center justify-between gap-4">
+                         <span className="text-sm text-muted-foreground">{selectedRows.length} ընտրված կատեգորիա</span>
+                         <CategoryDeleteModal
+                              ids={selectedIds}
+                              type="bulk"
+                              onReset={()=>setRowSelection([])}
+                              triggerBtn={(
+                                   <Button variant="destructive">
+                                        <Trash2/>
+                                        Ջնջել ընտրվածը
+                                   </Button>
+                              )}
+                         />
+                    </div>
+               )}
                <div className="overflow-hidden rounded-md border w-full">
                     <Table>
                          <TableHeader>

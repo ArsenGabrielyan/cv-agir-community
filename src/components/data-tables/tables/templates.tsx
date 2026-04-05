@@ -23,13 +23,14 @@ import { DataTablePagination } from "../pagination"
 import { DataTableProps } from "@/lib/types"
 import { DataTableViewOptions } from "../col-toggle"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
-import { Download, FilterX, Plus, SearchIcon } from "lucide-react"
+import { Download, FilterX, Plus, SearchIcon, Trash2 } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { TemplateServerData } from "@/lib/types/resume"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { escapeCSV } from "@/lib/helpers"
 import TemplateFormModal from "@/components/admin/modal/templates/form"
+import TemplateDeleteModal from "@/components/admin/modal/templates/delete"
 
 export default function TemplatesTable({ columns, data, searchColumn="name", categories }: DataTableProps<TemplateServerData> & {categories: {name: string, id: string}[]}){
      const [sorting, setSorting] = useState<SortingState>([]);
@@ -71,6 +72,8 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
           });
           a.click();
      }
+     const selectedRows = table.getSelectedRowModel().rows
+     const selectedIds = selectedRows.map(row => row.original.id)
      return (
           <div className="space-y-2">
                <div className="flex items-center justify-between gap-4 w-full">
@@ -108,7 +111,9 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
                                    {btnTxt("clear-filters")}
                               </Button>
                          )}
-                         <TemplateFormModal triggerBtn={(
+                         <TemplateFormModal
+                              categories={categories}
+                              triggerBtn={(
                               <Button variant="outline">
                                    <Plus/>
                                    {btnTxt("create")}
@@ -121,6 +126,22 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
                          <DataTableViewOptions table={table}/>
                     </div>
                </div>
+               {selectedRows.length > 0 && (
+                    <div className="py-2 px-4 border shadow-md rounded-md bg-card text-card-foreground flex items-center justify-between gap-4">
+                         <span className="text-sm text-muted-foreground">{selectedRows.length} ընտրված շաբլոն</span>
+                         <TemplateDeleteModal
+                              ids={selectedIds}
+                              type="bulk"
+                              onReset={()=>setRowSelection([])}
+                              triggerBtn={(
+                                   <Button variant="destructive">
+                                        <Trash2/>
+                                        Ջնջել ընտրվածը
+                                   </Button>
+                              )}
+                         />
+                    </div>
+               )}
                <div className="overflow-hidden rounded-md border w-full">
                     <Table>
                          <TableHeader>

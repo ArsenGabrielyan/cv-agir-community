@@ -61,7 +61,6 @@ export default async function LocaleLayout({children, params}: Props) {
     notFound();
   }
   const session = await auth();
-  console.log(session)
   return (
     <SessionProvider session={session} basePath="/api/auth">
       <html lang={locale} suppressHydrationWarning>

@@ -14,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useMemo } from "react"
 import { useTranslations } from "next-intl"
 
 interface Props<TData> {
@@ -22,36 +21,29 @@ interface Props<TData> {
 }
 export function DataTablePagination<TData>({table}: Props<TData>) {
   const t = useTranslations("table");
-  const paginationCount = useMemo(()=>t("pagination.rows-count",{
-    selected: String(table.getFilteredSelectedRowModel().rows.length),
-    filtered: String(table.getFilteredRowModel().rows.length)
-  }),[table])
   return (
-    <div className="flex items-center justify-between px-2 w-full">
-      <div className="text-muted-foreground flex-1 text-sm">
-        {paginationCount}
+    <div className="flex items-center justify-between px-2 w-full gap-x-6 lg:gap-x-8">
+      <div className="flex items-center gap-x-2">
+        <p className="text-sm font-medium">{t("pagination.row-per-page")}</p>
+        <Select
+          value={`${table.getState().pagination.pageSize}`}
+          onValueChange={(value) => {
+            table.setPageSize(Number(value))
+          }}
+        >
+          <SelectTrigger className="h-8 w-[70px]">
+            <SelectValue placeholder={table.getState().pagination.pageSize} />
+          </SelectTrigger>
+          <SelectContent side="top">
+            {[10, 20, 25, 30, 40, 50].map((pageSize) => (
+              <SelectItem key={pageSize} value={`${pageSize}`}>
+                {pageSize}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
-      <div className="flex items-center gap-x-6 lg:gap-x-8">
-        <div className="flex items-center gap-x-2">
-          <p className="text-sm font-medium">{t("pagination.row-per-page")}</p>
-          <Select
-            value={`${table.getState().pagination.pageSize}`}
-            onValueChange={(value) => {
-              table.setPageSize(Number(value))
-            }}
-          >
-            <SelectTrigger className="h-8 w-[70px]">
-              <SelectValue placeholder={table.getState().pagination.pageSize} />
-            </SelectTrigger>
-            <SelectContent side="top">
-              {[10, 20, 25, 30, 40, 50].map((pageSize) => (
-                <SelectItem key={pageSize} value={`${pageSize}`}>
-                  {pageSize}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+      <div className="flex items-center gap-x-2">
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
           {t("pagination.page-count",{
             index: String(table.getState().pagination.pageIndex + 1),

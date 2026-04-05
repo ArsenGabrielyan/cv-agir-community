@@ -41,7 +41,7 @@ export const CATEGORY_COLS: ColumnDef<ResumeTemplateCategory>[] = [
           header: "ID",
           cell: ({getValue}) => {
                return (
-                    <Button variant="link" asChild className="p-0!">
+                    <Button variant="link" asChild className="p-0! max-w-xs truncate">
                          <Link href={`/admin/categories/${getValue()}`}>
                               {getValue() as string}
                          </Link>

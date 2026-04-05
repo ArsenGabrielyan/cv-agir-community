@@ -246,3 +246,45 @@ export async function deleteCategory(id: string, refreshPath: string): Promise<{
      revalidatePath(refreshPath)
      return {success: true}
 }
+
+export async function deleteCategories(
+  ids: string[],
+  refreshPath: string
+): Promise<{ error?: string; success?: boolean }> {
+     const isAdmin = await getIsAdmin();
+     const ip = await getIpAddress();
+     const user = await currentUser();
+     const errMsg = await getTranslations("error-messages");
+     if(!user || !user.id){
+          await logAction({
+               action: "UNAUTHORIZED",
+               metadata: {
+                    ip,
+                    route: "server-action:categories"
+               }
+          })
+          return {error: errMsg("auth.unauthorized")}
+     }
+     if(!isAdmin){
+          await logAction({
+               userId: user.id,
+               action: "NO_ADMIN_ACCESS",
+               metadata: {
+                    ip,
+                    route: "server-action:categories",
+                    method: "DELETE"
+               }
+          })
+          return {error: errMsg("auth.noAdminAccess")}
+     }
+     await db.resumeTemplateCategory.deleteMany({
+          where: { id: { in: ids } }
+     })
+     await logAction({
+          userId: user.id,
+          action: "CATEGORY_BULK_DELETE",
+          metadata: { ip, count: ids.length, categoryIds: ids }
+     })
+     revalidatePath(refreshPath)
+     return {success: true}
+}
