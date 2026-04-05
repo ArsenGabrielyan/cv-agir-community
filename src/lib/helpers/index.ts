@@ -34,17 +34,6 @@ export function escapeCSV(value: unknown) {
      return value
 }
 
-export function asTypedAuditRecord<A extends AuditAction>(
-     record: AuditLogServerData,
-     action: A
-): TypedAuditRecord<A> {
-     return {
-          ...record,
-          action,
-          metadata: record.metadata as unknown as AuditMetadata<A>,
-     };
-}
-
 export function isWithinDateRange(date: Date, from?: string, to?: string ) {
      const start = from ? new Date(`${from}T00:00:00`) : null;
      const end = to ? new Date(`${to}T23:59:59.999Z`) : null;

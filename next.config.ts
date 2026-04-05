@@ -41,16 +41,7 @@ const nextConfig: NextConfig = {
               ].join("; "),
             },
           ],
-        },
-        { // This is for my admin page, but TODO: Remove this once the admin page upgrade has been finished
-          source: "/api/(.*)",
-          headers: [
-            { key: "Access-Control-Allow-Origin", value: "*" },
-            { key: "Access-Control-Allow-Methods", value: "GET, POST, PUT, DELETE, OPTIONS" },
-            { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
-            { key: "Content-Range", value: "bytes : 0-9/*" },
-          ],
-        },
+        }
       ]
   },
   images: {
@@ -67,10 +58,6 @@ const nextConfig: NextConfig = {
     },
   },
   modularizeImports: {
-    "@mui/icons-material": {
-      transform: "@mui/icons-material/{{member}}",
-      preventFullImport: true
-    },
     "react-icons": {
       transform: "react-icons/{{member}}",
       preventFullImport: true
