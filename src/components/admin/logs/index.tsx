@@ -73,7 +73,7 @@ export default function AuditLogContent({data, page, pageSize, query}: AuditLogC
                                         setDates({ from: "", to: "" });
                                    }}>
                                         <FilterX/>
-                                        {btnTxt("refresh")}
+                                        {btnTxt("clear-filters")}
                                    </Button>
                               )}
                               <div className="space-y-2">
