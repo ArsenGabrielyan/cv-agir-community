@@ -4,6 +4,7 @@ import { getAllCategories } from "@/data/resumes";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
 export const generateMetadata = async(): Promise<Metadata> => {
      const t = await getTranslations("admin")
@@ -12,13 +13,16 @@ export const generateMetadata = async(): Promise<Metadata> => {
      }
 }
 
+const fetchTemplate = cache(getTemplateById);
+const fetchCategories = cache(getAllCategories)
+
 export default async function TemplatePage({params}: {
      params: Promise<{id: string}>
 }){
      const {id} = await params
      const [template, allCategories] = await Promise.all([
-          getTemplateById(id),
-          getAllCategories()
+          fetchTemplate(id),
+          fetchCategories()
      ]);
      if(!template) return notFound();
      const categories = allCategories.reduce<{name: string, id: string}[]>((acc, current) => {

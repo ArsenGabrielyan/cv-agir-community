@@ -5,6 +5,7 @@ import { IAdminAPISearchParams } from "@/lib/types/admin";
 import { TemplateServerData } from "@/lib/types/resume";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { cache } from "react";
 
 export const generateMetadata = async(): Promise<Metadata> => {
      const t = await getTranslations("admin")
@@ -13,12 +14,15 @@ export const generateMetadata = async(): Promise<Metadata> => {
      }
 }
 
+const fetchTemplates = cache(getTemplateList);
+const fetchCategories = cache(getAllCategories)
+
 export default async function TemplatesPage({searchParams}: {
      searchParams: Promise<IAdminAPISearchParams<TemplateServerData>>
 }){
      const [templates, allCategories] = await Promise.all([
-          getTemplateList(await searchParams),
-          getAllCategories()
+          fetchTemplates(await searchParams),
+          fetchCategories()
      ])
      const categories = allCategories.reduce<{name: string, id: string}[]>((acc, current) => {
           const x = acc.find(item => item.id === current.id);

@@ -1,10 +1,9 @@
 import { getCategoryById } from "@/actions/admin/categories";
-import { getTemplateById } from "@/actions/admin/templates";
 import { CategoryReadSection } from "@/components/admin/categories";
-import { TemplateReadSection } from "@/components/admin/templates";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
 export const generateMetadata = async(): Promise<Metadata> => {
      const t = await getTranslations("admin")
@@ -13,11 +12,13 @@ export const generateMetadata = async(): Promise<Metadata> => {
      }
 }
 
+const fetchCategory = cache(getCategoryById)
+
 export default async function CategoryPage({params}: {
      params: Promise<{id: string}>
 }){
      const {id} = await params
-     const category = await getCategoryById(id);
+     const category = await fetchCategory(id);
      if(!category) return notFound();
      return (
           <CategoryReadSection

@@ -2,7 +2,6 @@
 import { useTranslations } from "next-intl"
 import SidebarContentWrapper from "../sidebar-content"
 import dynamic from "next/dynamic"
-import TableLoader from "../loaders/table"
 import { TEMPLATE_COLS } from "../data-tables/columns/templates"
 import { TemplateServerData } from "@/lib/types/resume"
 import { Button } from "../ui/button"
@@ -13,12 +12,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import { CircleFlagLanguage } from "react-circle-flags"
 import TemplateFormModal from "./modal/templates/form"
 import TemplateDeleteModal from "./modal/templates/delete"
+import TemplatesTableLoader from "../loaders/table/templates"
 
 const TemplatesTable = dynamic(()=>import("../data-tables/tables/templates"),{
-     loading: () => <TableLoader
-          rows={10}
-          cols={7}
-     />
+     loading: TemplatesTableLoader
 })
 
 interface TemplatesAdminContentProps{

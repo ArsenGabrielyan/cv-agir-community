@@ -1,7 +1,6 @@
 "use client"
 import { useTranslations } from "next-intl"
 import SidebarContentWrapper from "../sidebar-content"
-import TableLoader from "../loaders/table"
 import { ResumeTemplateCategory } from "@db"
 import dynamic from "next/dynamic"
 import { CATEGORY_COLS } from "../data-tables/columns/categories"
@@ -11,12 +10,10 @@ import { Link, usePathname } from "@/i18n/routing"
 import { formatDate } from "date-fns"
 import CategoryFormModal from "./modal/categories/form"
 import CategoryDeleteModal from "./modal/categories/delete"
+import CategoriesTableLoader from "../loaders/table/categories"
 
 const CategoryTable = dynamic(()=>import("../data-tables/tables/categories"),{
-     loading: () => <TableLoader
-          rows={10}
-          cols={3}
-     />
+     loading: CategoriesTableLoader
 })
 
 interface CategoriesContentProps{
