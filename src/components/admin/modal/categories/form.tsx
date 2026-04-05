@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { CategoryFormType } from "@/lib/types/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CategoryFormSchema } from "@/schemas/admin";
+import { getCategoryFormSchema } from "@/schemas/admin";
 import { useState, useTransition } from "react";
 import LoadingButton from "@/components/buttons/loading-button";
 import { toast } from "sonner";
@@ -23,10 +23,14 @@ interface CategoryFormModalProps{
 export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormModalProps){
      const path = usePathname()
      const errMsg = useTranslations("error-messages")
+     const btnTxt = useTranslations("buttons")
+     const t = useTranslations("admin.dialog.category")
+     const formTxt = useTranslations("form")
      const [isPending, startTransition] = useTransition()
      const [isOpen, setIsOpen] = useState(false)
+     const validationMsg = useTranslations("validations.category-name")
      const form = useForm<CategoryFormType>({
-          resolver: zodResolver(CategoryFormSchema),
+          resolver: zodResolver(getCategoryFormSchema(validationMsg)),
           defaultValues: {
                name: name ?? ""
           }
@@ -49,7 +53,7 @@ export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormMo
      }
      return (
           <ModalWrapper
-               title={!id ? "Ստեղծել Կատեգորիա" : "Խմբագրել Կատեգորիան"}
+               title={!id ? t("create") : t("edit")}
                isOpen={isOpen}
                setIsOpen={setIsOpen}
                triggerButton={triggerBtn}
@@ -63,12 +67,11 @@ export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormMo
                               disabled={isPending}
                               render={({field})=>(
                                    <FormItem>
-                                        <FormLabel>Կատեգորիայի անունը</FormLabel>
+                                        <FormLabel>{formTxt("category.name")}</FormLabel>
                                         <FormControl>
                                              <Input
                                                   {...field}
                                                   disabled={isPending}
-                                                  placeholder="Տեղադրել կատեգորիայի անունը այստեղ"
                                              />
                                         </FormControl>
                                         <FormMessage/>
@@ -79,12 +82,12 @@ export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormMo
                               {!id ? (
                                    <>
                                    <Plus/>
-                                   Ստեղծել
+                                   {btnTxt("create")}
                                    </>
                               ) : (
                                    <>
                                    <Edit/>
-                                   Խմբագրել
+                                   {btnTxt("edit")}
                                    </>
                               )}
                          </LoadingButton>

@@ -28,8 +28,10 @@ interface AuditLogContentProps{
      query: string
 }
 export default function AuditLogContent({data, page, pageSize, query}: AuditLogContentProps){
-     const t = useTranslations("admin")
+     const t = useTranslations("admin.audit-log")
      const auditTxt = useTranslations("audit-log")
+     const btnTxt = useTranslations("buttons")
+
      const [search, setSearch] = useState(query)
      const [categories, setCategories] = useState("")
      const [dates, setDates] = useState({
@@ -50,12 +52,12 @@ export default function AuditLogContent({data, page, pageSize, query}: AuditLogC
      const filters = Object.entries(AUDIT_QUICK_FILTERS) as [QuickFilterType,AuditAction[]][]
      const isEmpty = useMemo(()=>categories.trim()==="" && search.trim()==="",[search, categories])
      return (
-          <SidebarContentWrapper title={t("audit-log.title")}>
+          <SidebarContentWrapper title={t("title")}>
                <div className="space-y-4 mb-4 w-full">
                     <div className="flex items-center justify-between gap-4 w-full">
                          <InputGroup className="max-w-lg">
                               <InputGroupInput
-                                   placeholder="Որոնել իրադարձություն"
+                                   placeholder={t("search")}
                                    value={search}
                                    onChange={e=>setSearch(e.target.value)}
                               />
@@ -71,14 +73,14 @@ export default function AuditLogContent({data, page, pageSize, query}: AuditLogC
                                         setDates({ from: "", to: "" });
                                    }}>
                                         <FilterX/>
-                                        Մաքրել Ֆիլտրը
+                                        {btnTxt("refresh")}
                                    </Button>
                               )}
                               <div className="space-y-2">
-                                   <Label>Ֆիլտրել ըստ տեսակի</Label>
+                                   <Label>{t("filter.label")}</Label>
                                    <Select value={categories} onValueChange={setCategories}>
                                         <SelectTrigger>
-                                             <SelectValue placeholder="Տեասկ"/>
+                                             <SelectValue placeholder={t("filter.placeholder")}/>
                                         </SelectTrigger>
                                         <SelectContent>
                                              {filters.map(([k,filters])=>(

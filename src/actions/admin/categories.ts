@@ -7,7 +7,7 @@ import { logAction } from "@/data/logs";
 import { getIpAddress } from "@/actions/ip";
 import { getTranslations } from "next-intl/server";
 import { getResumeTemplateCategoryById } from "@/data/resumes";
-import { CategoryFormSchema } from "@/schemas/admin";
+import { getCategoryFormSchema } from "@/schemas/admin";
 import { CategoryFormType } from "@/lib/types/schemas";
 import { revalidatePath } from "next/cache";
 
@@ -87,8 +87,10 @@ export async function createCategory(values: CategoryFormType, refreshPath: stri
      error?: string,
      success?: string
 }> {
-     const validatedFields = CategoryFormSchema.safeParse(values);
+     const validationMsg = await getTranslations("validations.category-name")
+     const validatedFields = getCategoryFormSchema(validationMsg).safeParse(values);
      const errMsg = await getTranslations("error-messages");
+     const successMsg = await getTranslations("success-messages.category")
      if(!validatedFields.success){
           await logAction({
                action: "VALIDATION_ERROR",
@@ -136,15 +138,17 @@ export async function createCategory(values: CategoryFormType, refreshPath: stri
           }
      })
      revalidatePath(refreshPath)
-     return {success: "Կատեգորիան ստեղծված է"}
+     return {success: successMsg("create")}
 }
 
 export async function editCategory(id: string, values: CategoryFormType, refreshPath: string): Promise<{
      error?: string,
      success?: string
 }>{
-     const validatedFields = CategoryFormSchema.safeParse(values);
+     const validationMsg = await getTranslations("validations.category-name")
+     const validatedFields = getCategoryFormSchema(validationMsg).safeParse(values);
      const errMsg = await getTranslations("error-messages");
+     const successMsg = await getTranslations("success-messages.category")
      if(!validatedFields.success){
           await logAction({
                action: "VALIDATION_ERROR",
@@ -190,7 +194,7 @@ export async function editCategory(id: string, values: CategoryFormType, refresh
           metadata: { ip, categoryId: data.id }
      })
      revalidatePath(refreshPath)
-     return {success: "Կատեգորիան խմբագրված է"}
+     return {success: successMsg("edit")}
 }
 
 export async function deleteCategory(id: string, refreshPath: string): Promise<{

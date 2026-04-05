@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { TemplateFormType } from "@/lib/types/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TemplateFormSchema } from "@/schemas/admin";
+import { getTemplateFormSchema } from "@/schemas/admin";
 import { useRef, useState, useTransition } from "react";
 import LoadingButton from "@/components/buttons/loading-button";
 import { toast } from "sonner";
@@ -34,10 +34,14 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
      const path = usePathname()
      const errMsg = useTranslations("error-messages")
      const langTxt = useTranslations("langs")
+     const t = useTranslations("admin.dialog.template")
+     const formTxt = useTranslations("form")
+     const btnTxt = useTranslations("buttons")
      const [isPending, startTransition] = useTransition()
      const [isOpen, setIsOpen] = useState(false)
+     const validationMsg = useTranslations("validations.template")
      const form = useForm<TemplateFormType>({
-          resolver: zodResolver(TemplateFormSchema),
+          resolver: zodResolver(getTemplateFormSchema(validationMsg)),
           defaultValues: {
                locale: data?.locale || undefined,
                name: data?.name || undefined,
@@ -72,7 +76,7 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
      const openCssInput = () => inputCSS.current?.click();
      return (
           <ModalWrapper
-               title={!id ? "Ստեղծել Շաբլոն" : "Խմբագրել Շաբլոնը"}
+               title={!id ? t("create") : t("edit")}
                isOpen={isOpen}
                setIsOpen={setIsOpen}
                triggerButton={triggerBtn}
@@ -82,7 +86,7 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                     <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                          <Tabs className="w-full gap-4">
                               <TabsList className="w-full">
-                                   <TabsTrigger value="info">Տեղեկություն</TabsTrigger>
+                                   <TabsTrigger value="info">{t("info")}</TabsTrigger>
                                    <TabsTrigger value="html">HTML</TabsTrigger>
                                    <TabsTrigger value="css">CSS</TabsTrigger>
                               </TabsList>
@@ -94,11 +98,11 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                              disabled={isPending}
                                              render={({field})=>(
                                                   <FormItem>
-                                                       <FormLabel>Լեզու</FormLabel>
+                                                       <FormLabel>{formTxt("locale.label")}</FormLabel>
                                                        <Select value={field.value} onValueChange={field.onChange} disabled={isPending}>
                                                             <FormControl>
                                                                  <SelectTrigger className="w-full">
-                                                                      <SelectValue placeholder="Ընտրել շաբլոնի լեզուն"/>
+                                                                      <SelectValue placeholder={formTxt("locale.placeholder")}/>
                                                                  </SelectTrigger>
                                                             </FormControl>
                                                             <SelectContent>
@@ -120,12 +124,12 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                              disabled={isPending}
                                              render={({field})=>(
                                                   <FormItem>
-                                                       <FormLabel>Շաբլոնի անունը</FormLabel>
+                                                       <FormLabel>{formTxt("template-name.label")}</FormLabel>
                                                        <FormControl>
                                                             <Input
                                                                  {...field}
                                                                  disabled={isPending}
-                                                                 placeholder="Իմ ամենահետաքրքիր շաբլոնը"
+                                                                 placeholder={formTxt("template-name.placeholder")}
                                                             />
                                                        </FormControl>
                                                        <FormMessage/>
@@ -139,12 +143,12 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                         disabled={isPending}
                                         render={({field})=>(
                                              <FormItem>
-                                                  <FormLabel>Նկարագրություն</FormLabel>
+                                                  <FormLabel>{formTxt("desc.label")}</FormLabel>
                                                   <FormControl>
                                                        <Textarea
                                                             {...field}
                                                             disabled={isPending}
-                                                            placeholder="Տեղադրել Շաբլոնի մասին տեղեկություն"
+                                                            placeholder={formTxt("desc.placeholder")}
                                                             rows={5}
                                                        />
                                                   </FormControl>
@@ -159,12 +163,12 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                              disabled={isPending}
                                              render={({field})=>(
                                                   <FormItem>
-                                                       <FormLabel>Կատեգորիա</FormLabel>
+                                                       <FormLabel>{formTxt("category.label")}</FormLabel>
                                                        {categories.length > 0 ? (
                                                             <Select value={field.value} onValueChange={field.onChange} disabled={isPending}>
                                                                  <FormControl>
                                                                       <SelectTrigger className="w-full">
-                                                                           <SelectValue placeholder="Ընտրել կատեգորիան"/>
+                                                                           <SelectValue placeholder={formTxt("category.placeholder")}/>
                                                                       </SelectTrigger>
                                                                  </FormControl>
                                                                  <SelectContent>
@@ -188,7 +192,7 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                              disabled={isPending}
                                              render={({field})=>(
                                                   <FormItem>
-                                                       <FormLabel>Նկարի անուն</FormLabel>
+                                                       <FormLabel>{formTxt("imgName")}</FormLabel>
                                                        <FormControl>
                                                             <Input
                                                                  {...field}
@@ -212,7 +216,7 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                                        <CodeTextArea
                                                             {...field}
                                                             type="html"
-                                                            label="HTML Կոդ"
+                                                            label="HTML"
                                                        />
                                                   </FormControl>
                                                   <FormMessage/>
@@ -236,11 +240,11 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                         />
                                         <Button className="flex-1" type="button" variant="outline" onClick={openHtmlInput}>
                                              <Upload/>
-                                             Վերբեռնել
+                                             {btnTxt("upload")}
                                         </Button>
                                         <Button className="flex-1" type="button" variant="outline" onClick={()=>form.resetField("htmlTemplate")}>
                                              <RotateCcw/>
-                                             Վերակայել
+                                             {btnTxt("reset")}
                                         </Button>
                                    </div>
                               </TabsContent>
@@ -254,7 +258,7 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                                        <CodeTextArea
                                                             {...field}
                                                             type="css"
-                                                            label="CSS Կոդ"
+                                                            label="CSS"
                                                        />
                                                   </FormControl>
                                                   <FormMessage/>
@@ -278,11 +282,11 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                         />
                                         <Button className="flex-1" type="button" variant="outline" onClick={openCssInput}>
                                              <Upload/>
-                                             Վերբեռնել
+                                             {btnTxt("upload")}
                                         </Button>
                                         <Button className="flex-1" type="button" variant="outline" onClick={()=>form.resetField("cssStyle")}>
                                              <RotateCcw/>
-                                             Վերակայել
+                                             {btnTxt("reset")}
                                         </Button>
                                    </div>
                               </TabsContent>
@@ -292,12 +296,12 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                    {!id ? (
                                         <>
                                         <Plus/>
-                                        Ստեղծել
+                                        {btnTxt("create")}
                                         </>
                                    ) : (
                                         <>
                                         <Edit/>
-                                        Խմբագրել
+                                        {btnTxt("edit")}
                                         </>
                                    )}
                               </LoadingButton>
@@ -306,7 +310,7 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                                    form.reset();
                               }}>
                                    <RotateCcw/>
-                                   Վերակայել
+                                   {btnTxt("reset")}
                               </Button>
                          </div>
                     </form>

@@ -34,7 +34,10 @@
           "go-back": "Back",
           "clear-filters": "Clear Filters",
           "create": "Create",
-          "export": "Export"
+          "export": "Export",
+          "refresh": "Refresh",
+          "reset": "Reset",
+          "upload": "Upload"
      },
      "nav-links": {
           "menu": "Menu",

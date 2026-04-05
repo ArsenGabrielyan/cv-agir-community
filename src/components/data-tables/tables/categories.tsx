@@ -108,7 +108,9 @@ export default function CategoriesTable({ columns, data, searchColumn = "name" }
                </div>
                {selectedRows.length > 0 && (
                     <div className="py-2 px-4 border shadow-md rounded-md bg-card text-card-foreground flex items-center justify-between gap-4">
-                         <span className="text-sm text-muted-foreground">{selectedRows.length} ընտրված կատեգորիա</span>
+                         <span className="text-sm text-muted-foreground">{t("rows.categories",{
+                              count: selectedRows.length.toString()
+                         })}</span>
                          <CategoryDeleteModal
                               ids={selectedIds}
                               type="bulk"
@@ -116,7 +118,7 @@ export default function CategoriesTable({ columns, data, searchColumn = "name" }
                               triggerBtn={(
                                    <Button variant="destructive">
                                         <Trash2/>
-                                        Ջնջել ընտրվածը
+                                        {btnTxt("delete")}
                                    </Button>
                               )}
                          />

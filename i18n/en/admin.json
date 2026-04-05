@@ -17,12 +17,48 @@
                "default-title": "Untitled Template"
           },
           "audit-log": {
-               "title": "Audit Log"
+               "title": "Audit Log",
+               "search": "Search for event...",
+               "filter": {
+                    "label": "Type",
+                    "placeholder": "Filter by type"
+               }
+          },
+          "main": {
+               "title": "Welcome to our Admin Dashboard, {user}",
+               "desc": "This is where admins can manage categories and templates, and moderators can monitor the content of this web application to keep things safe.",
+               "prefixes": {
+                    "resume": "Resumes",
+                    "cover-letter": "Cover Letters",
+                    "templates": "Templates",
+                    "categories": "Categories",
+                    "users": "Users"
+               },
+               "back": "Back to the App"
+          },
+          "dialog": {
+               "template": {
+                    "create": "Create Template",
+                    "edit": "Edit Template",
+                    "single": "Are you sure you want to delete the template?",
+                    "plural": "Are you sure you want to delete many templates?",
+                    "info": "information"
+               },
+               "category": {
+                    "create": "Create Category",
+                    "edit": "Edit Category",
+                    "single": "Are you sure you want to delete the category?",
+                    "plural": "Are you sure you want to delete many categories?"
+               },
+               "desc": "This action cannot be undone."
           }
      },
      "table": {
+          "rows": {
+               "templates": "{count} templates",
+               "categories": "{count} categories"
+          },
           "pagination": {
-               "rows-count": "{selected} of {filtered} row(s) selected.",
                "row-per-page": "Rows per page",
                "page-count": "Page {index} of {count}",
                "buttons": {

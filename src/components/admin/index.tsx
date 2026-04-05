@@ -14,14 +14,14 @@ interface AdminContentProps{
      usersCount: number
 }
 export default function AdminContent({cvCount, clCount, templateCount, categoryCount, usersCount}: AdminContentProps){
-     const t = useTranslations("admin")
+     const t = useTranslations("admin.main")
      const locale = useLocale()
      const user = useCurrentUser()
      if(!user) return redirect({ href: "/", locale })
      return (
-          <SidebarContentWrapper title={`Բարի գալուստ մեր Ադմինիստրատորի վահանակ, ${user?.name?.split(" ")[0]}`}>
+          <SidebarContentWrapper title={t("title",{user: user?.name?.split(" ")[0] ?? "Admin"})}>
                <div className="space-y-4">
-                    <p className="text-sm md:text-base text-muted-foreground">Այստեղ ադմինիստրատորները կարող են կառավարել կատեգորիաները և շաբլոնները, իսկ մոդերատորները կարող են վերահսկել այս վեբ հավելվածի բովանդակությունը՝ իրերը անվտանգ պահելու համար։</p>
+                    <p className="text-sm md:text-base text-muted-foreground">{t("desc")}</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 w-full">
                          <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
                               <div className="text-primary bg-secondary rounded-md size-20 p-3 flex justify-center items-center">
@@ -29,7 +29,7 @@ export default function AdminContent({cvCount, clCount, templateCount, categoryC
                               </div>
                               <div className="space-y-2 text-right">
                                    <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{cvCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">Ռեզյումեներ</p>
+                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.resume")}</p>
                               </div>
                          </div>
                          <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
@@ -38,7 +38,7 @@ export default function AdminContent({cvCount, clCount, templateCount, categoryC
                               </div>
                               <div className="space-y-2 text-right">
                                    <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{clCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">Ուղեկցող նամակներ</p>
+                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.cover-letter")}</p>
                               </div>
                          </div>
                          <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
@@ -47,7 +47,7 @@ export default function AdminContent({cvCount, clCount, templateCount, categoryC
                               </div>
                               <div className="space-y-2 text-right">
                                    <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{templateCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">Շաբլոններ</p>
+                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.templates")}</p>
                               </div>
                          </div>
                          <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
@@ -56,7 +56,7 @@ export default function AdminContent({cvCount, clCount, templateCount, categoryC
                               </div>
                               <div className="space-y-2 text-right">
                                    <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{categoryCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">Կատեգորիաներ</p>
+                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.categories")}</p>
                               </div>
                          </div>
                          <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
@@ -65,14 +65,14 @@ export default function AdminContent({cvCount, clCount, templateCount, categoryC
                               </div>
                               <div className="space-y-2 text-right">
                                    <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{usersCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">Օգտատերներ</p>
+                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.users")}</p>
                               </div>
                          </div>
                     </div>
                     <Button variant="outline" asChild>
                          <Link href="/">
                               <ChevronLeft/>
-                              Վերադառանալ Հավելված
+                              {t("back")}
                          </Link>
                     </Button>
                </div>

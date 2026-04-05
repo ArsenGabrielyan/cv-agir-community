@@ -1,16 +1,33 @@
 import { languages } from "@/i18n/config"
+import { TFunction } from "@/i18n/types"
 import * as z from "zod"
 
-export const CategoryFormSchema = z.object({
-     name: z.string().min(1,"Պարտադիր է գրել կատեգորիայի անունը").max(100,"Կատեգորիայի անունը շատ երկար է")
+export const getCategoryFormSchema = (t: TFunction<"validations.category-name">) => z.object({
+     name: z.string({
+          required_error: t("required")
+     }).min(3,t("tooShort")).max(100,t("tooLong"))
 })
 
-export const TemplateFormSchema = z.object({
-     locale: z.enum([languages.map(val=>val.code)[0],...languages.map(val=>val.code).slice(1)]),
-     name: z.string().min(1,"Պարտադիր է գրել շաբլոնի անունը").max(200,"Շաբլոնի անունը շատ երկար է"),
-     description: z.string().min(5,"Նկարագրությունը շատ կարճ է").max(1000,"Նկարագրությունը շատ երկար է"),
-     categoryId: z.string().min(1,"Կատեգորիան պարտադիր է").max(100,"Կատեգորիան շատ երկար է"),
-     imageName: z.string().min(1,"Նկարի անունը պարտադիր է").max(100,"Նկարի անունը շատ երկար է"),
-     htmlTemplate: z.string().min(10,"Պարտադիր է տեղադրել HTML Կոդը"),
-     cssStyle: z.string().min(10,"Պարտադիր է տեղադրել CSS Կոդը"),
+export const getTemplateFormSchema = (t: TFunction<"validations.template">) => z.object({
+     locale: z.enum([languages.map(val=>val.code)[0],...languages.map(val=>val.code).slice(1)],{
+          required_error: t("locale")
+     }),
+     name: z.string({
+          required_error: t("name.required")
+     }).min(3,t("name.tooShort")).max(200,t("name.tooLong")),
+     description: z.string({
+          required_error: t("desc.required")
+     }).min(5,t("desc.tooShort")).max(1000,t("desc.tooLong")),
+     categoryId: z.string({
+          required_error: t("category")
+     }),
+     imageName: z.string({
+          required_error: t("imageName.required")
+     }).min(3,t("imageName.tooShort")).max(100,t("imageName.tooLong")),
+     htmlTemplate: z.string({
+          required_error: t("html-code.required")
+     }).min(10,t("html-code.tooShort")).max(1_000_000,t("html-code.tooLong")),
+     cssStyle: z.string({
+          required_error: t("css-code.required")
+     }).min(10,t("css-code.tooShort")).max(1_000_000,t("css-code.tooShort")),
 })

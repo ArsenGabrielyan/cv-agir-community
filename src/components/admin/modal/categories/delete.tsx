@@ -20,6 +20,7 @@ interface CategoryDeleteModalProps{
 export default function CategoryDeleteModal({id, triggerBtn, redirectPath, ids, type="separate", onReset}: CategoryDeleteModalProps){
      const path = usePathname()
      const errMsg = useTranslations("error-messages")
+     const t = useTranslations("admin.dialog")
      const router = useRouter()
      const [isOpen, setIsOpen] = useState(false)
      const [isPending, startTransition] = useTransition()
@@ -48,8 +49,10 @@ export default function CategoryDeleteModal({id, triggerBtn, redirectPath, ids, 
                </DialogTrigger>
                <DialogContent>
                     <DialogHeader>
-                         <DialogTitle className="leading-6">Համոզվա՞ծ եք, որ ուզում եք ջնջել {type==="separate" ? "կատեգորիան" : "նշված կատեգորիաները"}։</DialogTitle>
-                         <DialogDescription>Այս գործողությունը հնարավոր չէ հետարկել:</DialogDescription>
+                         <DialogTitle className="leading-6">
+                              {t(`category.${type==="bulk" ? "plural" : "single"}`)}
+                         </DialogTitle>
+                         <DialogDescription>{t("desc")}</DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
                          <LoadingButton
@@ -58,7 +61,7 @@ export default function CategoryDeleteModal({id, triggerBtn, redirectPath, ids, 
                               loading={isPending}
                          >
                               <Trash2/>
-                              Ջնջել
+                              {buttonTxt("delete")}
                          </LoadingButton>
                          <Button variant="secondary" onClick={()=>setIsOpen(false)}>
                               {buttonTxt("close")}

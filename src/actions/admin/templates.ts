@@ -9,7 +9,7 @@ import { templateDataInclude, TemplateServerData } from "@/lib/types/resume";
 import { getResumeTemplateById } from "@/data/resumes";
 import { revalidatePath } from "next/cache";
 import { TemplateFormType } from "@/lib/types/schemas";
-import { TemplateFormSchema } from "@/schemas/admin";
+import { getTemplateFormSchema } from "@/schemas/admin";
 
 export async function getTemplateList(searchParams: IAdminAPISearchParams<TemplateServerData>){
      const isAdmin = await getIsAdmin();
@@ -78,8 +78,10 @@ export async function createTemplate(values: TemplateFormType, path: string): Pr
      error?: string,
      success?: string
 }>{
-     const validatedFields = TemplateFormSchema.safeParse(values);
+     const validationMsg = await getTranslations("validations.template")
+     const validatedFields = getTemplateFormSchema(validationMsg).safeParse(values);
      const errMsg = await getTranslations("error-messages");
+     const successMsg = await getTranslations("success-messages.template")
      if(!validatedFields.success){
           await logAction({
                action: "VALIDATION_ERROR",
@@ -123,15 +125,17 @@ export async function createTemplate(values: TemplateFormType, path: string): Pr
           metadata: {ip, templateId: result.id}
      })
      revalidatePath(path)
-     return {success: "Շաբլոնը ստեղծված է"}
+     return {success: successMsg("create")}
 }
 
 export async function editTemplate(id: string, values: TemplateFormType, path: string): Promise<{
      error?: string,
      success?: string
 }>{
-     const validatedFields = TemplateFormSchema.safeParse(values);
+     const validationMsg = await getTranslations("validations.template")
+     const validatedFields = getTemplateFormSchema(validationMsg).safeParse(values);
      const errMsg = await getTranslations("error-messages");
+     const successMsg = await getTranslations("success-messages.template")
      if(!validatedFields.success){
           await logAction({
                action: "VALIDATION_ERROR",
@@ -176,7 +180,7 @@ export async function editTemplate(id: string, values: TemplateFormType, path: s
           metadata: {ip, templateId: result.id}
      })
      revalidatePath(path)
-     return {success: "Շաբլոնը խմբագրված է"}
+     return {success: successMsg("edit")}
 }
 
 export async function deleteTemplate(id: string, path: string): Promise<{

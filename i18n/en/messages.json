@@ -4,6 +4,7 @@
           "rateLimitError": "You are trying too often. Please try again later",
           "unknownError": "Oops, something went wrong. Please try again",
           "settingsError": "Failed to update settings",
+          "refreshError": "Failed to refresh the data",
           "auth": {
                "noUserFound": "This email address is not registered",
                "wrong2FAcode": "Invalid 2FA code",
@@ -67,6 +68,14 @@
           "email-verified": "Your email has been successfully verified.",
           "register": "There is only one step left - verify your email address.",
           "recovery-link-sent": "The password reset link has been sent.",
-          "updated-settings": "Settings Updated"
+          "updated-settings": "Settings Updated",
+          "template": {
+               "create": "Template Created Successfully",
+               "edit": "Template Edited Successfully"
+          },
+          "category": {
+               "create": "Category Created Successfully",
+               "edit": "Category Edited Successfully"
+          }
      }
 }

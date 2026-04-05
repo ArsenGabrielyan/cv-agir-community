@@ -28,7 +28,25 @@
           "cardholder-address": {
                "label": "Cardholder's address",
                "placeholder": "Los Angeles, CA, United States"
-          }
+          },
+          "locale": {
+               "label": "Language",
+               "placeholder": "Template language"
+          },
+          "template-name": {
+               "label": "Template Name",
+               "placeholder": "My interesting template"
+          },
+          "desc": {
+               "label": "Description",
+               "placeholder": "Write an info about the template"
+          },
+          "category": {
+               "label": "Category",
+               "placeholder": "Choose a category",
+               "name": "Category Name"
+          },
+          "imgName": "Image Name"
      },
      "auth": {
           "misc-error": "Oops, something went wrong.",
@@ -132,6 +150,40 @@
           "end-after-start-date": "End date must be after start date",
           "num-shouldBe-int": "Number must be an integer",
           "2fa-code-tooLong": "Code is too long",
-          "text-too-long": "This text is too long"
+          "text-too-long": "This text is too long",
+          "category-name": {
+               "required": "Category name is required",
+               "tooShort": "Category name is too short",
+               "tooLong": "Category name is too long"
+          },
+          "template": {
+               "locale": "Template Language is required",
+               "name": {
+                    "required": "Template name is required",
+                    "tooShort": "Template name is too short",
+                    "tooLong": "Template name is too long"
+               },
+               "desc": {
+                    "required": "Description is required",
+                    "tooShort": "Description is too short",
+                    "tooLong": "Description is too long"
+               },
+               "category": "Category is required",
+               "imageName": {
+                    "required": "Image name is required",
+                    "tooShort": "Image name is too short",
+                    "tooLong": "Image name is is too long"
+               },
+               "html-code": {
+                    "required": "HTML Code is required",
+                    "tooShort": "HTML Code is too short",
+                    "tooLong": "HTML Code is too long"
+               },
+               "css-code": {
+                    "required": "CSS Code is required",
+                    "tooShort": "CSS Code is too short",
+                    "tooLong": "CSS Code is too long"
+               }
+          }
      }
 }
