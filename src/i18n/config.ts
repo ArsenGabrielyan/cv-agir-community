@@ -19,7 +19,8 @@ export const messages = [
      "dashboard",
      "editor",
      "messages",
-     "admin"
+     "admin",
+     "audit-log"
 ] as const
 
 export const locales: LangCodeType[] = languages.map(lang=>lang.code);
@@ -27,27 +28,21 @@ export const defaultLocale: LangCodeType = "hy";
 
 export async function loadMessages(locale: LangCodeType): Promise<MessageSchema>{
      const [
-          common,
-          landingPage,
-          form,
-          emailTemplates,
+          common, landingPage,
+          form, emailTemplates,
           dashboard,
-          editor,
-          appMessages,
-          admin
+          editor, appMessages,
+          admin, auditLog
      ] = await Promise.all(
           messages.map(msg=>
                import(`../../i18n/${locale}/${msg}.json`).then(m=>m.default)
           )
      );
      return {
-          ...common,
-          ...landingPage,
-          ...form,
-          ...emailTemplates,
+          ...common, ...landingPage,
+          ...form, ...emailTemplates,
           ...dashboard,
-          ...editor,
-          ...appMessages,
-          ...admin
+          ...editor, ...appMessages,
+          ...admin, ...auditLog
      }
 }

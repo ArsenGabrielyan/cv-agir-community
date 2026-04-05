@@ -6,6 +6,7 @@ import hyDashboard from "@i18n/hy/dashboard.json"
 import hyEditor from "@i18n/hy/editor.json"
 import hyMessages from "@i18n/hy/messages.json"
 import hyAdmin from "@i18n/hy/admin.json"
+import hyAuditLog from "@i18n/hy/audit-log.json"
 
 import { messages } from "./config"
 import { useTranslations, NamespaceKeys, NestedKeyOf } from "next-intl";
@@ -25,7 +26,8 @@ export type MessageSchema = (
      typeof hyDashboard &
      typeof hyEditor &
      typeof hyMessages &
-     typeof hyAdmin
+     typeof hyAdmin &
+     typeof hyAuditLog
 )
 export type Messages = typeof messages[number]
 

@@ -1,12 +1,14 @@
 "use server"
 import { logAction } from "@/data/logs";
-import { AuditActionKey, AuditLogServerData, auditLogsInclude, IAdminAPISearchParams} from "@/lib/types/admin";
+import { auditLogsInclude, IAdminSearchParams} from "@/lib/types/admin";
 import { getIsAdmin, currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getIpAddress } from "@/actions/ip";
 import { getTranslations } from "next-intl/server";
+import { Prisma } from "@db";
+import { revalidatePath } from "next/cache";
 
-export async function getAuditLogsList(searchParams: IAdminAPISearchParams<AuditLogServerData>){
+export async function getAuditLogsList(searchParams: IAdminSearchParams){
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
@@ -33,30 +35,22 @@ export async function getAuditLogsList(searchParams: IAdminAPISearchParams<Audit
           })
           throw new Error(errMsg("auth.noAdminAccess"))
      }
-     const {filter} = searchParams
-     const filters = filter ? Object.keys(filter)
-          .filter(key => key.startsWith("action-"))
-          .map(key => filter?.[key as AuditActionKey])
-          .flat() : [];
+     const {query} = searchParams
+     const where = {
+          ...(query && {
+               user: {
+                    name: {
+                         contains: query,
+                              mode: "insensitive",
+                         },
+                    },
+               }
+          ),
+     } satisfies Prisma.AuditLogWhereInput;
      const data = await db.auditLog.findMany({
-          where: {
-               ...(filter?.q && {
-                    OR: [
-                         {user: {name: {contains: filter?.q, mode: "insensitive"}}},
-                    ]
-               }),
-               ...(filters.length ? { action: { in: filters } } : {}),
-               ...(filter?.fromDate || filter?.toDate ? {
-                    createdAt: {
-                         ...(filter?.fromDate && { gte: new Date(filter?.fromDate) }),
-                         ...(filter?.toDate && { lte: new Date(filter?.toDate) }),
-                    }
-               } : {}),
-          },
-          orderBy: {
-               createdAt: "desc"
-          },
-          include: auditLogsInclude
-     });
+          where,
+          orderBy: { createdAt: "desc" },
+          include: auditLogsInclude,
+     })
      return data
 }

@@ -15,6 +15,11 @@ export type IAdminAPISearchParams<T> = T extends ResumeTemplate | ResumeTemplate
           toDate: Date,
      }>
 }
+export interface IAdminSearchParams{
+     query?: string,
+     page?: string,
+     pageSize?: string
+}
 export type AuditLogSearchType = Record<AuditAction, string>
 export type AuditLogSearchAction = AuditAction | keyof AuditLogSearchType
 
@@ -92,4 +97,8 @@ export type CategorySecondaryKeys = {
     admin: "template" | "category";
     forms: "invalidFields" | "rateLimit" | "unauthorized" | "noAdmin" | "defaultError";
     misc: "default" | "defaultError";
+};
+export type TypedAuditRecord<A extends AuditAction> = Omit<AuditLogServerData, "action" | "metadata"> & {
+     action: A;
+     metadata: AuditMetadata<A>;
 };

@@ -103,5 +103,13 @@
           "hy": "Armenian",
           "en": "English",
           "unknown": "Unknown"
+     },
+     "pagination": {
+          "page-size": {
+               "label": "Տողերի քանակը մեկ էջում",
+               "placeholder": "Ընտրել էջի չափը"
+          },
+          "next": "Առաջ",
+          "previous": "Ետ"
      }
 }

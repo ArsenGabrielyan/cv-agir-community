@@ -20,14 +20,6 @@
                "title": "Ակտիվություն"
           }
      },
-     "audit-log": {
-          "unknown-email": "Անհայտ էլ․ հասցե",
-          "ai": {
-               "desc-gen": "Նկարագրության գեներացում",
-               "exp-gen": "Աշխատանքային փորձի գեներացում",
-               "letter-gen": "Ուղեկցող նամակի գեներացում"
-          }
-     },
      "table": {
           "pagination": {
                "rows-count": "Ընտրված է {selected} տող {filtered}-ից։",

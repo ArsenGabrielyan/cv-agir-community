@@ -103,5 +103,13 @@
           "hy": "Հայերեն",
           "en": "Անգլերեն",
           "unknown": "Անհայտ լեզու"
+     },
+     "pagination": {
+          "page-size": {
+               "label": "Rows per page",
+               "placeholder": "Select page size"
+          },
+          "next": "Next",
+          "previous": "Previous"
      }
 }

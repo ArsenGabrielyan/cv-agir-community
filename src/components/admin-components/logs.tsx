@@ -1,6 +1,5 @@
 import { DateInput, InfiniteList, SimpleList, useTranslate} from "react-admin"
 import {formatDistanceToNow,} from "date-fns"
-import React from "react"
 import { QuickFilter } from "."
 import { AUDIT_QUICK_FILTERS } from "@/lib/constants"
 import Error from "@mui/icons-material/Error"

@@ -1,8 +1,9 @@
+"use client"
 import { Skeleton } from "../ui/skeleton";
 
 export default function AdminLoader(){
      return (
-          <div className="h-[100dvh]">
+          <div className="h-dvh">
                <div className="border-b-2 border-accent w-full h-12 flex justify-between items-center px-2">
                     <Skeleton className="size-[21.3px] rounded-md"/>
                     <Skeleton className="hidden md:block w-[200px] h-[40px] rounded-md"/>
@@ -37,6 +38,16 @@ export default function AdminLoader(){
                          </div>
                     </div>
                </div>
+          </div>
+     )
+}
+
+export function AuditLogLoader(){
+     return (
+          <div className="pb-2 px-2 border-b border-accent animate-pulse last:border-b-0 space-y-2">
+               <div className="bg-accent rounded-md w-3/4 h-[18px] md:h-5"/>
+               <div className="bg-accent rounded-md w-1/2 h-3.5 md:h-4"/>
+               <div className="bg-accent rounded-md w-1/4 h-3.5 md:h-4"/>
           </div>
      )
 }

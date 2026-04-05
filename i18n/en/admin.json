@@ -20,14 +20,6 @@
                "title": "Audit Log"
           }
      },
-     "audit-log": {
-          "unknown-email": "Unknown Email",
-          "ai": {
-               "desc-gen": "Summary Generation",
-               "exp-gen": "Work Experience Generation",
-               "letter-gen": "Cover Letter Generation"
-          }
-     },
      "table": {
           "pagination": {
                "rows-count": "{selected} of {filtered} row(s) selected.",

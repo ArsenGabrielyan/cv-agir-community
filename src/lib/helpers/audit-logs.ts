@@ -1,7 +1,9 @@
+import { TFunction } from "@/i18n/types";
 import { AUDIT_QUICK_FILTERS } from "@/lib/constants";
-import { AuditLogServerData, CategorySecondaryKeys } from "@/lib/types/admin";
+import { AuditLogServerData, AuditMetadata, AuditMetadataMap, CategorySecondaryKeys } from "@/lib/types/admin";
 import { AuditAction } from "@db";
 import { TranslateFunction } from "react-admin";
+import { asTypedAuditRecord } from ".";
 
 export function maskEmail(email: string): string {
      const [local, domain] = email.split("@");
@@ -175,4 +177,77 @@ export function getFormattedAuditLog(record: AuditLogServerData, t: TranslateFun
      const isError = AUDIT_QUICK_FILTERS.errors.includes(action);
 
      return { primaryText, secondaryText, isError };
+}
+
+export function buildMetadataFromDB<A extends keyof AuditMetadataMap>(metadata: AuditMetadata<A>): Partial<AuditMetadata<A>> {
+     if (!metadata || typeof metadata !== "object") {
+          return {};
+     }
+     const safe = {} as Partial<AuditMetadata<A>>;
+     for (const [key, value] of Object.entries(metadata) as [
+          keyof AuditMetadata<A>,
+          AuditMetadata<A>[keyof AuditMetadata<A>]
+     ][]) {
+          switch (key) {
+               case "email":
+                    safe[key] = maskEmail(String(value)) as Partial<
+                         AuditMetadata<A>
+                    >[typeof key];
+                    break;
+               case "reason":
+               case "tool":
+               case "route":
+                    safe[key] = maskText(String(value), 100) as Partial<
+                         AuditMetadata<A>
+                    >[typeof key];
+                    break;
+               case "reasons":
+                    safe[key] = (
+                         Array.isArray(value)
+                         ? value.map((r) => maskText(String(r), 100))
+                         : [maskText(String(value), 100)]
+                    ) as Partial<AuditMetadata<A>>[typeof key];
+                    break;
+               case "changedFields":
+                    case "fields":
+                    safe[key] = value as Partial<AuditMetadata<A>>[typeof key];
+                    break;
+               default:
+                    safe[key] = value as Partial<AuditMetadata<A>>[typeof key];
+          }
+     }
+     return safe;
+}
+
+export function formatAuditLog(
+     data: AuditLogServerData,
+     t: TFunction<"audit-log">
+) {
+     const { user, action, metadata } = asTypedAuditRecord(data, data.action as AuditAction);
+     const secondaryKey = getSecondaryKey(action);
+     const username = user?.name ?? t("primary.unknown-user");
+     const safeMetadata = buildMetadataFromDB(
+          metadata as unknown as AuditMetadata<keyof AuditMetadataMap>
+     ) as Record<string, unknown>;
+
+     const primaryText =
+          action === "TWO_FACTOR_UPDATED"
+               ? t("primary.TWO_FACTOR_UPDATED.text", {
+                    username,
+                    status: (safeMetadata.enabled as boolean | undefined)
+                         ? t("primary.TWO_FACTOR_UPDATED.enabled")
+                         : t("primary.TWO_FACTOR_UPDATED.disabled"),
+               })
+               : t(`primary.${action}`, { username });
+
+     const secondaryText = t(
+          `secondary.${secondaryKey ?? "default"}` as Parameters<typeof t>[0],
+          safeMetadata as Parameters<typeof t>[1]
+     );
+
+     return {
+          primaryText,
+          secondaryText,
+          isError: AUDIT_QUICK_FILTERS.errors.includes(action),
+     };
 }
