@@ -1,6 +1,6 @@
 import { db } from "@/lib/db"
 import { AuditAction, Prisma } from "@db"
-import { AuditMetadata } from "../lib/types/admin"
+import { AuditMetadata } from "@/lib/types/admin"
 import { maskEmail } from "@/lib/helpers/audit-logs"
 import { getTranslations } from "next-intl/server"
 
@@ -29,16 +29,5 @@ export async function logAction<A extends AuditAction>({userId,action,metadata}:
           });
      } catch(error){
           console.error(error)
-     }
-}
-
-export async function getLogById(id: string){
-     try{
-          const log = await db.auditLog.findUnique({
-               where: {id}
-          })
-          return log
-     } catch{
-          return null
      }
 }

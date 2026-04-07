@@ -4,7 +4,7 @@ import { IAdminAPISearchParams } from "@/lib/types/admin";
 import { db } from "@/lib/db";
 import { ResumeTemplateCategory } from "@db";
 import { logAction } from "@/data/logs";
-import { getIpAddress } from "@/actions/ip";
+import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
 import { getResumeTemplateCategoryById } from "@/data/resumes";
 import { getCategoryFormSchema } from "@/schemas/admin";

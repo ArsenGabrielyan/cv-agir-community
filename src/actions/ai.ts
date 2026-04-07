@@ -8,7 +8,7 @@ import { currentUser } from "@/lib/auth"
 import { checkLimiter, clearLimiter, incrementLimiter } from "@/lib/limiter"
 import { logAction } from "@/data/logs"
 import { maskText } from "@/lib/helpers/audit-logs"
-import { getIpAddress } from "./ip"
+import { getIpAddress } from "@/lib/ip"
 import { getTranslations } from "next-intl/server"
 import { sanitizeHTML } from "@/lib/sanitizer"
 

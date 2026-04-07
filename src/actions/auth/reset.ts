@@ -6,7 +6,7 @@ import { generatePasswordResetToken } from "@/lib/tokens"
 import { ResetPassType } from "@/lib/types/schemas"
 import { checkLimiter, clearLimiter, incrementLimiter } from "@/lib/limiter"
 import { logAction } from "@/data/logs"
-import { getIpAddress } from "../ip"
+import { getIpAddress } from "@/lib/ip"
 import { getTranslations } from "next-intl/server"
 
 export const reset = async (values: ResetPassType) => {

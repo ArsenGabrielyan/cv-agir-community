@@ -13,7 +13,7 @@ import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { LoginType } from "@/lib/types/schemas";
 import { checkLimiter } from "@/lib/limiter";
-import { getIpAddress } from "../ip";
+import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
 import { TFunction } from "@/i18n/types";
 

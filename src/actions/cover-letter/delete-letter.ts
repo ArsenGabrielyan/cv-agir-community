@@ -3,7 +3,7 @@ import { getCurrentCoverLetterByUserId } from "@/data/cover-letters";
 import { logAction } from "@/data/logs";
 import { currentUser } from "@/lib/auth"
 import { db } from "@/lib/db";
-import { getIpAddress } from "@/actions/ip";
+import { getIpAddress } from "@/lib/ip";
 import { del } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";

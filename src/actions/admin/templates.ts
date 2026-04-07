@@ -3,7 +3,7 @@ import { getIsAdmin, currentUser } from "@/lib/auth"
 import { IAdminAPISearchParams } from "@/lib/types/admin";
 import { db } from "@/lib/db";
 import { logAction } from "@/data/logs";
-import { getIpAddress } from "@/actions/ip";
+import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
 import { templateDataInclude, TemplateServerData } from "@/lib/types/resume";
 import { getResumeTemplateById } from "@/data/resumes";

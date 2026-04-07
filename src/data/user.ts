@@ -2,11 +2,12 @@ import { db } from "@/lib/db";
 import { SettingsType } from "@/lib/types/schemas";
 import { clearLimiter, incrementLimiter } from "@/lib/limiter";
 import { logAction } from "./logs";
-import { getIpAddress } from "@/actions/ip";
+import { getIpAddress } from "@/lib/ip";
 import { userInclude } from "@/lib/types";
 import { getTranslations } from "next-intl/server";
+import { cache } from "react";
 
-export const getUserByEmail = async (email: string) => {
+export const getUserByEmail = cache(async (email: string) => {
      try{
           const user = await db.user.findUnique({
                where: {email},
@@ -16,9 +17,9 @@ export const getUserByEmail = async (email: string) => {
      } catch{
           return null
      }
-}
+})
 
-export const getUserById = async (id: string) => {
+export const getUserById = cache(async (id: string) => {
      try{
           const user = await db.user.findUnique({
                where: {id},
@@ -28,7 +29,7 @@ export const getUserById = async (id: string) => {
      } catch{
           return null
      }
-}
+})
 
 export const updateUser = async(userId: string, values: SettingsType, limiterKey: string, successMsg: string) => {
      const errMsg = await getTranslations("error-messages");

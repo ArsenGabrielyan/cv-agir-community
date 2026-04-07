@@ -6,7 +6,7 @@ import { CoverLetterFormType } from "@/lib/types/schemas"
 import {del, put} from "@vercel/blob"
 import path from "path"
 import { getCurrentCoverLetterByUserId } from "@/data/cover-letters"
-import { getIpAddress } from "@/actions/ip"
+import { getIpAddress } from "@/lib/ip"
 import { logAction } from "@/data/logs"
 import { getTranslations } from "next-intl/server"
 

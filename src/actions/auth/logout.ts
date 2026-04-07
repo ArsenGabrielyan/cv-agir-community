@@ -2,7 +2,7 @@
 import { signOut } from "@/auth"
 import { logAction } from "@/data/logs"
 import { currentUser } from "@/lib/auth"
-import { getIpAddress } from "@/actions/ip"
+import { getIpAddress } from "@/lib/ip"
 import { getTranslations } from "next-intl/server"
 
 export const logout = async() => {

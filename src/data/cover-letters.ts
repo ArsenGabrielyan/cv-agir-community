@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
+import { cache } from "react";
 
-export const getCurrentCoverLetterByUserId = async(userId: string, id: string) => {
+export const getCurrentCoverLetterByUserId = cache(async(userId: string, id: string) => {
      try{
           const coverLetter = await db.coverLetter.findUnique({
                where: { id, userId }
@@ -9,9 +10,9 @@ export const getCurrentCoverLetterByUserId = async(userId: string, id: string) =
      } catch {
           return null
      }
-}
+})
 
-export const getCoverLetterById = async(id: string) => {
+export const getCoverLetterById = cache(async(id: string) => {
      try{
           const coverLetter = await db.coverLetter.findUnique({
                where: { id }
@@ -20,4 +21,4 @@ export const getCoverLetterById = async(id: string) => {
      } catch {
           return null
      }
-}
+})

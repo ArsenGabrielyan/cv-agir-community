@@ -1,8 +1,9 @@
 import { LangCodeType } from "@/i18n/types";
 import { db } from "@/lib/db"
 import { resumeDataInclude, templateDataInclude } from "@/lib/types/resume";
+import { cache } from "react";
 
-export async function getResumeCountByUserId(userId: string){
+export const getResumeCountByUserId = cache(async(userId: string) => {
      try{
           const resumeCount = await db.resume.count({
                where: {userId}
@@ -11,9 +12,9 @@ export async function getResumeCountByUserId(userId: string){
      } catch{
           return 0
      }
-}
+})
 
-export async function getResumeById(id: string){
+export const getResumeById = cache(async(id: string) =>{
      try{
           const resume = await db.resume.findUnique({
                where: {id},
@@ -23,9 +24,9 @@ export async function getResumeById(id: string){
      } catch {
           return null
      }
-}
+})
 
-export async function getResumeTemplateById(id: string){
+export const getResumeTemplateById = cache(async(id: string) => {
      try{
           const template = await db.resumeTemplate.findUnique({
                where: {id},
@@ -35,9 +36,9 @@ export async function getResumeTemplateById(id: string){
      } catch {
           return null
      }
-}
+})
 
-export async function getCurrentResumeByUserId(userId: string, resumeId: string){
+export const getCurrentResumeByUserId = cache(async(userId: string, resumeId: string) => {
      try{
           const currResume = await db.resume.findUnique({
                where: {
@@ -50,15 +51,15 @@ export async function getCurrentResumeByUserId(userId: string, resumeId: string)
      } catch {
           return null
      }
-}
+})
 
-export const getResumeTemplates = async (locale: LangCodeType) => await db.resumeTemplate.findMany({
+export const getResumeTemplates = cache(async(locale: LangCodeType) => await db.resumeTemplate.findMany({
      where: {
           locale
      }
-});
+}));
 
-export const getResumeTemplateCategoryById = async(id: string) => {
+export const getResumeTemplateCategoryById = cache(async(id: string) => {
      try{
           const category = await db.resumeTemplateCategory.findUnique({
                where: { id }
@@ -67,12 +68,12 @@ export const getResumeTemplateCategoryById = async(id: string) => {
      } catch {
           return null
      }
-}
+})
 
-export const getAllCategories = async() => {
+export const getAllCategories = cache(async() => {
      try {
           return await db.resumeTemplateCategory.findMany()
      } catch {
           return []
      }
-}
+})

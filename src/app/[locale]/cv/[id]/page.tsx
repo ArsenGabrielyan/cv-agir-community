@@ -7,7 +7,7 @@ import { cache } from "react";
 import dynamic from "next/dynamic";
 import { getUserById } from "@/data/user";
 import { logAction } from "@/data/logs";
-import { getIpAddress } from "@/actions/ip";
+import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
 
 const getResumeData = cache(async(id: string) => {

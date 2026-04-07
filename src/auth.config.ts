@@ -9,7 +9,7 @@ import bcrypt from "bcryptjs"
 import { env } from "@/lib/env"
 import { clearLimiter, incrementLimiter } from "./lib/limiter"
 import { logAction } from "@/data/logs"
-import { getIpAddress } from "./actions/ip"
+import { getIpAddress } from "./lib/ip"
 import { getTranslations } from "next-intl/server"
 
 export default { 

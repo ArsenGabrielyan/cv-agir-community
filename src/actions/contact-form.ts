@@ -5,7 +5,7 @@ import { ContactFormType } from "@/lib/types/schemas";
 import { checkLimiter, clearLimiter, incrementLimiter } from "@/lib/limiter";
 import { verifyCaptchaToken } from "@/lib/captcha";
 import { logAction } from "@/data/logs";
-import { getIpAddress } from "./ip"
+import { getIpAddress } from "@/lib/ip"
 import { getTranslations } from "next-intl/server";
 
 export const submitContactForm = async (token: string,values: ContactFormType) => {

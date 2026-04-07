@@ -3,7 +3,7 @@ import { logAction } from "@/data/logs"
 import { getUserByEmail } from "@/data/user"
 import { getVerificationTokenByToken } from "@/data/verification-token"
 import { db } from "@/lib/db"
-import { getIpAddress } from "@/actions/ip"
+import { getIpAddress } from "@/lib/ip"
 import { getTranslations } from "next-intl/server"
 
 export const newVerification = async (token: string) => {

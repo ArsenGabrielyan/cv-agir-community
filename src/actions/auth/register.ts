@@ -8,7 +8,7 @@ import { sendVerificationEmail } from "@/lib/mail"
 import { RegisterFormType } from "@/lib/types/schemas"
 import { checkLimiter, clearLimiter, incrementLimiter } from "@/lib/limiter"
 import { logAction } from "@/data/logs"
-import { getIpAddress } from "../ip"
+import { getIpAddress } from "@/lib/ip"
 import { getTranslations } from "next-intl/server"
 
 export const register = async (values: RegisterFormType) => {

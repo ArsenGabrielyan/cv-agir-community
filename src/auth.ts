@@ -6,7 +6,7 @@ import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation
 import { getAccountByUserId } from "@/data/account"
 import { CVPageSettings } from "@db"
 import { CustomPrismaAdapter } from "@/lib/auth/prisma-adapter"
-import { getIpAddress } from "@/actions/ip"
+import { getIpAddress } from "@/lib/ip"
 import { logAction } from "./data/logs"
 import { getTranslations } from "next-intl/server"
 

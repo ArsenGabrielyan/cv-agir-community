@@ -3,10 +3,9 @@ import { logAction } from "@/data/logs";
 import { auditLogsInclude, IAdminSearchParams} from "@/lib/types/admin";
 import { getIsAdmin, currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { getIpAddress } from "@/actions/ip";
+import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
 import { Prisma } from "@db";
-import { revalidatePath } from "next/cache";
 
 export async function getAuditLogsList(searchParams: IAdminSearchParams){
      const isAdmin = await getIsAdmin();

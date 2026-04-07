@@ -7,7 +7,7 @@ import { sendVerificationEmail } from "@/lib/mail";
 import { SettingsType } from "@/lib/types/schemas";
 import { checkLimiter, incrementLimiter } from "@/lib/limiter";
 import { logAction } from "@/data/logs";
-import { getIpAddress } from "./ip"
+import { getIpAddress } from "@/lib/ip"
 import { getTranslations } from "next-intl/server";
 
 export const applySettings = async(values: SettingsType): Promise<{
