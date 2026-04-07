@@ -1,7 +1,5 @@
 import PageLayout from "@/components/layout/page-layout";
-import { resumeDataInclude } from "@/lib/types/resume";
 import { currentUser } from "@/lib/auth";
-import { db } from "@/lib/db";
 import { Metadata } from "next";
 import DashboardContent from "@/components/pages/dashboard";
 import { routing } from "@/i18n/routing";
@@ -9,6 +7,7 @@ import { LocalePageProps } from "@/app/[locale]/layout";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { getDashboardByUserId } from "@/data/user";
 
 export const generateMetadata = async(): Promise<Metadata> => {
      const t = await getTranslations("dashboard");
@@ -29,17 +28,7 @@ export default async function DashboardPage({searchParams, params}: LocalePagePr
      if(!user || !user.id){
           return null;
      }
-     const [resumes, coverLetters] = await Promise.all([
-          db.resume.findMany({
-               where: { userId: user.id },
-               orderBy: { updatedAt: "desc" },
-               include: resumeDataInclude
-          }),
-          db.coverLetter.findMany({
-               where: { userId: user.id },
-               orderBy: { updatedAt: "desc" },
-          })
-     ])
+     const [resumes, coverLetters] = await getDashboardByUserId(user.id)
      return (
           <PageLayout sidebarMode>
                <DashboardContent

@@ -6,6 +6,7 @@ import { getIpAddress } from "@/lib/ip";
 import { userInclude } from "@/lib/types";
 import { getTranslations } from "next-intl/server";
 import { cache } from "react";
+import { resumeDataInclude } from "@/lib/types/resume";
 
 export const getUserByEmail = cache(async (email: string) => {
      try{
@@ -73,3 +74,21 @@ export const updateUser = async(userId: string, values: SettingsType, limiterKey
           return {error: errMsg("settingsError")}
      }
 }
+
+export const getDashboardByUserId = cache(async(userId: string) => {
+     try {
+          return await Promise.all([
+               db.resume.findMany({
+                    where: { userId },
+                    orderBy: { updatedAt: "desc" },
+                    include: resumeDataInclude
+               }),
+               db.coverLetter.findMany({
+                    where: { userId },
+                    orderBy: { updatedAt: "desc" },
+               })
+          ])
+     } catch {
+          return []
+     }
+})
