@@ -24,7 +24,7 @@ export default function CategoriesContent({data}: CategoriesContentProps){
           exportCSV({
                headers,
                data,
-               fileName: "categories.csv"
+               fileName: "categories"
           })
      }
      return (

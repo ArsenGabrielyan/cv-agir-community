@@ -65,7 +65,7 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
           exportCSV({
                headers,
                data,
-               fileName: "templates.csv"
+               fileName: "templates"
           })
      }
      const selectedRows = table.getSelectedRowModel().rows
