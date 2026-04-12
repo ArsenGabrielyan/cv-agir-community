@@ -30,7 +30,7 @@ export interface ThemeColorMap {
      }
 }
 export type Themes = "light" | "dark"
-export type ThemeColors = "zinc" | "rose" | "blue" | "green" | "orange"
+export type ThemeColors = "rose" | "blue" | "green" | "orange"
 export type ThemeColor = Record<
      ThemeColors,
      Record<Themes,ThemeColorMap>

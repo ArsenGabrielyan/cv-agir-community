@@ -1,6 +1,6 @@
 "use client"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import ModalWrapper from "..";
+import ModalWrapper from ".";
 import { Input } from "@/components/ui/input";
 import { Edit, Plus, RotateCcw, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -54,7 +54,6 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
      })
      const onSubmit = (values: TemplateFormType) => {
           if(isPending) return
-          // TODO: Add a button disabled check if these values aren't equal
           startTransition(async()=>{
                try {
                     const result = !id ? await createTemplate(values,path) : await editTemplate(id,values,path)
@@ -81,7 +80,6 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                setIsOpen={setIsOpen}
                triggerButton={triggerBtn}
           >
-               <Separator/>
                <Form {...form}>
                     <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                          <Tabs className="w-full gap-4">

@@ -18,20 +18,24 @@ import {
      TableHeader,
      TableRow,
 } from "@/components/ui/table"
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { DataTablePagination } from "../pagination"
 import { DataTableProps } from "@/lib/types"
 import { DataTableViewOptions } from "../col-toggle"
-import { ResumeTemplateCategory } from "@db"
-import { useTranslations } from "next-intl"
-import { InputGroup, InputGroupInput, InputGroupAddon } from "@/components/ui/input-group"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import { Download, FilterX, Plus, SearchIcon, Trash2 } from "lucide-react"
-import { escapeCSV } from "@/lib/helpers"
+import { useTranslations } from "next-intl"
+import { TemplateServerData } from "@/lib/types/resume"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import CategoryFormModal from "@/components/admin/modal/categories/form"
-import CategoryDeleteModal from "@/components/admin/modal/categories/delete"
+import { exportCSV } from "@/lib/helpers"
+import TemplateFormModal from "@/components/admin/modal/templates"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
+import { usePathname } from "next/navigation"
+import { deleteTemplates } from "@/actions/admin/templates"
+import { toast } from "sonner"
 
-export default function CategoriesTable({ columns, data, searchColumn = "name" }: DataTableProps<ResumeTemplateCategory>){
+export default function TemplatesTable({ columns, data, searchColumn="name", categories }: DataTableProps<TemplateServerData> & {categories: {name: string, id: string}[]}){
      const [sorting, setSorting] = useState<SortingState>([]);
      const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
      const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -57,35 +61,64 @@ export default function CategoriesTable({ columns, data, searchColumn = "name" }
      const t = useTranslations("table")
      const btnTxt = useTranslations("buttons")
      const exportCsv = () => {
-          const headers = [...table.getFlatHeaders().map(val=>val.id).filter(val=>val!=="select" && val!=="actions"),"createdAt","updatedAt"]
-          const csv = table.getRowModel().rows.map(val=>{
-               const row = val.original;
-               return headers.map(h=>escapeCSV(row[h as keyof typeof row])).join(",")
-          });
-          const blob = new Blob([[headers.join(","), ...csv].join("\n")], {type : 'text/csv'});
-          const a = document.createElement('a');
-          a.download = 'categories.csv';
-          a.href = URL.createObjectURL(blob);
-          a.addEventListener('click', () => {
-               setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
-          });
-          a.click();
+          const headers = [...table.getFlatHeaders().map(val=>val.id).filter(val=>val!=="select" && val!=="actions"),"htmlTemplate","cssStyle","createdAt","updatedAt"]
+          exportCSV({
+               headers,
+               data,
+               fileName: "templates.csv"
+          })
      }
      const selectedRows = table.getSelectedRowModel().rows
      const selectedIds = selectedRows.map(row => row.original.id)
+     const path = usePathname()
+     const errMsg = useTranslations("error-messages")
+     const dialogTxt = useTranslations("admin.dialog")
+     const [isPending, startTransition] = useTransition()
+     const onAccept = () => {
+          startTransition(async()=>{
+               try {
+                    if(!selectedIds) return
+                    const result = await deleteTemplates(selectedIds, path)
+                    if(result.error) toast.error(result.error);
+                    if(result.success) {
+                         setRowSelection([])
+                    }
+               } catch (err) {
+                    toast.error(errMsg("unknownError"))
+                    console.error(err)
+               }
+          })
+     }
      return (
           <div className="space-y-2">
                <div className="flex items-center justify-between gap-4 w-full">
-                    <InputGroup className="max-w-lg">
-                         <InputGroupInput
-                              placeholder={t("filter.categories")}
-                              value={(table.getColumn(searchColumn)?.getFilterValue() as string) ?? ""}
-                              onChange={(event) => table.getColumn(searchColumn)?.setFilterValue(event.target.value) }
-                         />
-                         <InputGroupAddon>
-                              <SearchIcon/>
-                         </InputGroupAddon>
-                    </InputGroup>
+                    <div className="flex items-center gap-2">
+                         <InputGroup className="max-w-lg">
+                              <InputGroupInput
+                                   placeholder={t("filter.templates")}
+                                   value={(table.getColumn(searchColumn)?.getFilterValue() as string) ?? ""}
+                                   onChange={(event)=>table.getColumn(searchColumn)?.setFilterValue(event.target.value)}
+                              />
+                              <InputGroupAddon>
+                                   <SearchIcon/>
+                              </InputGroupAddon>
+                         </InputGroup>
+                         <Select
+                              value={(table.getColumn("categoryId")?.getFilterValue() as string) ?? ""}
+                              onValueChange={val=>table.getColumn("categoryId")?.setFilterValue(val)}
+                         >
+                              <SelectTrigger>
+                                   <SelectValue placeholder={t("heading.templates.category")}/>
+                              </SelectTrigger>
+                              <SelectContent>
+                                   {categories.map(category=>(
+                                        <SelectItem value={category.id} key={category.id}>
+                                             {category.name}
+                                        </SelectItem>
+                                   ))}
+                              </SelectContent>
+                         </Select>
+                    </div>
                     <div className="flex items-center gap-2">
                          {columnFilters.length>0 && (
                               <Button variant="destructive" onClick={()=>setColumnFilters([])}>
@@ -93,12 +126,14 @@ export default function CategoriesTable({ columns, data, searchColumn = "name" }
                                    {btnTxt("clear-filters")}
                               </Button>
                          )}
-                         <CategoryFormModal triggerBtn={(
-                              <Button variant="outline" type="button">
+                         <TemplateFormModal
+                              categories={categories}
+                              triggerBtn={(
+                              <Button variant="outline">
                                    <Plus/>
                                    {btnTxt("create")}
                               </Button>
-                         )}/>
+                         )} />
                          <Button variant="outline" onClick={()=>exportCsv()}>
                               <Download/>
                               {btnTxt("export")}
@@ -108,20 +143,36 @@ export default function CategoriesTable({ columns, data, searchColumn = "name" }
                </div>
                {selectedRows.length > 0 && (
                     <div className="py-2 px-4 border shadow-md rounded-md bg-card text-card-foreground flex items-center justify-between gap-4">
-                         <span className="text-sm text-muted-foreground">{t("rows.categories",{
+                         <span className="text-sm text-muted-foreground">{t("rows.templates",{
                               count: selectedRows.length.toString()
                          })}</span>
-                         <CategoryDeleteModal
-                              ids={selectedIds}
-                              type="bulk"
-                              onReset={()=>setRowSelection([])}
-                              triggerBtn={(
+                         <AlertDialog>
+                              <AlertDialogTrigger asChild>
                                    <Button variant="destructive">
                                         <Trash2/>
                                         {btnTxt("delete")}
                                    </Button>
-                              )}
-                         />
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                   <AlertDialogHeader>
+                                        <AlertDialogTitle>{dialogTxt("template.plural")}</AlertDialogTitle>
+                                        <AlertDialogDescription>{dialogTxt("desc")}</AlertDialogDescription>
+                                   </AlertDialogHeader>
+                                   <AlertDialogFooter>
+                                        <AlertDialogAction
+                                             variant="destructive"
+                                             onClick={onAccept}
+                                             disabled={isPending}
+                                        >
+                                             <Trash2/>
+                                             {btnTxt("delete")}
+                                        </AlertDialogAction>
+                                        <AlertDialogCancel>
+                                             {btnTxt("close")}
+                                        </AlertDialogCancel>
+                                   </AlertDialogFooter>
+                              </AlertDialogContent>
+                         </AlertDialog>
                     </div>
                )}
                <div className="overflow-hidden rounded-md border w-full">
@@ -157,7 +208,7 @@ export default function CategoriesTable({ columns, data, searchColumn = "name" }
                               ) : (
                                    <TableRow>
                                         <TableCell colSpan={columns.length} className="h-24 text-center">
-                                             {t("not-found.categories")}
+                                             {t("not-found.templates")}
                                         </TableCell>
                                    </TableRow>
                               )}

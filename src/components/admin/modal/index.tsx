@@ -6,6 +6,7 @@ import {
      DialogTitle,
      DialogTrigger,
 } from "@/components/ui/dialog"
+import { Separator } from "@/components/ui/separator";
 import React from "react";
 
 interface ModalWrapperProps{
@@ -34,6 +35,7 @@ export default function ModalWrapper({
                          {description && (
                               <DialogDescription>{description}</DialogDescription>
                          )}
+                         <Separator/>
                     </DialogHeader>
                     {children}
                </DialogContent>

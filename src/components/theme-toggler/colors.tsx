@@ -9,11 +9,6 @@ const availableColors: Record<ThemeColors,{
      dark: string,
      title: string
 }> = {
-     zinc: {
-          light: "bg-zinc-900",
-          dark: "bg-zinc-700",
-          title: "Zinc"
-     },
      blue: {
           light: "bg-blue-600",
           dark: "bg-blue-700",

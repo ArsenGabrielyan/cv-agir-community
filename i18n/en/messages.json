@@ -71,11 +71,13 @@
           "updated-settings": "Settings Updated",
           "template": {
                "create": "Template Created Successfully",
-               "edit": "Template Edited Successfully"
+               "edit": "Template Edited Successfully",
+               "delete": "Template Deleted Successfully"
           },
           "category": {
                "create": "Category Created Successfully",
-               "edit": "Category Edited Successfully"
+               "edit": "Category Edited Successfully",
+               "delete": "Category Deleted Successfully"
           }
      }
 }

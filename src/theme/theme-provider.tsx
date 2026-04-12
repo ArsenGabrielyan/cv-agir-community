@@ -7,7 +7,7 @@ import setTheme, { getSavedColor } from "./helpers";
 const ThemeContext = createContext<ThemeColorsContext>({} as ThemeColorsContext);
 
 export default function ThemeColorsProvider({children}: ThemeProviderProps){
-     const [themeColor, setThemeColor] = useState<ThemeColors>(()=>getSavedColor() || "zinc");
+     const [themeColor, setThemeColor] = useState<ThemeColors>(()=>getSavedColor() || "blue");
      const [isMounted, setIsMounted] = useState(false);
      const {resolvedTheme} = useTheme()
 

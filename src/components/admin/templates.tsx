@@ -2,19 +2,22 @@
 import { useTranslations } from "next-intl"
 import SidebarContentWrapper from "../sidebar-content"
 import dynamic from "next/dynamic"
-import { TEMPLATE_COLS } from "../data-tables/columns/templates"
+import { TEMPLATE_COLS } from "../../data-tables/columns/templates"
 import { TemplateServerData } from "@/lib/types/resume"
 import { Button } from "../ui/button"
 import { ChevronLeft, Edit, Trash2 } from "lucide-react"
-import { Link } from "@/i18n/routing"
+import { Link, usePathname, useRouter } from "@/i18n/routing"
 import { formatDate } from "date-fns"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import { CircleFlagLanguage } from "react-circle-flags"
-import TemplateFormModal from "./modal/templates/form"
-import TemplateDeleteModal from "./modal/templates/delete"
+import TemplateFormModal from "./modal/templates"
 import TemplatesTableLoader from "../loaders/table/templates"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog"
+import { useTransition } from "react"
+import { deleteTemplate } from "@/actions/admin/templates"
+import { toast } from "sonner"
 
-const TemplatesTable = dynamic(()=>import("../data-tables/tables/templates"),{
+const TemplatesTable = dynamic(()=>import("../../data-tables/tables/templates"),{
      loading: TemplatesTableLoader
 })
 
@@ -43,7 +46,26 @@ export function TemplateReadSection({data, categories}: TemplateReadSectionProps
      const langTxt = useTranslations("langs")
      const headingTxt = useTranslations("table.heading")
      const t = useTranslations("admin")
+     const path = usePathname()
+     const errMsg = useTranslations("error-messages")
+     const router = useRouter()
+     const [isPending, startTransition] = useTransition()
      const btnTxt = useTranslations("buttons")
+     const onAccept = () => {
+          startTransition(async()=>{
+               try {
+                    if(!data.id) return
+                    const result = await deleteTemplate(data.id, path)
+                    if(result.error) toast.error(result.error);
+                    if(result.success) {
+                         router.replace("/admin/templates")
+                    }
+               } catch (err) {
+                    toast.error(errMsg("unknownError"))
+                    console.error(err)
+               }
+          })
+     }
      return (
           <SidebarContentWrapper title={data.name ?? t("templates.default-title")}>
                <div className="space-y-4 mb-4">
@@ -66,25 +88,38 @@ export function TemplateReadSection({data, categories}: TemplateReadSectionProps
                                    </Button>
                               )}
                          />
-                         <TemplateDeleteModal
-                              id={data.id}
-                              redirectPath="/admin/templates"
-                              triggerBtn={(
+                         <AlertDialog>
+                              <AlertDialogTrigger asChild>
                                    <Button variant="destructive">
                                         <Trash2/>
                                         {btnTxt("delete")}
                                    </Button>
-                              )}
-                         />
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                   <AlertDialogHeader>
+                                        <AlertDialogTitle>{t("dialog.template.single")}</AlertDialogTitle>
+                                        <AlertDialogDescription>{t("dialog.desc")}</AlertDialogDescription>
+                                   </AlertDialogHeader>
+                                   <AlertDialogFooter>
+                                        <AlertDialogAction
+                                             variant="destructive"
+                                             onClick={onAccept}
+                                             disabled={isPending}
+                                        >
+                                             <Trash2/>
+                                             {btnTxt("delete")}
+                                        </AlertDialogAction>
+                                        <AlertDialogCancel>
+                                             {btnTxt("close")}
+                                        </AlertDialogCancel>
+                                   </AlertDialogFooter>
+                              </AlertDialogContent>
+                         </AlertDialog>
                     </div>
                     <div className="flex items-center justify-center gap-2 flex-wrap">
                          <div className="flex-1">
                               <h2 className="text-lg font-semibold">{headingTxt("templates.category")}</h2>
-                              <Button variant="link" className="p-0!" asChild>
-                                   <Link href={`/admin/categories/${data.categoryId}`}>
-                                        {data.category.name}
-                                   </Link>
-                              </Button>
+                              <p className="text-sm md:text-base text-muted-foreground">{data.category.name}</p>
                          </div>
                          <div className="flex-1">
                               <h2 className="text-lg font-semibold">{headingTxt("templates.locale")}</h2>

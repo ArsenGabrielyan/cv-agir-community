@@ -25,13 +25,30 @@ export function fileReplacer(_: unknown, value: unknown){
      } : value
 }
 
-export function escapeCSV(value: unknown) {
+function escapeCSV(value: unknown) {
      if (value == null) return "";
      const str = String(value);
           if (str.includes(",") || str.includes('"') || str.includes("\n")) {
           return `"${str.replace(/"/g, '""')}"`;
      }
      return value
+}
+
+interface ExportCSVOptions<T>{
+     headers: string[],
+     data: T[],
+     fileName?: string
+}
+export function exportCSV<T>({headers, data, fileName="data"}: ExportCSVOptions<T>){
+     const csv = data.map(val=>headers.map(h=>escapeCSV(val[h as keyof typeof val])).join(","));
+     const blob = new Blob([[headers.join(","), ...csv].join("\n")], {type : 'text/csv'});
+     const a = document.createElement('a');
+     a.download = `${fileName}.csv`;
+     a.href = URL.createObjectURL(blob);
+     a.addEventListener('click', () => {
+          setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+     });
+     a.click();
 }
 
 export function isWithinDateRange(date: Date, from?: string, to?: string ) {

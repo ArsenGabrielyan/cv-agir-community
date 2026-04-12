@@ -41,7 +41,6 @@ export enum AdminLinks{
      AuditLog = "audit-log"
 }
 export enum Theme{
-     Zinc = "zinc",
      Rose = "rose",
      Blue = "blue",
      Green = "green",

@@ -1,6 +1,6 @@
 "use client"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import ModalWrapper from "..";
+import ModalWrapper from ".";
 import { Input } from "@/components/ui/input";
 import { Edit, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -13,7 +13,6 @@ import LoadingButton from "@/components/buttons/loading-button";
 import { toast } from "sonner";
 import { createCategory, editCategory } from "@/actions/admin/categories";
 import { usePathname } from "@/i18n/routing";
-import { Separator } from "@/components/ui/separator";
 
 interface CategoryFormModalProps{
      name?: string,
@@ -58,7 +57,6 @@ export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormMo
                setIsOpen={setIsOpen}
                triggerButton={triggerBtn}
           >
-               <Separator/>
                <Form {...form}>
                     <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                          <FormField

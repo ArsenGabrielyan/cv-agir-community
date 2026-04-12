@@ -47,10 +47,13 @@
                "category": {
                     "create": "Create Category",
                     "edit": "Edit Category",
-                    "single": "Are you sure you want to delete the category?",
-                    "plural": "Are you sure you want to delete many categories?"
+                    "title": "Are you sure you want to delete the category?"
                },
                "desc": "This action cannot be undone."
+          },
+          "empty-category": {
+               "title": "There are currently no categories",
+               "desc": "Please add categories"
           }
      },
      "table": {
