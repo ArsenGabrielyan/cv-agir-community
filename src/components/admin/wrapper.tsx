@@ -7,30 +7,17 @@ import { ADMIN_LINKS } from "@/lib/constants/links";
 import ThemeToggler from "../theme-toggler";
 import { Button } from "../ui/button";
 import { RefreshCw } from "lucide-react";
-import { useEffect, useTransition } from "react";
-import { usePathname } from '@/i18n/routing'
-import { refreshPath } from "@/actions/admin/refresh";
-import { toast } from "sonner";
-import { cn } from "@/lib/utils";
+import { useEffect } from "react";
+import { useRouter } from '@/i18n/routing'
 import { useTranslations } from "next-intl";
 
 interface AdminWrapperProps{
      children: React.ReactNode
 }
 export default function AdminWrapper({children}: AdminWrapperProps){
-     const path = usePathname()
-     const [isRefreshing, startTransition] = useTransition();
-     const errMsg = useTranslations("error-messages")
+     const router = useRouter()
      const btnTxt = useTranslations("buttons")
-     const refreshData = () => {
-          startTransition(async() => {
-               try{
-                    await refreshPath(path)
-               } catch {
-                    toast.error(errMsg("refreshError"))
-               }
-          })
-     }
+     const refreshData = () => router.refresh()
      useEffect(()=>{
           const onFocus = () => refreshData();
           window.addEventListener("focus", onFocus);
@@ -63,8 +50,8 @@ export default function AdminWrapper({children}: AdminWrapperProps){
                          <div className="flex justify-center items-center gap-2.5 mt-2">
                               <ThemeToggler/>
                               <LanguageSwitcher/>
-                              <Button variant="outline" size="icon" onClick={refreshData} disabled={isRefreshing} title={btnTxt("refresh")}>
-                                   <RefreshCw className={cn(isRefreshing && "animate-spin")}/>
+                              <Button variant="outline" size="icon" onClick={refreshData} title={btnTxt("refresh")}>
+                                   <RefreshCw/>
                               </Button>
                          </div>
                     </div>

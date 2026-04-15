@@ -31,9 +31,9 @@ import { Button } from "@/components/ui/button"
 import { exportCSV } from "@/lib/helpers"
 import TemplateFormModal from "@/components/admin/modal/templates"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
-import { usePathname } from "next/navigation"
 import { deleteTemplates } from "@/actions/admin/templates"
 import { toast } from "sonner"
+import { useRouter } from "@/i18n/routing"
 
 export default function TemplatesTable({ columns, data, searchColumn="name", categories }: DataTableProps<TemplateServerData> & {categories: {name: string, id: string}[]}){
      const [sorting, setSorting] = useState<SortingState>([]);
@@ -70,7 +70,7 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
      }
      const selectedRows = table.getSelectedRowModel().rows
      const selectedIds = selectedRows.map(row => row.original.id)
-     const path = usePathname()
+     const router = useRouter()
      const errMsg = useTranslations("error-messages")
      const dialogTxt = useTranslations("admin.dialog")
      const [isPending, startTransition] = useTransition()
@@ -78,10 +78,11 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
           startTransition(async()=>{
                try {
                     if(!selectedIds) return
-                    const result = await deleteTemplates(selectedIds, path)
+                    const result = await deleteTemplates(selectedIds)
                     if(result.error) toast.error(result.error);
                     if(result.success) {
                          setRowSelection([])
+                         router.refresh()
                     }
                } catch (err) {
                     toast.error(errMsg("unknownError"))

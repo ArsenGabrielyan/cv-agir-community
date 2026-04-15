@@ -12,7 +12,7 @@ import { useRef, useState, useTransition } from "react";
 import LoadingButton from "@/components/buttons/loading-button";
 import { toast } from "sonner";
 import { createTemplate, editTemplate } from "@/actions/admin/templates";
-import { usePathname } from "@/i18n/routing";
+import { useRouter } from "@/i18n/routing";
 import { TemplateServerData } from "@/lib/types/resume";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { locales } from "@/i18n/config";
@@ -22,7 +22,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { CodeTextArea } from "@/components/code-textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
 
 interface TemplateFormModalProps{
      data?: TemplateServerData
@@ -31,7 +30,7 @@ interface TemplateFormModalProps{
      categories: {name: string, id: string}[]
 }
 export default function TemplateFormModal({data, id, triggerBtn, categories}: TemplateFormModalProps){
-     const path = usePathname()
+     const router = useRouter()
      const errMsg = useTranslations("error-messages")
      const langTxt = useTranslations("langs")
      const t = useTranslations("admin.dialog.template")
@@ -56,12 +55,13 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
           if(isPending) return
           startTransition(async()=>{
                try {
-                    const result = !id ? await createTemplate(values,path) : await editTemplate(id,values,path)
+                    const result = !id ? await createTemplate(values) : await editTemplate(id,values)
                     if(result.error) toast.error(result.error);
                     if(result.success) {
                          toast.success(result.success);
                          setIsOpen(false);
                          form.reset()
+                         router.refresh()
                     }
                } catch (err) {
                     toast.error(errMsg("unknownError"))

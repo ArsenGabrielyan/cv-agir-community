@@ -4,7 +4,7 @@ import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel, AlertDialogFooter } from "@/components/ui/alert-dialog";
-import { usePathname } from "@/i18n/routing";
+import { useRouter } from "@/i18n/routing";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { ResumeTemplateCategory } from "@db";
@@ -20,15 +20,18 @@ export default function ActionsCell({item}: ActionsCellProps){
      const btnTxt = useTranslations("buttons")
      const errMsg = useTranslations("error-messages")
      const successMsg = useTranslations("success-messages.category")
-     const path = usePathname()
+     const router = useRouter()
      const [isPending, startTransition] = useTransition()
      const onAccept = () => {
           if(isPending) return
           startTransition(async()=>{
                try {
-                    const result = await deleteCategory(item.id, path)
+                    const result = await deleteCategory(item.id)
                     if(result.error) toast.error(result.error);
-                    if(result.success) toast.success(successMsg("delete"))
+                    if(result.success) {
+                         toast.success(successMsg("delete"))
+                         router.refresh()
+                    }
                } catch (err) {
                     toast.error(errMsg("unknownError"))
                     console.error(err)

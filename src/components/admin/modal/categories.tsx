@@ -12,7 +12,7 @@ import { useState, useTransition } from "react";
 import LoadingButton from "@/components/buttons/loading-button";
 import { toast } from "sonner";
 import { createCategory, editCategory } from "@/actions/admin/categories";
-import { usePathname } from "@/i18n/routing";
+import { useRouter } from "@/i18n/routing";
 
 interface CategoryFormModalProps{
      name?: string,
@@ -20,7 +20,7 @@ interface CategoryFormModalProps{
      triggerBtn: React.JSX.Element,
 }
 export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormModalProps){
-     const path = usePathname()
+     const router = useRouter()
      const errMsg = useTranslations("error-messages")
      const btnTxt = useTranslations("buttons")
      const t = useTranslations("admin.dialog.category")
@@ -38,11 +38,12 @@ export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormMo
           if((!!id && name===form.watch("name")) || isPending) return
           startTransition(async()=>{
                try {
-                    const result = !id ? await createCategory(values,path) : await editCategory(id,values,path)
+                    const result = !id ? await createCategory(values) : await editCategory(id,values)
                     if(result.error) toast.error(result.error);
                     if(result.success) {
                          toast.success(result.success);
                          setIsOpen(false)
+                         router.refresh()
                     }
                } catch (err) {
                     toast.error(errMsg("unknownError"))

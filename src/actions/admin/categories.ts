@@ -9,7 +9,6 @@ import { getTranslations } from "next-intl/server";
 import { getResumeTemplateCategoryById } from "@/data/resumes";
 import { getCategoryFormSchema } from "@/schemas/admin";
 import { CategoryFormType } from "@/lib/types/schemas";
-import { revalidatePath } from "next/cache";
 
 export async function getCategoriesList(searchParams: IAdminAPISearchParams<ResumeTemplateCategory>){
      const isAdmin = await getIsAdmin();
@@ -83,7 +82,7 @@ export async function getCategoryById(id: string){
      return data
 }
 
-export async function createCategory(values: CategoryFormType, refreshPath: string): Promise<{
+export async function createCategory(values: CategoryFormType): Promise<{
      error?: string,
      success?: string
 }> {
@@ -137,11 +136,10 @@ export async function createCategory(values: CategoryFormType, refreshPath: stri
                categoryId: data.id
           }
      })
-     revalidatePath(refreshPath)
      return {success: successMsg("create")}
 }
 
-export async function editCategory(id: string, values: CategoryFormType, refreshPath: string): Promise<{
+export async function editCategory(id: string, values: CategoryFormType): Promise<{
      error?: string,
      success?: string
 }>{
@@ -193,11 +191,10 @@ export async function editCategory(id: string, values: CategoryFormType, refresh
           action: "CATEGORY_UPDATED",
           metadata: { ip, categoryId: data.id }
      })
-     revalidatePath(refreshPath)
      return {success: successMsg("edit")}
 }
 
-export async function deleteCategory(id: string, refreshPath: string): Promise<{
+export async function deleteCategory(id: string): Promise<{
      error?: string,
      success?: boolean
 }>{
@@ -247,13 +244,12 @@ export async function deleteCategory(id: string, refreshPath: string): Promise<{
           action: "CATEGORY_DELETED",
           metadata: { ip, categoryId: data.id }
      })
-     revalidatePath(refreshPath)
      return {success: true}
 }
 
 export async function deleteCategories(
-  ids: string[],
-  refreshPath: string
+     ids: string[],
+     refreshPath: string
 ): Promise<{ error?: string; success?: boolean }> {
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
@@ -289,6 +285,5 @@ export async function deleteCategories(
           action: "CATEGORY_BULK_DELETE",
           metadata: { ip, count: ids.length, categoryIds: ids }
      })
-     revalidatePath(refreshPath)
      return {success: true}
 }

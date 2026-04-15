@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import TemplateFormModal from "@/components/admin/modal/templates";
 import { TemplateServerData } from "@/lib/types/resume";
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel, AlertDialogFooter } from "@/components/ui/alert-dialog";
-import { usePathname } from "@/i18n/routing";
+import { useRouter } from "@/i18n/routing";
 import { useTransition } from "react";
 import { deleteTemplate } from "@/actions/admin/templates";
 import { toast } from "sonner";
@@ -21,15 +21,18 @@ export default function ActionsCell({item, categories}: ActionsCellProps){
      const btnTxt = useTranslations("buttons")
      const errMsg = useTranslations("error-messages")
      const successMsg = useTranslations("success-messages.template")
-     const path = usePathname()
+     const router = useRouter()
      const [isPending, startTransition] = useTransition()
      const onAccept = () => {
           startTransition(async()=>{
                try {
                     if(!item.id) return
-                    const result = await deleteTemplate(item.id, path)
+                    const result = await deleteTemplate(item.id)
                     if(result.error) toast.error(result.error);
-                    if(result.success) toast.success(successMsg("delete"))
+                    if(result.success) {
+                         toast.success(successMsg("delete"))
+                         router.refresh()
+                    }
                } catch (err) {
                     toast.error(errMsg("unknownError"))
                     console.error(err)

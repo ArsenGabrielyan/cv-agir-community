@@ -6,7 +6,7 @@ import { TEMPLATE_COLS } from "../../data-tables/columns/templates"
 import { TemplateServerData } from "@/lib/types/resume"
 import { Button } from "../ui/button"
 import { ChevronLeft, Edit, Trash2 } from "lucide-react"
-import { Link, usePathname, useRouter } from "@/i18n/routing"
+import { Link, useRouter } from "@/i18n/routing"
 import { formatDate } from "date-fns"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import { CircleFlagLanguage } from "react-circle-flags"
@@ -46,16 +46,15 @@ export function TemplateReadSection({data, categories}: TemplateReadSectionProps
      const langTxt = useTranslations("langs")
      const headingTxt = useTranslations("table.heading")
      const t = useTranslations("admin")
-     const path = usePathname()
-     const errMsg = useTranslations("error-messages")
      const router = useRouter()
+     const errMsg = useTranslations("error-messages")
      const [isPending, startTransition] = useTransition()
      const btnTxt = useTranslations("buttons")
      const onAccept = () => {
           startTransition(async()=>{
                try {
                     if(!data.id) return
-                    const result = await deleteTemplate(data.id, path)
+                    const result = await deleteTemplate(data.id)
                     if(result.error) toast.error(result.error);
                     if(result.success) {
                          router.replace("/admin/templates")

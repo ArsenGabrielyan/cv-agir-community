@@ -7,7 +7,6 @@ import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
 import { templateDataInclude, TemplateServerData } from "@/lib/types/resume";
 import { getResumeTemplateById } from "@/data/resumes";
-import { revalidatePath } from "next/cache";
 import { TemplateFormType } from "@/lib/types/schemas";
 import { getTemplateFormSchema } from "@/schemas/admin";
 
@@ -74,7 +73,7 @@ export async function getTemplateById(id: string) {
      return data
 }
 
-export async function createTemplate(values: TemplateFormType, path: string): Promise<{
+export async function createTemplate(values: TemplateFormType): Promise<{
      error?: string,
      success?: string
 }>{
@@ -124,11 +123,10 @@ export async function createTemplate(values: TemplateFormType, path: string): Pr
           action: "TEMPLATE_CREATED",
           metadata: {ip, templateId: result.id}
      })
-     revalidatePath(path)
      return {success: successMsg("create")}
 }
 
-export async function editTemplate(id: string, values: TemplateFormType, path: string): Promise<{
+export async function editTemplate(id: string, values: TemplateFormType): Promise<{
      error?: string,
      success?: string
 }>{
@@ -179,11 +177,10 @@ export async function editTemplate(id: string, values: TemplateFormType, path: s
           action: 'TEMPLATE_UPDATED',
           metadata: {ip, templateId: result.id}
      })
-     revalidatePath(path)
      return {success: successMsg("edit")}
 }
 
-export async function deleteTemplate(id: string, path: string): Promise<{
+export async function deleteTemplate(id: string): Promise<{
      error?: string,
      success?: boolean
 }>{
@@ -233,11 +230,10 @@ export async function deleteTemplate(id: string, path: string): Promise<{
           action: 'TEMPLATE_DELETED',
           metadata: {ip, templateId: data.id}
      })
-     revalidatePath(path)
      return {success: true}
 }
 
-export async function deleteTemplates(ids: string[], path: string): Promise<{
+export async function deleteTemplates(ids: string[]): Promise<{
      error?: string,
      success?: boolean
 }> {
@@ -275,6 +271,5 @@ export async function deleteTemplates(ids: string[], path: string): Promise<{
           action: "TEMPLATE_BULK_DELETE",
           metadata: {ip, count: ids.length, templateIds: ids}
      })
-     revalidatePath(path)
      return {success: true}
 }
