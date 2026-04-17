@@ -9,6 +9,7 @@ import { templateDataInclude, TemplateServerData } from "@/lib/types/resume";
 import { getResumeTemplateById } from "@/data/resumes";
 import { TemplateFormType } from "@/lib/types/schemas";
 import { getTemplateFormSchema } from "@/schemas/admin";
+import { revalidatePath } from "next/cache";
 
 export async function getTemplateList(searchParams: IAdminAPISearchParams<TemplateServerData>){
      const isAdmin = await getIsAdmin();
@@ -123,6 +124,7 @@ export async function createTemplate(values: TemplateFormType): Promise<{
           action: "TEMPLATE_CREATED",
           metadata: {ip, templateId: result.id}
      })
+     revalidatePath("/templates")
      return {success: successMsg("create")}
 }
 
@@ -177,6 +179,7 @@ export async function editTemplate(id: string, values: TemplateFormType): Promis
           action: 'TEMPLATE_UPDATED',
           metadata: {ip, templateId: result.id}
      })
+     revalidatePath("/templates")
      return {success: successMsg("edit")}
 }
 
@@ -230,6 +233,7 @@ export async function deleteTemplate(id: string): Promise<{
           action: 'TEMPLATE_DELETED',
           metadata: {ip, templateId: data.id}
      })
+     revalidatePath("/templates")
      return {success: true}
 }
 
@@ -271,5 +275,6 @@ export async function deleteTemplates(ids: string[]): Promise<{
           action: "TEMPLATE_BULK_DELETE",
           metadata: {ip, count: ids.length, templateIds: ids}
      })
+     revalidatePath("/templates")
      return {success: true}
 }
