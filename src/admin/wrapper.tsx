@@ -4,8 +4,8 @@ import Logo from "@/components/layout/logo";
 import LanguageSwitcher from "@/components/lang-switcher";
 import { AdminLink } from "@/components/layout/sidebar/sidebar-item";
 import { ADMIN_LINKS } from "@/lib/constants/links";
-import ThemeToggler from "../theme-toggler";
-import { Button } from "../ui/button";
+import ThemeToggler from "@/components/theme-toggler";
+import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import { useEffect } from "react";
 import { useRouter } from '@/i18n/routing'

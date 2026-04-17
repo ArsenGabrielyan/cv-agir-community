@@ -1,9 +1,9 @@
 "use client"
 import { useLocale, useTranslations } from "next-intl"
-import SidebarContentWrapper from "../sidebar-content"
+import SidebarContentWrapper from "@/components/sidebar-content"
 import { useCurrentUser } from "@/hooks/use-current-user"
 import { Link, redirect } from "@/i18n/routing"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import { ChevronLeft, FileText, FileUser, LayoutTemplate, List, Users } from "lucide-react"
 
 interface AdminContentProps{

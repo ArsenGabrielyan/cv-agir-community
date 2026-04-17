@@ -1,8 +1,8 @@
 "use client"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import ModalWrapper from ".";
+import ModalWrapper from "../modal-wrapper";
 import { Input } from "@/components/ui/input";
-import { Edit, Plus } from "lucide-react";
+import { Edit, Plus } from "lucide-react"
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { CategoryFormType } from "@/lib/types/schemas";

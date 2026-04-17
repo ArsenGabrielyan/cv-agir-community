@@ -1,10 +1,12 @@
 "use client"
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 import { CircleFlagLanguage } from "react-circle-flags";
 import { useTranslations } from "next-intl";
 import { LangCodeType } from "@/i18n/types";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
-export default function LocaleCell({locale}: {locale: LangCodeType}){
+export function LocaleCell({locale}: {locale: LangCodeType}){
      const t = useTranslations("langs")
      return (
           <Tooltip>
@@ -13,5 +15,15 @@ export default function LocaleCell({locale}: {locale: LangCodeType}){
                </TooltipTrigger>
                <TooltipContent>{t(locale ?? "unknown")}</TooltipContent>
           </Tooltip>
+     )
+}
+
+export function IdCell({id}: {id: string}){
+     return (
+          <Button variant="link" asChild className="p-0! max-w-xs truncate">
+               <Link href={`/admin/templates/${id}`}>
+                    {id}
+               </Link>
+          </Button>
      )
 }

@@ -1,6 +1,6 @@
 "use client"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import ModalWrapper from ".";
+import ModalWrapper from "../modal-wrapper";
 import { Input } from "@/components/ui/input";
 import { Edit, Plus, RotateCcw, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";

@@ -1,23 +1,23 @@
 "use client"
 import { useTranslations } from "next-intl"
-import SidebarContentWrapper from "../sidebar-content"
+import SidebarContentWrapper from "@/components/sidebar-content"
 import dynamic from "next/dynamic"
-import { TEMPLATE_COLS } from "../../data-tables/columns/templates"
+import { TEMPLATE_COLS } from "./cols"
 import { TemplateServerData } from "@/lib/types/resume"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import { ChevronLeft, Edit, Trash2 } from "lucide-react"
 import { Link, useRouter } from "@/i18n/routing"
 import { formatDate } from "date-fns"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CircleFlagLanguage } from "react-circle-flags"
-import TemplateFormModal from "./modal/templates"
-import TemplatesTableLoader from "../loaders/table/templates"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog"
+import TemplateFormModal from "./modal"
+import TemplatesTableLoader from "@/components/loaders/table/templates"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { useTransition } from "react"
 import { deleteTemplate } from "@/actions/admin/templates"
 import { toast } from "sonner"
 
-const TemplatesTable = dynamic(()=>import("../../data-tables/tables/templates"),{
+const TemplatesTable = dynamic(()=>import("./table"),{
      loading: TemplatesTableLoader
 })
 

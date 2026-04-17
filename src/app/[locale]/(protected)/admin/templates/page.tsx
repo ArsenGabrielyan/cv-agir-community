@@ -1,5 +1,5 @@
 import { getTemplateList } from "@/actions/admin/templates";
-import TemplatesAdminContent from "@/components/admin/templates";
+import TemplatesAdminContent from "@/admin/templates";
 import { getAllCategories } from "@/data/resumes";
 import { IAdminAPISearchParams } from "@/lib/types/admin";
 import { TemplateServerData } from "@/lib/types/resume";

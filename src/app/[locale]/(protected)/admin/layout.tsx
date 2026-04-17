@@ -5,7 +5,7 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { redirect, routing } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
-import AdminWrapper from "@/components/admin/wrapper";
+import AdminWrapper from "@/admin/wrapper";
 
 export const generateMetadata = async(): Promise<Metadata> => {
      const t = await getTranslations("admin")

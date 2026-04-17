@@ -1,5 +1,5 @@
 import { getCategoriesList } from "@/actions/admin/categories";
-import CategoriesContent from "@/components/admin/categories";
+import CategoriesContent from "@/admin/categories";
 import { IAdminAPISearchParams } from "@/lib/types/admin";
 import { ResumeTemplateCategory } from "@db";
 import { Metadata } from "next";

@@ -1,5 +1,5 @@
 import { getTemplateById } from "@/actions/admin/templates";
-import { TemplateReadSection } from "@/components/admin/templates";
+import { TemplateReadSection } from "@/admin/templates";
 import { getAllCategories } from "@/data/resumes";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";

@@ -1,15 +1,15 @@
 "use client"
 import { useTranslations } from "next-intl"
-import SidebarContentWrapper from "../sidebar-content"
+import SidebarContentWrapper from "@/components/sidebar-content"
 import { ResumeTemplateCategory } from "@db"
-import CategoryFormModal from "./modal/categories"
+import CategoryFormModal from "./modal"
 import { InputGroup, InputGroupInput, InputGroupAddon } from "@/components/ui/input-group"
 import { Download, FilterX, List, Plus, SearchIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { exportCSV } from "@/lib/helpers"
-import ActionsCell from "@/data-tables/cells/category-actions"
-import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription } from "../ui/empty"
+import ActionsCell from "@/admin/categories/actions"
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription } from "@/components/ui/empty"
 
 interface CategoriesContentProps{
      data: ResumeTemplateCategory[]

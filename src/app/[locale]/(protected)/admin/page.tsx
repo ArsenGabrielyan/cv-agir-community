@@ -1,4 +1,4 @@
-import AdminContent from "@/components/admin";
+import AdminContent from "@/admin";
 import { getAdminCounts } from "@/data/admin";
 
 export default async function AdminPage(){

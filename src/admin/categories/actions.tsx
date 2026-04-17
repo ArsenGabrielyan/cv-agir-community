@@ -9,7 +9,7 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 import { ResumeTemplateCategory } from "@db";
 import { deleteCategory } from "@/actions/admin/categories";
-import CategoryFormModal from "@/components/admin/modal/categories";
+import CategoryFormModal from "./modal";
 
 interface ActionsCellProps{
      item: ResumeTemplateCategory

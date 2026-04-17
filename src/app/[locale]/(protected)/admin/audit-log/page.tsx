@@ -1,5 +1,5 @@
 import { getAuditLogsList } from "@/actions/admin/logs";
-import AuditLogContent from "@/components/admin/logs";
+import AuditLogContent from "@/admin/audit-logs";
 import { IAdminSearchParams } from "@/lib/types/admin";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
