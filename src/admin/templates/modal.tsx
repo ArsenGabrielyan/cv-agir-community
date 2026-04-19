@@ -13,7 +13,7 @@ import LoadingButton from "@/components/buttons/loading-button";
 import { toast } from "sonner";
 import { createTemplate, editTemplate } from "@/actions/admin/templates";
 import { useRouter } from "@/i18n/routing";
-import { TemplateServerData } from "@/lib/types/resume";
+import { TemplateServerData } from "@/lib/types/server";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { locales } from "@/i18n/config";
 import { CircleFlagLanguage } from "react-circle-flags";

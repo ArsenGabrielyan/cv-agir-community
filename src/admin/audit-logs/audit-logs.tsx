@@ -1,5 +1,5 @@
 import AuditLogCard from "./audit-log-card";
-import { AuditLogServerData } from "@/lib/types/admin"
+import { AuditLogServerData } from "@/lib/types/server"
 
 interface AuditLogsListProps{
      auditLogs: AuditLogServerData[],

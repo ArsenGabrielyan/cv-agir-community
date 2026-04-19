@@ -1,6 +1,6 @@
 "use client"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ResumeServerData } from "@/lib/types/resume"
+import { ResumeServerData } from "@/lib/types/server"
 import { useSearchParams } from "next/navigation"
 import dynamic from "next/dynamic"
 import DocPageLoader from "../loaders/doc-page"

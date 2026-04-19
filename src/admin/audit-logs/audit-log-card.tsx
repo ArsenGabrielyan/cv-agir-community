@@ -1,7 +1,7 @@
 "use client"
 import { dateFNSLocales } from "@/i18n/config"
 import { formatAuditLog } from "@/lib/helpers/audit-logs"
-import { AuditLogServerData } from "@/lib/types/admin"
+import { AuditLogServerData } from "@/lib/types/server"
 import { cn } from "@/lib/utils"
 import { formatDistanceToNow } from "date-fns"
 import { CircleAlert, Clock } from "lucide-react"

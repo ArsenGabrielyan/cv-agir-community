@@ -17,7 +17,7 @@ import QRCode from "qrcode";
 import usePrint from "@/hooks/use-print"
 import { ExtendedUser } from "@/global"
 import { useRouter } from "@/i18n/routing"
-import { ResumeServerData } from "@/lib/types/resume"
+import { ResumeServerData } from "@/lib/types/server"
 import { Spinner } from "@/components/ui/spinner"
 import { useTranslations } from "next-intl"
 

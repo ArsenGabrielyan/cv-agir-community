@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { getLanguageLevel } from "@/lib/helpers"
 import {format} from "date-fns"
 import dynamic from "next/dynamic"
-import { ResumeServerData } from "@/lib/types/resume"
+import { ResumeServerData } from "@/lib/types/server"
 import { useTranslations } from "next-intl"
 
 interface ResumeInfoProps{

@@ -4,7 +4,7 @@ import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import TemplateFormModal from "./modal";
-import { TemplateServerData } from "@/lib/types/resume";
+import { TemplateServerData } from "@/lib/types/server";
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel, AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { useRouter } from "@/i18n/routing";
 import { useTransition } from "react";

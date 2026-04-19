@@ -63,22 +63,3 @@ export interface IResumeDynamicFields{
           percentage: number
      }
 }
-export const resumeDataInclude = {
-     template: true,
-     education: true,
-     experience: true,
-     languages: true,
-     links: true,
-     courses: true,
-     skills: true,
-     references: true
-} satisfies Prisma.ResumeInclude
-export type ResumeServerData = Prisma.ResumeGetPayload<{
-     include: typeof resumeDataInclude
-}>
-export const templateDataInclude = {
-     category: true
-} satisfies Prisma.ResumeTemplateInclude
-export type TemplateServerData = Prisma.ResumeTemplateGetPayload<{
-     include: typeof templateDataInclude
-}>

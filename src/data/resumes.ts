@@ -1,6 +1,6 @@
 import { LangCodeType } from "@/i18n/types";
 import { db } from "@/lib/db"
-import { resumeDataInclude, templateDataInclude } from "@/lib/types/resume";
+import { resumeDataSelect, templateDataSelect } from "@/lib/types/server";
 import { cache } from "react";
 
 export const getResumeCountByUserId = cache(async(userId: string) => {
@@ -18,7 +18,7 @@ export const getResumeById = cache(async(id: string) =>{
      try{
           const resume = await db.resume.findUnique({
                where: {id},
-               include: resumeDataInclude
+               select: resumeDataSelect
           });
           return resume
      } catch {
@@ -30,7 +30,7 @@ export const getResumeTemplateById = cache(async(id: string) => {
      try{
           const template = await db.resumeTemplate.findUnique({
                where: {id},
-               include: templateDataInclude
+               select: templateDataSelect
           });
           return template
      } catch {
@@ -45,7 +45,7 @@ export const getCurrentResumeByUserId = cache(async(userId: string, resumeId: st
                     id: resumeId,
                     userId
                },
-               include: resumeDataInclude
+               select: resumeDataSelect
           });
           return currResume
      } catch {
@@ -54,9 +54,8 @@ export const getCurrentResumeByUserId = cache(async(userId: string, resumeId: st
 })
 
 export const getResumeTemplates = cache(async(locale: LangCodeType) => await db.resumeTemplate.findMany({
-     where: {
-          locale
-     }
+     where: { locale },
+     select: templateDataSelect
 }));
 
 export const getResumeTemplateCategoryById = cache(async(id: string) => {

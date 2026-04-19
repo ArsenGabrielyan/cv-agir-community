@@ -3,10 +3,10 @@ import { SettingsType } from "@/lib/types/schemas";
 import { clearLimiter, incrementLimiter } from "@/lib/limiter";
 import { logAction } from "./logs";
 import { getIpAddress } from "@/lib/ip";
-import { userInclude } from "@/lib/types";
+import { userInclude } from "@/lib/types/server";
 import { getTranslations } from "next-intl/server";
 import { cache } from "react";
-import { resumeDataInclude } from "@/lib/types/resume";
+import { resumeDataSelect } from "@/lib/types/server";
 
 export const getUserByEmail = cache(async (email: string) => {
      try{
@@ -81,7 +81,7 @@ export const getDashboardByUserId = cache(async(userId: string) => {
                db.resume.findMany({
                     where: { userId },
                     orderBy: { updatedAt: "desc" },
-                    include: resumeDataInclude
+                    select: resumeDataSelect
                }),
                db.coverLetter.findMany({
                     where: { userId },

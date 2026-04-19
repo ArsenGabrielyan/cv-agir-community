@@ -1,11 +1,12 @@
 "use server"
 import { logAction } from "@/data/logs";
-import { auditLogsInclude, IAdminSearchParams} from "@/lib/types/admin";
+import { IAdminSearchParams} from "@/lib/types/admin";
 import { getIsAdmin, currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
 import { Prisma } from "@db";
+import { auditLogsSelect } from "@/lib/types/server"
 
 export async function getAuditLogsList(searchParams: IAdminSearchParams){
      const isAdmin = await getIsAdmin();
@@ -49,7 +50,7 @@ export async function getAuditLogsList(searchParams: IAdminSearchParams){
      const data = await db.auditLog.findMany({
           where,
           orderBy: { createdAt: "desc" },
-          include: auditLogsInclude,
+          select: auditLogsSelect
      })
      return data
 }

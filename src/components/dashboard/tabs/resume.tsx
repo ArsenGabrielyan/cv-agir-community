@@ -1,5 +1,5 @@
 "use client"
-import { ResumeServerData } from "@/lib/types/resume"
+import { ResumeServerData } from "@/lib/types/server"
 import { CreateResumeButton } from "../create-buttons"
 import ResumeCard from "../resumes/resume-card"
 import { TFunction } from "@/i18n/types"

@@ -1,7 +1,7 @@
 "use client"
 import { useTranslations } from "next-intl"
 import SidebarContentWrapper from "@/components/sidebar-content"
-import { AuditLogServerData, QuickFilterType } from "@/lib/types/admin"
+import { QuickFilterType } from "@/lib/types/admin"
 import { PaginationWithLinks } from "@/components/pagination-with-links"
 import { InputGroup, InputGroupInput, InputGroupAddon } from "@/components/ui/input-group"
 import { FilterX, SearchIcon } from "lucide-react"
@@ -15,6 +15,7 @@ import AuditLogContentLoader from "@/components/loaders/audit-log-loader"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { isWithinDateRange } from "@/lib/helpers"
+import { AuditLogServerData } from "@/lib/types/server"
 
 const AuditLogsList = dynamic(()=>import("./audit-logs"),{
      loading: AuditLogContentLoader

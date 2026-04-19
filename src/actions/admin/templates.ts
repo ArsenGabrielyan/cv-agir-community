@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 import { logAction } from "@/data/logs";
 import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
-import { templateDataInclude, TemplateServerData } from "@/lib/types/resume";
+import { templateDataSelect, TemplateServerData } from "@/lib/types/server";
 import { getResumeTemplateById } from "@/data/resumes";
 import { TemplateFormType } from "@/lib/types/schemas";
 import { getTemplateFormSchema } from "@/schemas/admin";
@@ -41,7 +41,7 @@ export async function getTemplateList(searchParams: IAdminAPISearchParams<Templa
                },
                categoryId: filter?.categoryId
           },
-          include: templateDataInclude,
+          select: templateDataSelect,
           ...(orderbyClause ? {orderBy: orderbyClause} : {})
      });
      return range ? data.slice(range[0],range[1]+1) : data

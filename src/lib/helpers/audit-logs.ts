@@ -1,7 +1,8 @@
 import { TFunction } from "@/i18n/types";
 import { AUDIT_QUICK_FILTERS } from "@/lib/constants";
-import { AuditLogServerData, AuditMetadata, AuditMetadataMap, CategorySecondaryKeys, TypedAuditRecord } from "@/lib/types/admin";
+import { AuditMetadata, AuditMetadataMap, CategorySecondaryKeys, TypedAuditRecord } from "@/lib/types/admin";
 import { AuditAction } from "@db";
+import { AuditLogServerData } from "../types/server";
 
 function asTypedAuditRecord<A extends AuditAction>(
      record: AuditLogServerData,

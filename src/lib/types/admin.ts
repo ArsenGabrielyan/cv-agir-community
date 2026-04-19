@@ -1,5 +1,6 @@
 import { SettingsType } from "./schemas";
-import { AuditAction, Prisma, ResumeTemplate, ResumeTemplateCategory } from "@db";
+import { AuditAction, ResumeTemplate, ResumeTemplateCategory } from "@db";
+import { AuditLogServerData } from "./server";
 
 // Admin filter types
 export type QuickFilterType = "errors" | "auth" | "coverLetter" | "resume" | "ai" | "app" | "template" | "category"
@@ -80,14 +81,7 @@ export interface AuditMetadataMap{
      [AuditAction.UNAUTHORIZED]: ActionIPResult & {route?: string}
 }
 export type AuditMetadata<A extends AuditAction> = A extends keyof AuditMetadataMap ? AuditMetadataMap[A] : undefined
-export const auditLogsInclude = {
-     user: true
-} satisfies Prisma.AuditLogInclude
-export type AuditLogServerData = Prisma.AuditLogGetPayload<{
-     include: {
-          user: boolean | undefined
-     }
-}>
+
 export type CategorySecondaryKeys = {
     auth: "error" | "success" | "email" | "oauth";
     content: "coverLetter" | "resume";

@@ -2,7 +2,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { LangCodeType } from "@/i18n/types";
-import { TemplateServerData } from "@/lib/types/resume";
+import { TemplateServerData } from "@/lib/types/server";
 import { SelectAll, SelectRow } from "@/components/data-tables/cells/select-col";
 import SortableHeader from "@/components/data-tables/cells/sortable-heading";
 import ActionsCell from "./actions";

@@ -41,7 +41,7 @@ export const CustomPrismaAdapter = (p: typeof db): Adapter  => ({
                          provider, providerAccountId
                     }
                },
-               include: { user: true },
+               include: {user: true}
           })
           if (!account || !account.user) {
                return null
@@ -60,7 +60,10 @@ export const CustomPrismaAdapter = (p: typeof db): Adapter  => ({
           return mapToAdapterUser(user);
      },
      async linkAccount(data) {
-          const account = await p.account.create({data,include: {user: true}});
+          const account = await p.account.create({
+               data,
+               include: {user: true}
+          });
           if (!account.user) return null;
           return mapToAdapterAccount(account)
      },
@@ -74,7 +77,7 @@ export const CustomPrismaAdapter = (p: typeof db): Adapter  => ({
      async getSessionAndUser(sessionToken) {
           const userAndSession = await p.session.findUnique({
                where: { sessionToken },
-               include: { user: true },
+               include: {user: true}
           })
           if (!userAndSession) return null
           const { user, ...session } = userAndSession
