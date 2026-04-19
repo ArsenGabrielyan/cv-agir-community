@@ -29,7 +29,7 @@ export default function CategoriesContent({data}: CategoriesContentProps){
      }
      return (
           <SidebarContentWrapper title={t("categories.title")}>
-               <div className="space-y-2">
+               <div className="space-y-4">
                     <div className="flex items-center justify-between gap-4 w-full">
                          <InputGroup className="max-w-lg">
                               <InputGroupInput
@@ -70,14 +70,18 @@ export default function CategoriesContent({data}: CategoriesContentProps){
                                    <EmptyDescription>{t("empty-category.desc")}</EmptyDescription>
                               </EmptyHeader>
                          </Empty>
-                    ) : data.filter(val=>val.name.toLowerCase().includes(search.toLowerCase())).map(category=>(
-                         <div key={category.id} className="p-4 border shadow-md bg-card text-card-foreground rounded-md flex justify-between items-center gap-2">
-                              <h2 className="text-base sm:text-lg md:text-xl font-semibold">{category.name}</h2>
-                              <ActionsCell
-                                   item={category}
-                              />
+                    ) : (
+                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                              {data.filter(val=>val.name.toLowerCase().includes(search.toLowerCase())).map(category=>(
+                                   <div key={category.id} className="p-4 border shadow-md bg-card text-card-foreground rounded-md flex justify-between items-center gap-2">
+                                        <h2 className="text-base sm:text-lg md:text-xl font-semibold">{category.name}</h2>
+                                        <ActionsCell
+                                             item={category}
+                                        />
+                                   </div>
+                              ))}
                          </div>
-                    ))}
+                    )}
                </div>
           </SidebarContentWrapper>
      )
