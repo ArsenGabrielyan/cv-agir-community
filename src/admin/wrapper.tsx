@@ -7,7 +7,6 @@ import { ADMIN_LINKS } from "@/lib/constants/links";
 import ThemeToggler from "@/components/theme-toggler";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
-import { useEffect } from "react";
 import { useRouter } from '@/i18n/routing'
 import { useTranslations } from "next-intl";
 
@@ -18,14 +17,6 @@ export default function AdminWrapper({children}: AdminWrapperProps){
      const router = useRouter()
      const btnTxt = useTranslations("buttons")
      const refreshData = () => router.refresh()
-     useEffect(()=>{
-          const onFocus = () => refreshData();
-          window.addEventListener("focus", onFocus);
-          onFocus();
-          return () => {
-               window.removeEventListener("focus", onFocus);
-          };
-     }, []);
      return (
           <SidebarProvider>
                <Sidebar>

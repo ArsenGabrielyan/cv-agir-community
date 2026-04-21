@@ -6,33 +6,31 @@ import { useTranslations } from "next-intl";
 import TemplateFormModal from "./modal";
 import { TemplateServerData } from "@/lib/types/server";
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel, AlertDialogFooter } from "@/components/ui/alert-dialog";
-import { useRouter } from "@/i18n/routing";
 import { useTransition } from "react";
 import { deleteTemplate } from "@/actions/admin/templates";
 import { toast } from "sonner";
+import { CrudFN } from "@/lib/types";
 
 interface ActionsCellProps{
      item: TemplateServerData
-     categories: {name: string, id: string}[]
+     categories: {name: string, id: string}[],
+     onUpdate: CrudFN<TemplateServerData,"create">
 }
-export default function ActionsCell({item, categories}: ActionsCellProps){
+export default function ActionsCell({item, categories, onUpdate}: ActionsCellProps){
      const actionTxt = useTranslations("table.actions")
      const t = useTranslations("admin.dialog")
      const btnTxt = useTranslations("buttons")
      const errMsg = useTranslations("error-messages")
      const successMsg = useTranslations("success-messages.template")
-     const router = useRouter()
      const [isPending, startTransition] = useTransition()
-     const onAccept = () => {
+     const onDelete = () => {
           startTransition(async()=>{
                try {
                     if(!item.id) return
                     const result = await deleteTemplate(item.id)
                     if(result.error) toast.error(result.error);
-                    if(result.success) {
-                         toast.success(successMsg("delete"))
-                         router.refresh()
-                    }
+                    if(result.success) toast.success(successMsg("delete"))
+                    if(result.data) onUpdate(result.data,"delete")
                } catch (err) {
                     toast.error(errMsg("unknownError"))
                     console.error(err)
@@ -52,6 +50,9 @@ export default function ActionsCell({item, categories}: ActionsCellProps){
                          <DropdownMenuLabel>{actionTxt("title")}</DropdownMenuLabel>
                          <DropdownMenuSeparator />
                          <TemplateFormModal
+                              onUpdate={(data,type)=>{
+                                   if(type==="update") onUpdate(data,type)
+                              }}
                               data={item}
                               categories={categories}
                               id={item.id}
@@ -78,7 +79,7 @@ export default function ActionsCell({item, categories}: ActionsCellProps){
                     <AlertDialogFooter>
                          <AlertDialogAction
                               variant="destructive"
-                              onClick={onAccept}
+                              onClick={onDelete}
                               disabled={isPending}
                          >
                               <Trash2/>

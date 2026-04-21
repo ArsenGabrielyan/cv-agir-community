@@ -49,7 +49,6 @@
                "CATEGORY_CREATED": "{username}-ը ավելացրել է նոր կատեգորիա։",
                "CATEGORY_UPDATED": "{username}-ը թարմացրել է նշված կատեգորիան։",
                "CATEGORY_DELETED": "{username}-ը ջնջել է նշված կատեգորիան։",
-               "CATEGORY_BULK_DELETE": "{username}-ը ջնջել է մի քանի կատեգորիաներ",
                "VALIDATION_ERROR": "{username}-ը փորձել է իրականացնել գործողությունը առանց վավերացնելու։",
                "RATE_LIMIT_EXCEEDED": "{username}-ը շատ հաճախ է փորձում իրականացնել այս գործողություն։",
                "ACTION_ERROR": "{username}-ը գործողություն իրականացնելու ընթացքում սխալ առաջացավ։",

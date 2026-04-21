@@ -12,7 +12,6 @@ import { useRef, useState, useTransition } from "react";
 import LoadingButton from "@/components/buttons/loading-button";
 import { toast } from "sonner";
 import { createTemplate, editTemplate } from "@/actions/admin/templates";
-import { useRouter } from "@/i18n/routing";
 import { TemplateServerData } from "@/lib/types/server";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { locales } from "@/i18n/config";
@@ -22,15 +21,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { CodeTextArea } from "@/components/code-textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CrudFN } from "@/lib/types";
 
 interface TemplateFormModalProps{
      data?: TemplateServerData
      id?: string
      triggerBtn: React.JSX.Element,
-     categories: {name: string, id: string}[]
+     categories: {name: string, id: string}[],
+     onUpdate: CrudFN<TemplateServerData,"delete">
 }
-export default function TemplateFormModal({data, id, triggerBtn, categories}: TemplateFormModalProps){
-     const router = useRouter()
+export default function TemplateFormModal({data, id, triggerBtn, categories, onUpdate}: TemplateFormModalProps){
      const errMsg = useTranslations("error-messages")
      const langTxt = useTranslations("langs")
      const t = useTranslations("admin.dialog.template")
@@ -61,8 +61,8 @@ export default function TemplateFormModal({data, id, triggerBtn, categories}: Te
                          toast.success(result.success);
                          setIsOpen(false);
                          form.reset()
-                         router.refresh()
                     }
+                    if(result.data) onUpdate(result.data,!id ? "create" : "update")
                } catch (err) {
                     toast.error(errMsg("unknownError"))
                     console.error(err)

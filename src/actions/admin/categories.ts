@@ -9,7 +9,6 @@ import { getTranslations } from "next-intl/server";
 import { getResumeTemplateCategoryById } from "@/data/resumes";
 import { getCategoryFormSchema } from "@/schemas/admin";
 import { CategoryFormType } from "@/lib/types/schemas";
-import { revalidatePath } from "next/cache";
 
 export async function getCategoriesList(searchParams: IAdminAPISearchParams<ResumeTemplateCategory>){
      const isAdmin = await getIsAdmin();
@@ -83,10 +82,7 @@ export async function getCategoryById(id: string){
      return data
 }
 
-export async function createCategory(values: CategoryFormType): Promise<{
-     error?: string,
-     success?: string
-}> {
+export async function createCategory(values: CategoryFormType) {
      const validationMsg = await getTranslations("validations.category-name")
      const validatedFields = getCategoryFormSchema(validationMsg).safeParse(values);
      const errMsg = await getTranslations("error-messages");
@@ -137,14 +133,10 @@ export async function createCategory(values: CategoryFormType): Promise<{
                categoryId: data.id
           }
      })
-     revalidatePath("/templates")
-     return {success: successMsg("create")}
+     return {success: successMsg("create"), data}
 }
 
-export async function editCategory(id: string, values: CategoryFormType): Promise<{
-     error?: string,
-     success?: string
-}>{
+export async function editCategory(id: string, values: CategoryFormType){
      const validationMsg = await getTranslations("validations.category-name")
      const validatedFields = getCategoryFormSchema(validationMsg).safeParse(values);
      const errMsg = await getTranslations("error-messages");
@@ -193,14 +185,10 @@ export async function editCategory(id: string, values: CategoryFormType): Promis
           action: "CATEGORY_UPDATED",
           metadata: { ip, categoryId: data.id }
      })
-     revalidatePath("/templates")
-     return {success: successMsg("edit")}
+     return {success: successMsg("edit"), data}
 }
 
-export async function deleteCategory(id: string): Promise<{
-     error?: string,
-     success?: boolean
-}>{
+export async function deleteCategory(id: string){
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
@@ -247,47 +235,5 @@ export async function deleteCategory(id: string): Promise<{
           action: "CATEGORY_DELETED",
           metadata: { ip, categoryId: data.id }
      })
-     revalidatePath("/templates")
-     return {success: true}
-}
-
-export async function deleteCategories(
-     ids: string[],
-): Promise<{ error?: string; success?: boolean }> {
-     const isAdmin = await getIsAdmin();
-     const ip = await getIpAddress();
-     const user = await currentUser();
-     const errMsg = await getTranslations("error-messages");
-     if(!user || !user.id){
-          await logAction({
-               action: "UNAUTHORIZED",
-               metadata: {
-                    ip,
-                    route: "server-action:categories"
-               }
-          })
-          return {error: errMsg("auth.unauthorized")}
-     }
-     if(!isAdmin){
-          await logAction({
-               userId: user.id,
-               action: "NO_ADMIN_ACCESS",
-               metadata: {
-                    ip,
-                    route: "server-action:categories",
-                    method: "DELETE"
-               }
-          })
-          return {error: errMsg("auth.noAdminAccess")}
-     }
-     await db.resumeTemplateCategory.deleteMany({
-          where: { id: { in: ids } }
-     })
-     await logAction({
-          userId: user.id,
-          action: "CATEGORY_BULK_DELETE",
-          metadata: { ip, count: ids.length, categoryIds: ids }
-     })
-     revalidatePath("/templates")
-     return {success: true}
+     return {success: true, data}
 }

@@ -9,6 +9,8 @@ export interface IFeature{
      Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
 }
 export type RouteFN<T> = (lang: LangCodeType) => T
+type CrudFnAction = "create" | "update" | "delete"
+export type CrudFN<T,U extends CrudFnAction> = (data: T, type: Exclude<CrudFnAction,U>) => void;
 
 // Rate limiting and Security
 interface ITrackerType{
@@ -41,6 +43,5 @@ export interface EditorFormFooterProps<Props>{
 export interface DataTableProps<TData> {
      columns: ColumnDef<TData>[]
      data: TData[],
-     searchColumn?: string,
      headerElement?: React.JSX.Element
 }

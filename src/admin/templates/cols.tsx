@@ -8,7 +8,11 @@ import SortableHeader from "@/components/data-tables/cells/sortable-heading";
 import ActionsCell from "./actions";
 import {IdCell, LocaleCell} from "./cells"
 
-export const TEMPLATE_COLS = (categories: {name: string, id: string}[]): ColumnDef<TemplateServerData>[] => [
+export const TEMPLATE_COLS = (
+     categories: {name: string, id: string}[],
+     update: (data: TemplateServerData) => void,
+     remove: (id: string) => void
+): ColumnDef<TemplateServerData>[] => [
      {
           id: "select",
           header: ({ table }) => <SelectAll table={table}/>,
@@ -79,6 +83,7 @@ export const TEMPLATE_COLS = (categories: {name: string, id: string}[]): ColumnD
      {
           id: "actions",
           cell: ({ row }) => <ActionsCell
+               onUpdate={(data,type)=>type==="delete" ? remove(data.id) : update(data)}
                item={row.original}
                categories={categories}
           />,

@@ -12,15 +12,16 @@ import { useState, useTransition } from "react";
 import LoadingButton from "@/components/buttons/loading-button";
 import { toast } from "sonner";
 import { createCategory, editCategory } from "@/actions/admin/categories";
-import { useRouter } from "@/i18n/routing";
+import { CrudFN } from "@/lib/types";
+import { ResumeTemplateCategory } from "@db";
 
 interface CategoryFormModalProps{
      name?: string,
      id?: string
      triggerBtn: React.JSX.Element,
+     onUpdate: CrudFN<ResumeTemplateCategory,"delete">
 }
-export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormModalProps){
-     const router = useRouter()
+export default function CategoryFormModal({name, id, triggerBtn, onUpdate}: CategoryFormModalProps){
      const errMsg = useTranslations("error-messages")
      const btnTxt = useTranslations("buttons")
      const t = useTranslations("admin.dialog.category")
@@ -43,8 +44,8 @@ export default function CategoryFormModal({name, id, triggerBtn}: CategoryFormMo
                     if(result.success) {
                          toast.success(result.success);
                          setIsOpen(false)
-                         router.refresh()
                     }
+                    if(result.data) onUpdate(result.data,!id ? "create" : "update")
                } catch (err) {
                     toast.error(errMsg("unknownError"))
                     console.error(err)

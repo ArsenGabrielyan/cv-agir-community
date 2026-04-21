@@ -33,9 +33,14 @@ import TemplateFormModal from "./modal"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { deleteTemplates } from "@/actions/admin/templates"
 import { toast } from "sonner"
-import { useRouter } from "@/i18n/routing"
 
-export default function TemplatesTable({ columns, data, searchColumn="name", categories }: DataTableProps<TemplateServerData> & {categories: {name: string, id: string}[]}){
+type TemplatesTableProps = DataTableProps<TemplateServerData> & {
+     categories: {name: string, id: string}[],
+     create: (data: TemplateServerData) => void,
+     update: (data: TemplateServerData) => void,
+     bulkDelete: (ids: string[]) => void
+}
+export default function TemplatesTable({ columns, data, categories, create, update, bulkDelete }: TemplatesTableProps){
      const [sorting, setSorting] = useState<SortingState>([]);
      const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
      const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -70,7 +75,6 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
      }
      const selectedRows = table.getSelectedRowModel().rows
      const selectedIds = selectedRows.map(row => row.original.id)
-     const router = useRouter()
      const errMsg = useTranslations("error-messages")
      const dialogTxt = useTranslations("admin.dialog")
      const [isPending, startTransition] = useTransition()
@@ -80,10 +84,8 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
                     if(!selectedIds) return
                     const result = await deleteTemplates(selectedIds)
                     if(result.error) toast.error(result.error);
-                    if(result.success) {
-                         setRowSelection([])
-                         router.refresh()
-                    }
+                    if(result.success) setRowSelection([])
+                    if(result.ids) bulkDelete(result.ids)
                } catch (err) {
                     toast.error(errMsg("unknownError"))
                     console.error(err)
@@ -97,8 +99,8 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
                          <InputGroup className="max-w-lg">
                               <InputGroupInput
                                    placeholder={t("filter.templates")}
-                                   value={(table.getColumn(searchColumn)?.getFilterValue() as string) ?? ""}
-                                   onChange={(event)=>table.getColumn(searchColumn)?.setFilterValue(event.target.value)}
+                                   value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                                   onChange={(event)=>table.getColumn("name")?.setFilterValue(event.target.value)}
                               />
                               <InputGroupAddon>
                                    <SearchIcon/>
@@ -128,6 +130,7 @@ export default function TemplatesTable({ columns, data, searchColumn="name", cat
                               </Button>
                          )}
                          <TemplateFormModal
+                              onUpdate={(data,type)=>type==="create" ? create(data) : update(data)}
                               categories={categories}
                               triggerBtn={(
                               <Button variant="outline">

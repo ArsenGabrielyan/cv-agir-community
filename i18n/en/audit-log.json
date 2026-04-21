@@ -49,7 +49,6 @@
                "CATEGORY_CREATED": "{username} added a new category.",
                "CATEGORY_UPDATED": "{username} updated the specified category.",
                "CATEGORY_DELETED": "{username} deleted the specified category.",
-               "CATEGORY_BULK_DELETE": "{username} deleted many categories",
                "VALIDATION_ERROR": "{username} attempted to perform the action without validating.",
                "RATE_LIMIT_EXCEEDED": "{username} is attempting this action too often.",
                "ACTION_ERROR": "{username} encountered an error while performing an action.",

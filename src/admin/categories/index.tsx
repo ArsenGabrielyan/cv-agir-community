@@ -10,6 +10,7 @@ import { useState } from "react"
 import { exportCSV } from "@/lib/helpers"
 import ActionsCell from "@/admin/categories/actions"
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription } from "@/components/ui/empty"
+import useCRUD from "@/hooks/use-crud"
 
 interface CategoriesContentProps{
      data: ResumeTemplateCategory[]
@@ -19,11 +20,12 @@ export default function CategoriesContent({data}: CategoriesContentProps){
      const tableTxt = useTranslations("table")
      const btnTxt = useTranslations("buttons")
      const [search, setSearch] = useState("")
+     const {data: categories, create, update, remove} = useCRUD(data)
      const exportCsv = () => {
           const headers = ["id","name","createdAt","updatedAt"]
           exportCSV({
                headers,
-               data,
+               data: categories,
                fileName: "categories"
           })
      }
@@ -48,19 +50,22 @@ export default function CategoriesContent({data}: CategoriesContentProps){
                                         {btnTxt("clear-filters")}
                                    </Button>
                               )}
-                              <CategoryFormModal triggerBtn={(
-                                   <Button variant="outline" type="button">
-                                        <Plus/>
-                                        {btnTxt("create")}
-                                   </Button>
-                              )}/>
+                              <CategoryFormModal
+                                   onUpdate={(data,type)=>type==="create" ? create(data) : update(data)}
+                                   triggerBtn={(
+                                        <Button variant="outline" type="button">
+                                             <Plus/>
+                                             {btnTxt("create")}
+                                        </Button>
+                                   )}
+                              />
                               <Button variant="outline" onClick={()=>exportCsv()}>
                                    <Download/>
                                    {btnTxt("export")}
                               </Button>
                          </div>
                     </div>
-                    {data.length<=0 ? (
+                    {categories.length<=0 ? (
                          <Empty>
                               <EmptyHeader>
                                    <EmptyMedia variant="icon">
@@ -72,10 +77,11 @@ export default function CategoriesContent({data}: CategoriesContentProps){
                          </Empty>
                     ) : (
                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                              {data.filter(val=>val.name.toLowerCase().includes(search.toLowerCase())).map(category=>(
+                              {categories.filter(val=>val.name.toLowerCase().includes(search.toLowerCase())).map(category=>(
                                    <div key={category.id} className="p-4 border shadow-md bg-card text-card-foreground rounded-md flex justify-between items-center gap-2">
                                         <h2 className="text-base sm:text-lg md:text-xl font-semibold">{category.name}</h2>
                                         <ActionsCell
+                                             onUpdate={(data,type)=>type==="delete" ? remove(data.id) : update(data)}
                                              item={category}
                                         />
                                    </div>

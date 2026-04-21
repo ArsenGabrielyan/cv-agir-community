@@ -72,7 +72,6 @@ export interface AuditMetadataMap{
      [AuditAction.CATEGORY_CREATED]: ContentActionResult<"category">,
      [AuditAction.CATEGORY_UPDATED]: ContentActionResult<"category">,
      [AuditAction.CATEGORY_DELETED]: ContentActionResult<"category">,
-     [AuditAction.CATEGORY_BULK_DELETE]: ActionIPResult & {count: number, categoryIds: string[]},
      // Forms
      [AuditAction.VALIDATION_ERROR]: {fields: (string | number)[]},
      [AuditAction.RATE_LIMIT_EXCEEDED]: ActionIPResult & {route: string}

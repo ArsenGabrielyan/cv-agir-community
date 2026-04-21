@@ -74,10 +74,7 @@ export async function getTemplateById(id: string) {
      return data
 }
 
-export async function createTemplate(values: TemplateFormType): Promise<{
-     error?: string,
-     success?: string
-}>{
+export async function createTemplate(values: TemplateFormType){
      const validationMsg = await getTranslations("validations.template")
      const validatedFields = getTemplateFormSchema(validationMsg).safeParse(values);
      const errMsg = await getTranslations("error-messages");
@@ -116,22 +113,20 @@ export async function createTemplate(values: TemplateFormType): Promise<{
           })
           return {error: errMsg("auth.noAdminAccess")}
      }
-     const result = await db.resumeTemplate.create({
-          data: { ...validatedFields.data }
+     const data = await db.resumeTemplate.create({
+          data: { ...validatedFields.data },
+          select: templateDataSelect
      })
      await logAction({
           userId: user.id,
           action: "TEMPLATE_CREATED",
-          metadata: {ip, templateId: result.id}
+          metadata: {ip, templateId: data.id}
      })
      revalidatePath("/templates")
-     return {success: successMsg("create")}
+     return {success: successMsg("create"), data}
 }
 
-export async function editTemplate(id: string, values: TemplateFormType): Promise<{
-     error?: string,
-     success?: string
-}>{
+export async function editTemplate(id: string, values: TemplateFormType){
      const validationMsg = await getTranslations("validations.template")
      const validatedFields = getTemplateFormSchema(validationMsg).safeParse(values);
      const errMsg = await getTranslations("error-messages");
@@ -170,23 +165,21 @@ export async function editTemplate(id: string, values: TemplateFormType): Promis
           })
           return {error: errMsg("auth.noAdminAccess")}
      }
-     const result = await db.resumeTemplate.update({
+     const data = await db.resumeTemplate.update({
           where: { id },
-          data: { ...validatedFields.data }
+          data: { ...validatedFields.data },
+          select: templateDataSelect
      });
      await logAction({
           userId: user.id,
           action: 'TEMPLATE_UPDATED',
-          metadata: {ip, templateId: result.id}
+          metadata: {ip, templateId: data.id}
      })
      revalidatePath("/templates")
-     return {success: successMsg("edit")}
+     return {success: successMsg("edit"), data}
 }
 
-export async function deleteTemplate(id: string): Promise<{
-     error?: string,
-     success?: boolean
-}>{
+export async function deleteTemplate(id: string){
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
@@ -226,7 +219,8 @@ export async function deleteTemplate(id: string): Promise<{
           return {error: errMsg("content.noTemplate")}
      }
      const data = await db.resumeTemplate.delete({
-          where: { id }
+          where: { id },
+          select: templateDataSelect
      })
      await logAction({
           userId: user.id,
@@ -234,13 +228,10 @@ export async function deleteTemplate(id: string): Promise<{
           metadata: {ip, templateId: data.id}
      })
      revalidatePath("/templates")
-     return {success: true}
+     return {success: true, data}
 }
 
-export async function deleteTemplates(ids: string[]): Promise<{
-     error?: string,
-     success?: boolean
-}> {
+export async function deleteTemplates(ids: string[]){
      const isAdmin = await getIsAdmin();
      const ip = await getIpAddress();
      const user = await currentUser();
@@ -276,5 +267,5 @@ export async function deleteTemplates(ids: string[]): Promise<{
           metadata: {ip, count: ids.length, templateIds: ids}
      })
      revalidatePath("/templates")
-     return {success: true}
+     return {success: true, ids}
 }
