@@ -58,12 +58,12 @@
      },
      "table": {
           "rows": {
-               "templates": "{count} շաբլոն",
-               "categories": "{count} կատեգորիա"
+               "templates": "{count, number} շաբլոն",
+               "categories": "{count, number} կատեգորիա"
           },
           "pagination": {
                "row-per-page": "Տողեր մեկ էջում",
-               "page-count": "Էջ {index}-ից {count}",
+               "page-count": "Էջ {index, number}-ից {count, number}",
                "buttons": {
                     "first": "Անցնել առաջին էջին",
                     "previous": "Անցնել նախորդ էջին",

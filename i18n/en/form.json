@@ -141,7 +141,7 @@
                "link": "web link",
                "course": "course",
                "ref": "reference link",
-               "no-more-items": "You cannot add more than {maxCount} {itemName}"
+               "no-more-items": "You cannot add more than {maxCount, number} {itemName}"
           },
           "link": {
                "invalid": "Please enter a valid link",

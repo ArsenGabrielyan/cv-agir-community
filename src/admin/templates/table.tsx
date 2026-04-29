@@ -148,7 +148,7 @@ export default function TemplatesTable({ columns, data, categories, create, upda
                {selectedRows.length > 0 && (
                     <div className="py-2 px-4 border shadow-md rounded-md bg-card text-card-foreground flex items-center justify-between gap-4">
                          <span className="text-sm text-muted-foreground">{t("rows.templates",{
-                              count: selectedRows.length.toString()
+                              count: selectedRows.length
                          })}</span>
                          <AlertDialog>
                               <AlertDialogTrigger asChild>

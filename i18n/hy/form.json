@@ -141,7 +141,7 @@
                "link": "վեբ հղում",
                "course": "դասընթաց",
                "ref": "կոնտակտային հղում",
-               "no-more-items": "{maxCount}-ից ավել {itemName} ավելացնել չի կարելի"
+               "no-more-items": "{maxCount, number}-ից ավել {itemName} ավելացնել չի կարելի"
           },
           "link": {
                "invalid": "Մուտքագրեք վավերական վեբ հղում",

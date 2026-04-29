@@ -7,7 +7,7 @@ export function optionalArray<T>(
      maxCount?: number,itemName?: string
 ){
      return (maxCount && itemName) ? z.optional(z.array(arr).max(maxCount,t("items.no-more-items",{
-          maxCount: String(maxCount),
+          maxCount,
           itemName: itemName.toLowerCase()
      }))) : z.optional(z.array(arr))
 }

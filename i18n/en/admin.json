@@ -58,12 +58,12 @@
      },
      "table": {
           "rows": {
-               "templates": "{count} templates",
-               "categories": "{count} categories"
+               "templates": "{count, plural, =0 {No templates} =1 {# template} other {# templates}}",
+               "categories": "{count, plural, =0 {No categories} =1 {# category} other {# categories}}"
           },
           "pagination": {
                "row-per-page": "Rows per page",
-               "page-count": "Page {index} of {count}",
+               "page-count": "Page {index, number} of {count, number}",
                "buttons": {
                     "first": "Go to first page",
                     "previous": "Go to previous page",

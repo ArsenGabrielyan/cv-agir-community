@@ -46,8 +46,8 @@ export function DataTablePagination<TData>({table}: Props<TData>) {
       <div className="flex items-center gap-x-2">
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
           {t("pagination.page-count",{
-            index: String(table.getState().pagination.pageIndex + 1),
-            count: String(table.getPageCount())
+            index: table.getState().pagination.pageIndex + 1,
+            count: table.getPageCount()
           })}
         </div>
         <div className="flex items-center gap-x-2">
