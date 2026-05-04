@@ -66,7 +66,7 @@
                "resume": "IP՝ {ip}, Ռեզյումե՝ {resumeId}",
                "aiError": "IP՝ {ip}, Գործողություն՝ {tool}, Պատճառ՝ {reason}",
                "invalidCaptcha": "IP՝ {ip}, Պատճառներ՝ {reasons}",
-               "Submitted": "IP՝ {ip}, Հաղորդագրությունը ունի {messageLength} նիշ։",
+               "Submitted": "IP՝ {ip}, Հաղորդագրությունը ունի {messageLength, number} նիշ։",
                "accountUpdated": "IP՝ {ip}, Փոփոխված դաշտեր՝ {changedFields}։",
                "emailChangeReq": "IP՝ {ip}, Նոր էլ․ հասցե՝ {newEmail}",
                "template": "IP՝ {ip}, Շաբլոն՝ {templateId}",
@@ -77,7 +77,7 @@
                "noAdmin": "IP՝ {ip}, Գործողության վայր՝ {route}, Մեթոդ՝ {route}",
                "default": "IP՝ {ip}",
                "defaultError": "IP՝ {ip}, Պատճառ՝ {reason}",
-               "bulkAction": "IP՝ {ip}, ID-ներ՝ {count} ({ids})"
+               "bulkAction": "IP՝ {ip}, ID-ներ՝ {count, number} ({ids})"
           },
           "categories": {
                "errors": "Սխալներ",

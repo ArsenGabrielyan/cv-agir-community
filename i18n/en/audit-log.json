@@ -66,7 +66,7 @@
                "resume": "IP: {ip}, Resume: {resumeId}",
                "aiError": "IP: {ip}, Action: {tool}, Reason: {reason}",
                "invalidCaptcha": "IP: {ip}, Reasons: {reasons}",
-               "Submitted": "IP: {ip}, Message has {messageLength} characters.",
+               "Submitted": "IP: {ip}, Message has {messageLength, number} characters.",
                "accountUpdated": "IP: {ip}, Changed fields: {changedFields}.",
                "emailChangeReq": "IP: {ip}, New email address: {newEmail}",
                "template": "IP: {ip}, Template: {templateId}",
@@ -77,7 +77,7 @@
                "noAdmin": "IP: {ip}, Destination: {route}, Method: {route}",
                "default": "IP: {ip}",
                "defaultError": "IP: {ip}, Reason: {reason}",
-               "bulkAction": "IP: {ip}, IDs: {count} ({ids})"
+               "bulkAction": "IP: {ip}, IDs: {count, number} ({ids})"
           },
           "categories": {
                "errors": "Errors",

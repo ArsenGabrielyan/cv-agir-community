@@ -109,10 +109,10 @@
      },
      "pagination": {
           "page-size": {
-               "label": "Rows per page",
-               "placeholder": "Select page size"
+               "label": "Տողերի քանակը մեկ էջում",
+               "placeholder": "Ընտրել էջի չափը"
           },
-          "next": "Next",
-          "previous": "Previous"
+          "next": "Առաջ",
+          "previous": "Ետ"
      }
 }
