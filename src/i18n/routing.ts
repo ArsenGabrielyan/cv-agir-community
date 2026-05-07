@@ -7,8 +7,7 @@ export const routing = defineRouting({
      defaultLocale,
      localePrefix: {
           mode: "as-needed",
-     },
-     localeDetection: true
+     }
 })
  
 /*
