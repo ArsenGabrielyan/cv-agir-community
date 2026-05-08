@@ -5,18 +5,14 @@ import LanguageSwitcher from "@/components/lang-switcher";
 import { AdminLink } from "@/components/layout/sidebar/sidebar-item";
 import { ADMIN_LINKS } from "@/lib/constants/links";
 import ThemeToggler from "@/components/theme-toggler";
-import { Button } from "@/components/ui/button";
-import { RefreshCw } from "lucide-react";
 import { useRouter } from '@/i18n/routing'
 import { useTranslations } from "next-intl";
+import { UserButton } from "@/components/auth/user-button";
 
 interface AdminWrapperProps{
      children: React.ReactNode
 }
 export default function AdminWrapper({children}: AdminWrapperProps){
-     const router = useRouter()
-     const btnTxt = useTranslations("buttons")
-     const refreshData = () => router.refresh()
      return (
           <SidebarProvider>
                <Sidebar>
@@ -41,9 +37,7 @@ export default function AdminWrapper({children}: AdminWrapperProps){
                          <div className="flex justify-center items-center gap-2.5 mt-2">
                               <ThemeToggler/>
                               <LanguageSwitcher/>
-                              <Button variant="outline" size="icon" onClick={refreshData} title={btnTxt("refresh")}>
-                                   <RefreshCw/>
-                              </Button>
+                              <UserButton/>
                          </div>
                     </div>
                     {children}
