@@ -53,7 +53,8 @@
           "empty-category": {
                "title": "There are currently no categories",
                "desc": "Please add categories"
-          }
+          },
+          "previous-month": "compared to the previous month"
      },
      "table": {
           "rows": {

@@ -85,7 +85,8 @@
           "my-profile": "My Profile",
           "resumes": "Resumes",
           "cover-letters": "Cover Letters",
-          "settings": "Settings"
+          "settings": "Settings",
+          "admin": "Admin Dashboard"
      },
      "email": {
           "onboarding": "{title} <{email}>",

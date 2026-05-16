@@ -2,6 +2,7 @@
 import { TrendingUp, Minus, TrendingDown } from "lucide-react";
 import { LucideIconType } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface DashboardCounterProps{
      name: string,
@@ -11,6 +12,7 @@ interface DashboardCounterProps{
      className?: string
 }
 export function DashboardCounter({name, count, difference, Icon, className}: DashboardCounterProps){
+     const t = useTranslations("admin")
      return (
           <div className={cn("p-5 border shadow-sm bg-card text-card-foreground rounded-md space-y-1.5 w-full",className)}>
                <div className="flex items-center justify-between gap-2">
@@ -33,7 +35,7 @@ export function DashboardCounter({name, count, difference, Icon, className}: Das
                                    )}
                                    {difference>0 ? `+${difference}` : difference}%
                               </div>
-                              նախորդ ամսվա համեմատ
+                              {t("previous-month")}
                          </div>
                     </div>
                     <div className="bg-primary text-primary-foreground p-3 rounded-md flex justify-center items-center aspect-square">

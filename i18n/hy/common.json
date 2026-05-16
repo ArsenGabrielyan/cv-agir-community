@@ -85,7 +85,8 @@
           "my-profile": "Իմ պրոֆիլը",
           "resumes": "Ռեզյումեներ",
           "cover-letters": "Ուղեկցող նամակներ",
-          "settings": "Կարգավորումներ"
+          "settings": "Կարգավորումներ",
+          "admin": "Ադմինիստրատորի վահանակ"
      },
      "email": {
           "onboarding": "{title} <{email}>",

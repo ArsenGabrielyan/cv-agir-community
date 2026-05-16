@@ -59,7 +59,7 @@ export const UserButton = () => {
                     {user?.isAdmin && (
                          <DropdownMenuItem asChild className="cursor-pointer">
                               <Link href="/admin">
-                                   <Shield/> Ադմինիստրատորի վահանակ
+                                   <Shield/> {t("admin")}
                               </Link>
                          </DropdownMenuItem>
                     )}
