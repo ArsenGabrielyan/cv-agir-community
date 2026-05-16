@@ -6,7 +6,7 @@ import { ResumeTemplateCategory } from "@db";
 import { logAction } from "@/data/logs";
 import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
-import { getResumeTemplateCategoryById } from "@/data/resumes";
+import { getCategoryById as fetchCategoryById } from "@/data/categories";
 import { getCategoryFormSchema } from "@/schemas/admin";
 import { CategoryFormType } from "@/lib/types/schemas";
 
@@ -78,7 +78,7 @@ export async function getCategoryById(id: string){
           })
           throw new Error(errMsg("auth.noAdminAccess"))
      }
-     const data = await getResumeTemplateCategoryById(id)
+     const data = await fetchCategoryById(id)
      return data
 }
 
@@ -215,7 +215,7 @@ export async function deleteCategory(id: string){
           })
           return {error: errMsg("auth.noAdminAccess")}
      }
-     const currCategory = await getResumeTemplateCategoryById(id);
+     const currCategory = await fetchCategoryById(id);
      if(!currCategory){
           await logAction({
                userId: user.id,

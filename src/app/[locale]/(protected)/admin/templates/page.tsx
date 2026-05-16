@@ -1,6 +1,6 @@
 import { getTemplateList } from "@/actions/admin/templates";
 import TemplatesAdminContent from "@/admin/templates";
-import { getAllCategories } from "@/data/resumes";
+import { getAllCategories } from "@/data/categories";
 import { IAdminAPISearchParams } from "@/lib/types/admin";
 import { TemplateServerData } from "@/lib/types/server";
 import { Metadata } from "next";

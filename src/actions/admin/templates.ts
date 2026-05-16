@@ -6,7 +6,7 @@ import { logAction } from "@/data/logs";
 import { getIpAddress } from "@/lib/ip";
 import { getTranslations } from "next-intl/server";
 import { templateDataSelect, TemplateServerData } from "@/lib/types/server";
-import { getResumeTemplateById } from "@/data/resumes";
+import { getTemplateById as fetchTemplateById } from "@/data/templates";
 import { TemplateFormType } from "@/lib/types/schemas";
 import { getTemplateFormSchema } from "@/schemas/admin";
 import { revalidatePath } from "next/cache";
@@ -70,7 +70,7 @@ export async function getTemplateById(id: string) {
           })
           throw new Error(errMsg("auth.noAdminAccess"))
      }
-     const data = await getResumeTemplateById(id);
+     const data = await fetchTemplateById(id);
      return data
 }
 
@@ -206,7 +206,7 @@ export async function deleteTemplate(id: string){
           })
           return {error: errMsg("auth.noAdminAccess")}
      }
-     const currTemplate = await getResumeTemplateById(id);
+     const currTemplate = await fetchTemplateById(id);
      if(!currTemplate){
           await logAction({
                userId: user.id,

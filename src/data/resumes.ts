@@ -2,17 +2,6 @@ import { db } from "@/lib/db"
 import { resumeDataSelect } from "@/lib/types/server";
 import { cache } from "react";
 
-export const getResumeCountByUserId = cache(async(userId: string) => {
-     try{
-          const resumeCount = await db.resume.count({
-               where: {userId}
-          })
-          return resumeCount
-     } catch{
-          return 0
-     }
-})
-
 export const getResumeById = cache(async(id: string) =>{
      try{
           const resume = await db.resume.findUnique({

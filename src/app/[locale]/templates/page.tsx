@@ -1,4 +1,4 @@
-import { getResumeTemplates } from "@/data/resumes";
+import { getTemplates } from "@/data/templates";
 import PageLayout from "@/components/layout/page-layout";
 import { Metadata } from "next";
 import { LocalePageProps } from "../layout";
@@ -21,7 +21,7 @@ export default async function TemplatesPage({params}: LocalePageProps){
      if (!hasLocale(routing.locales, locale)) {
           notFound();
      }
-     const templates = await getResumeTemplates(locale);
+     const templates = await getTemplates(locale);
      return (
           <PageLayout landingFooter>
                <TemplatesContent templates={templates} />

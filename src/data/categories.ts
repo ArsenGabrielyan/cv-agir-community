@@ -1,7 +1,7 @@
 import { db } from "@/lib/db"
 import { cache } from "react";
 
-export const getResumeTemplateCategoryById = cache(async(id: string) => {
+export const getCategoryById = cache(async(id: string) => {
      try{
           const category = await db.resumeTemplateCategory.findUnique({
                where: { id }

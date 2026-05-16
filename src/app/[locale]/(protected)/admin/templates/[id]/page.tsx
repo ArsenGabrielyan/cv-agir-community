@@ -1,6 +1,6 @@
 import { getTemplateById } from "@/actions/admin/templates";
 import TemplateReadSection from "@/admin/templates/read";
-import { getAllCategories } from "@/data/resumes";
+import { getAllCategories } from "@/data/categories";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";

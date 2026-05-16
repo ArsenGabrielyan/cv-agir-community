@@ -2,7 +2,8 @@ import PageLayout from "@/components/layout/page-layout";
 import { Metadata } from "next";
 import { ResumeTemplate } from "@db";
 import { currentUser } from "@/lib/auth";
-import { getCurrentResumeByUserId, getResumeTemplateById } from "@/data/resumes";
+import { getTemplateById } from "@/data/templates";
+import { getCurrentResumeByUserId } from "@/data/resumes";
 import dynamic from "next/dynamic";
 import DocEditorLoader from "@/components/loaders/doc-editor";
 import { LocalePageProps } from "@/app/[locale]/layout";
@@ -41,9 +42,9 @@ export default async function ResumeEditorPage({searchParams, params}: LocalePag
 
      let template: ResumeTemplate | null = null;
      if (templateId) {
-          template = await getResumeTemplateById(templateId);
+          template = await getTemplateById(templateId);
      } else if (resumeToEdit && resumeToEdit.templateId) {
-          template = await getResumeTemplateById(resumeToEdit.templateId);
+          template = await getTemplateById(resumeToEdit.templateId);
      }
 
      return (

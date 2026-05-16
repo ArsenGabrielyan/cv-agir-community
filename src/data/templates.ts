@@ -3,7 +3,7 @@ import { db } from "@/lib/db"
 import { templateDataSelect } from "@/lib/types/server";
 import { cache } from "react";
 
-export const getResumeTemplateById = cache(async(id: string) => {
+export const getTemplateById = cache(async(id: string) => {
      try{
           const template = await db.resumeTemplate.findUnique({
                where: {id},
@@ -15,7 +15,7 @@ export const getResumeTemplateById = cache(async(id: string) => {
      }
 })
 
-export const getResumeTemplates = cache(async(locale: LangCodeType) => await db.resumeTemplate.findMany({
+export const getTemplates = cache(async(locale: LangCodeType) => await db.resumeTemplate.findMany({
      where: { locale },
      select: templateDataSelect
 }));
