@@ -46,7 +46,7 @@ export const ARR_FIELD_INITIAL_VALUES: IResumeDynamicFields = {
      }
 }
 
-export const AI_MODEL = "gemini-2.0-flash-lite"
+export const AI_MODEL = "gemini-2.5-flash-lite"
 
 export const GEN_CONFIG = (type = "text/plain") => ({
      temperature: 1,
