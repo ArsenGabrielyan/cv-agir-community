@@ -128,6 +128,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         session.user.summary = token.summary as string
         session.user.hobbies = token.hobbies as string
         session.user.cvPageSettings = token.cvPageSettings as CVPageSettings
+        session.user.isAdmin = token.isAdmin as boolean
       }
 
       return session
@@ -151,6 +152,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       token.summary = existingUser.summary
       token.hobbies = existingUser.hobbies
       token.cvPageSettings = existingUser.cvPageSettings
+      token.isAdmin = existingUser.isAdmin
 
       return token
     }

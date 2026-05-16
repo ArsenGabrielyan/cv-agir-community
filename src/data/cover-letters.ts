@@ -22,3 +22,21 @@ export const getCoverLetterById = cache(async(id: string) => {
           return null
      }
 })
+
+export const getRecentCoverLetters = cache(async() => {
+     try {
+          return await db.coverLetter.findMany({
+               take: 7,
+               orderBy: {
+                    createdAt: "desc",
+               },
+               select: {
+                    id: true,
+                    title: true,
+                    createdAt: true,
+               },
+          })
+     } catch {
+          return []
+     }
+})

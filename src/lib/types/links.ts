@@ -1,6 +1,5 @@
-import { LucideProps } from "lucide-react";
-import { ForwardRefExoticComponent, RefAttributes } from "react";
 import { AdminLinks, NavLinks, SidebarLinks } from "./enums";
+import { LucideIconType } from ".";
 
 export interface INavbarLink{
      id: number,
@@ -10,7 +9,7 @@ export interface INavbarLink{
 interface ISidebarLinkBase {
      id: number;
      name: SidebarLinks
-     Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+     Icon: LucideIconType
 }
 interface ISidebarSimpleLink extends ISidebarLinkBase {
      href: string;
@@ -24,6 +23,6 @@ export type ISidebarLink = ISidebarSimpleLink | ISidebarDropdownLink;
 export interface IAdminLink{
      id: number;
      name: AdminLinks
-     Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+     Icon: LucideIconType
      href: string;
 }

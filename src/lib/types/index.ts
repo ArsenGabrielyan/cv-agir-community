@@ -4,9 +4,10 @@ import { LangCodeType } from "@/i18n/types";
 import { CoverLetterSteps, Features, ResumeSteps } from "./enums";
 import { ColumnDef } from "@tanstack/react-table";
 
+export type LucideIconType = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
 export interface IFeature{
      feature: Features,
-     Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
+     Icon: LucideIconType
 }
 export type RouteFN<T> = (lang: LangCodeType) => T
 type CrudFnAction = "create" | "update" | "delete"
@@ -44,4 +45,16 @@ export interface DataTableProps<TData> {
      columns: ColumnDef<TData>[]
      data: TData[],
      headerElement?: React.JSX.Element
+}
+export interface IDashboardCount {
+     count: number,
+     difference: number
+}
+export interface IMonthlyActivity {
+     date: string,
+     resumes: number,
+     coverLetters: number,
+     users: number,
+     templates: number,
+     categories: number
 }

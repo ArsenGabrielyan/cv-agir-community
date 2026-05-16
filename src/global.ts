@@ -12,7 +12,8 @@ export type ExtendedUser = DefaultSession["user"] & {
   address?: string,
   summary?: string,
   hobbies?: string,
-  cvPageSettings: CVPageSettings
+  cvPageSettings: CVPageSettings,
+  isAdmin: boolean
 }
 
 declare module "next-auth"{

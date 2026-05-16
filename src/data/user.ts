@@ -92,3 +92,21 @@ export const getDashboardByUserId = cache(async(userId: string) => {
           return []
      }
 })
+
+export const getRecentUsers = cache(async() => {
+     try {
+          return await db.user.findMany({
+               take: 7,
+               orderBy: {
+                    createdAt: "desc",
+               },
+               select: {
+                    id: true,
+                    name: true,
+                    createdAt: true,
+               },
+          })
+     } catch {
+          return []
+     }
+})

@@ -5,76 +5,83 @@ import { useCurrentUser } from "@/hooks/use-current-user"
 import { Link, redirect } from "@/i18n/routing"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, FileText, FileUser, LayoutTemplate, List, Users } from "lucide-react"
+import { DashboardCounter } from "./components/dashboard-item"
+import { IDashboardCount, IMonthlyActivity } from "@/lib/types"
+import { MonthlyActivity } from "./charts/montly-activity"
+import { Distribution } from "./charts/distribution"
+import RecentResumes from "./recent-resources/resumes"
+import RecentCoverLetters from "./recent-resources/cover-letters"
+import RecentTemplates from "./recent-resources/templates"
+import RecentUsers from "./recent-resources/users"
 
 interface AdminContentProps{
-     cvCount: number,
-     clCount: number,
-     templateCount: number,
-     categoryCount: number,
-     usersCount: number
+     cvCount: IDashboardCount,
+     clCount: IDashboardCount,
+     templateCount: IDashboardCount,
+     usersCount: IDashboardCount,
+     categoryCount: IDashboardCount
+     monthlyActivity: IMonthlyActivity[],
+     resumes: {id: string, title: string, createdAt: Date}[],
+     coverLetters: {id: string, title: string, createdAt: Date}[],
+     users: {id: string, name: string, createdAt: Date}[],
+     templates: {id: string, name: string, createdAt: Date}[]
 }
-export default function AdminContent({cvCount, clCount, templateCount, categoryCount, usersCount}: AdminContentProps){
+export default function AdminContent({cvCount, clCount, templateCount, usersCount, categoryCount, monthlyActivity, resumes, coverLetters, users, templates}: AdminContentProps){
      const t = useTranslations("admin.main")
      const locale = useLocale()
      const user = useCurrentUser()
      if(!user) return redirect({ href: "/", locale })
      return (
-          <SidebarContentWrapper title={t("title",{user: user?.name?.split(" ")[0] ?? "Admin"})}>
-               <div className="space-y-4">
-                    <p className="text-sm md:text-base text-muted-foreground">{t("desc")}</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 w-full">
-                         <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
-                              <div className="text-primary bg-secondary rounded-md size-20 p-3 flex justify-center items-center">
-                                   <FileUser className="size-20"/>
-                              </div>
-                              <div className="space-y-2 text-right">
-                                   <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{cvCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.resume")}</p>
-                              </div>
-                         </div>
-                         <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
-                              <div className="text-primary bg-secondary rounded-md size-20 p-3 flex justify-center items-center">
-                                   <FileText className="size-20"/>
-                              </div>
-                              <div className="space-y-2 text-right">
-                                   <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{clCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.cover-letter")}</p>
-                              </div>
-                         </div>
-                         <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
-                              <div className="text-primary bg-secondary rounded-md size-20 p-3 flex justify-center items-center">
-                                   <LayoutTemplate className="size-20"/>
-                              </div>
-                              <div className="space-y-2 text-right">
-                                   <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{templateCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.templates")}</p>
-                              </div>
-                         </div>
-                         <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
-                              <div className="text-primary bg-secondary rounded-md size-20 p-3 flex justify-center items-center">
-                                   <List className="size-20"/>
-                              </div>
-                              <div className="space-y-2 text-right">
-                                   <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{categoryCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.categories")}</p>
-                              </div>
-                         </div>
-                         <div className="p-4 border shadow rounded-md bg-card text-card-foreground flex justify-between items-center gap-2">
-                              <div className="text-primary bg-secondary rounded-md size-20 p-3 flex justify-center items-center">
-                                   <Users className="size-20"/>
-                              </div>
-                              <div className="space-y-2 text-right">
-                                   <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">{usersCount}</p>
-                                   <p className="text-lg md:text-xl font-semibold text-muted-foreground">{t("prefixes.users")}</p>
-                              </div>
-                         </div>
+          <SidebarContentWrapper title={t("title",{user: user?.name?.split(" ")[0] ?? "Admin"})} includeBackButton>
+               <div className="space-y-4 mb-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+                         <DashboardCounter
+                              count={usersCount.count}
+                              Icon={Users}
+                              difference={usersCount.difference}
+                              name={t("prefixes.users")}
+                         />
+                         <DashboardCounter
+                              count={cvCount.count}
+                              Icon={FileUser}
+                              difference={cvCount.difference}
+                              name={t("prefixes.resume")}
+                         />
+                         <DashboardCounter
+                              count={clCount.count}
+                              Icon={FileText}
+                              difference={clCount.difference}
+                              name={t("prefixes.cover-letter")}
+                         />
+                         <DashboardCounter
+                              count={templateCount.count}
+                              Icon={LayoutTemplate}
+                              difference={templateCount.difference}
+                              name={t("prefixes.templates")}
+                              className="col-span-2"
+                         />
+                         <DashboardCounter
+                              count={categoryCount.count}
+                              Icon={List}
+                              difference={categoryCount.difference}
+                              name={t("prefixes.categories")}
+                         />
                     </div>
-                    <Button variant="outline" asChild>
-                         <Link href="/">
-                              <ChevronLeft/>
-                              {t("back")}
-                         </Link>
-                    </Button>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                         <MonthlyActivity data={monthlyActivity}/>
+                         <Distribution
+                              resumes={cvCount.count}
+                              coverLetters={clCount.count}
+                              templates={templateCount.count}
+                              users={usersCount.count}
+                         />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+                         <RecentUsers data={users}/>
+                         <RecentResumes data={resumes}/>
+                         <RecentCoverLetters data={coverLetters}/>
+                         <RecentTemplates data={templates}/>
+                    </div>
                </div>
           </SidebarContentWrapper>
      )

@@ -26,7 +26,6 @@
           },
           "main": {
                "title": "Welcome to our Admin Dashboard, {user}",
-               "desc": "This is where admins can manage categories and templates, and moderators can monitor the content of this web application to keep things safe.",
                "prefixes": {
                     "resume": "Resumes",
                     "cover-letter": "Cover Letters",
@@ -107,5 +106,25 @@
                "title": "Actions",
                "menu": "Open Menu"
           }
+     },
+     "charts": {
+          "distribution": "Resource Distribution",
+          "monthly-activity": "Monthly Activity",
+          "categories": "Categories",
+          "templates": "Templates",
+          "users": "Users",
+          "resumes": "Resumes",
+          "cover-letters": "Cover Letters",
+          "monthly-platform-activity": {
+               "title": "Monthly Platform Activity",
+               "desc": "Platform Activity in Recent Months"
+          }
+     },
+     "recent-resources": {
+          "resume": "Recent resumes",
+          "cover-letter": "Recent cover letters",
+          "users": "Recent users",
+          "template": "Recent templates",
+          "category": "Recent categories"
      }
 }

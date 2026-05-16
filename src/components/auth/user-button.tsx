@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/avatar"
 import { useCurrentUser } from "@/hooks/use-current-user"
 import { LogoutButton } from "./logout-button"
-import { User, LogOut, Settings, FileUser, FileText, LayoutDashboard, } from "lucide-react"
+import { User, LogOut, Settings, FileUser, FileText, LayoutDashboard, Shield, } from "lucide-react"
 import { Link } from "@/i18n/routing"
 import { useTranslations } from "next-intl"
 
@@ -56,6 +56,13 @@ export const UserButton = () => {
                               <FileText/> {t("cover-letters")}
                          </Link>
                     </DropdownMenuItem>
+                    {user?.isAdmin && (
+                         <DropdownMenuItem asChild className="cursor-pointer">
+                              <Link href="/admin">
+                                   <Shield/> Ադմինիստրատորի վահանակ
+                              </Link>
+                         </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem asChild className="cursor-pointer">
                          <Link href="/settings">
                               <Settings/> {t("settings")}
